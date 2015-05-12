@@ -15,6 +15,7 @@ categories: jekyll update
 女记者插嘴：但是连任呢？
 江泽民：连任也得按照香港的法律，对不对？要按照香港的．．．当然我们的决定权也是很重要的。香港特别行政区属于中华人民共和国的中央人民政府，到那时候我们会表态的。明白这意思吗？你们不要想喜欢弄个大新闻，说现在已经钦定了，把我批判一番，你们啊，naive（天真无知）！
 
+
 See, this can also highlight codes, which is awesome for a coder's blog:
 
 {% highlight ruby %}
