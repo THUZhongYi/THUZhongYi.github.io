@@ -1,14 +1,24 @@
 # Site settings
+<<<<<<< Updated upstream
 title: Zhong Yi's new world
+=======
+title: 欢迎来到蛤丝世界
+>>>>>>> Stashed changes
 email: yizhong.pku@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
   line in _config.yml. It will appear in your document head meta (for
   Google search results) and in your feed.xml site description.
 baseurl: "" # the subpath of your site, e.g. /blog/
+<<<<<<< Updated upstream
 url: "http://yourdomain.com" # the base hostname & protocol for your site
 
 github_username:  THUZhongYi
+=======
+url: "http://thuzhongyi.github.io" # the base hostname & protocol for your site
+network_username: triumph
+github_username:  thuzhongyi
+>>>>>>> Stashed changes
 
 # Build settings
 markdown: kramdown
