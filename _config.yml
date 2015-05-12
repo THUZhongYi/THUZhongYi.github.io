@@ -1,6 +1,5 @@
 # Site settings
 <<<<<<< Updated upstream
-title: Zhong Yi's new world
 =======
 title: 欢迎来到蛤丝世界
 >>>>>>> Stashed changes
@@ -16,7 +15,7 @@ url: "http://yourdomain.com" # the base hostname & protocol for your site
 github_username:  THUZhongYi
 =======
 url: "http://thuzhongyi.github.io" # the base hostname & protocol for your site
-network_username: triumph
+twitter_username: YiZhongPKU
 github_username:  thuzhongyi
 >>>>>>> Stashed changes
 
