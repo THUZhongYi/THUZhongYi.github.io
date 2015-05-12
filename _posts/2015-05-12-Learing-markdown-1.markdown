@@ -1,6 +1,8 @@
 ---
 layout: post
 title:  "Learning markdown 1"
+category: programming
+tags: [markdown]
 ---
 
 要制约的只有一些 HTML 区块元素――比如 <div>、<table>、<pre>、<p>等标签，必须在前后加上空行与其它内容区隔开，还要求它们的开始标签与结尾标签不能用制表符或空格来缩进。

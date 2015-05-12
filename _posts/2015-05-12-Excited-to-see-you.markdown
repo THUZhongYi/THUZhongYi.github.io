@@ -2,7 +2,7 @@
 layout: post
 title:  "Excited to see you!"
 date:   2015-05-12 09:50:26
-categories: jekyll update
+tags: [naive]
 ---
 
 女记者：江主席，你觉得董先生连任好不好？
