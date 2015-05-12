@@ -10,4 +10,4 @@ In the near future, I will go to Tsinghua University, also in Beijing, China. Ma
 
 Sincerely hope that I count get a job on quantitative finance when graduate. : )
 
-<img src="http://ww1.sinaimg.cn/large/64bc56c5jw1eo5if54xffj21kw11xq9g.jpg" >
+<img src="http://ww3.sinaimg.cn/large/be5b4606jw1es1yyz9e77j20go0m877p.jpg" >
