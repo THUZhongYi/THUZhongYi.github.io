@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Zhong Yi&#39;s blog</title>
+    <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</description>
+    <link>http://thuzhongyi.github.io/</link>
+    <atom:link href="http://thuzhongyi.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 13 May 2015 00:46:36 +0800</pubDate>
+    <lastBuildDate>Wed, 13 May 2015 00:46:36 +0800</lastBuildDate>
+    <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>Excited to see you!</title>
+        <description>&lt;p&gt;女记者：江主席，你觉得董先生连任好不好？&lt;br /&gt;
+江泽民：好哇。女记者：中央也支持他吗？&lt;br /&gt;
+江泽民：当然。&lt;br /&gt;
+女记者：现在那么早，你们就说支持董先生，会不会给人感觉你们是内定钦点董先生？&lt;br /&gt;
+江泽民：任何事也是按照香港的基本法，按照选举法。刚才你问我，我可以回答一句「无可奉告」。但是你们又不高兴，我怎么办？我讲的意思不是钦点他当下任。你问我支不支持，我说支持。我就明确告诉你这一点。我感觉你们新闻界还需要学习．．．．．．毕竟你们还 too young（太年轻），你明白这意思吧？我是身经百战了，见得多了，西方的那个国家我没去过？你们要知道，美国的华莱士比你们不知道要高到哪里去了，我跟他谈笑风生。所以说媒体还是要提高自己的知识水平，我为你们着急。．．．．你们跑得比西方记者还快，但是问来问去的问题，too simple（太简单），sometimes naive（有时候太幼稚），懂了没有？&lt;br /&gt;
+女记者：可是能不能说一下为什么支持董建华？&lt;br /&gt;
+江泽民：我今天做为一个长者跟你们说，我不是新闻工作者，但是我见得太多了。我有必要告诉你们一点人生的经验，．．．．（消音了一小段），中国有一句话叫「闷声发大财」，这是最好的。但是我想我见到你们这样热情，一句话不说也不好。在宣传上将来如果你们报导有偏差，你们要负责。我们没有说要钦定，没有任何这个意思，但你一定要问我对董先生支不支持？他现在是特首，我们怎么能不支持特首？&lt;br /&gt;
+女记者插嘴：但是连任呢？&lt;br /&gt;
+江泽民：连任也得按照香港的法律，对不对？要按照香港的．．．当然我们的决定权也是很重要的。香港特别行政区属于中华人民共和国的中央人民政府，到那时候我们会表态的。明白这意思吗？你们不要想喜欢弄个大新闻，说现在已经钦定了，把我批判一番，你们啊，naive（天真无知）！&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;naive&quot;&gt;Naive&lt;/h3&gt;
+
+&lt;hr /&gt;
+</description>
+        <pubDate>Tue, 12 May 2015 17:50:26 +0800</pubDate>
+        <link>http://thuzhongyi.github.io/2015/05/12/Excited-to-see-you.html</link>
+        <guid isPermaLink="true">http://thuzhongyi.github.io/2015/05/12/Excited-to-see-you.html</guid>
+        
+        <category>naive</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Learning markdown 1</title>
+        <description>&lt;p&gt;要制约的只有一些 HTML 区块元素――比如 &amp;lt;div&amp;gt;、&amp;lt;table&amp;gt;、&amp;lt;pre&amp;gt;、&amp;lt;p&amp;gt;等标签，必须在前后加上空行与其它内容区隔开，还要求它们的开始标签与结尾标签不能用制表符或空格来缩进。&lt;/p&gt;
+
+&lt;p&gt;这是一个普通段落。&lt;/p&gt;
+
+&lt;table&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Foo&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p&gt;这是另一个普通段落。
+和处在 HTML 区块标签间不同，Markdown 语法在 HTML 区段标签间是有效的。&lt;/p&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;我是一个小标题&lt;/h1&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;我是一个大标题&lt;/h2&gt;
+
+&lt;h1 id=&quot;section-2&quot;&gt;我是一种更好的大标题&lt;/h1&gt;
+
+&lt;h5 id=&quot;section-3&quot;&gt;我是一种更好的小小标题&lt;/h5&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
+consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
+Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;blockquote&gt;
+    &lt;p&gt;我是更小的引用&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
+id sem consectetuer libero luctus adipiscing.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;下面是列表啦
+*blue
+*green
+*red&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
+viverra nec, fringilla in, laoreet vitae, risus.&lt;/li&gt;
+  &lt;li&gt;Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
+Suspendisse id sem consectetuer libero luctus adipiscing.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;is better than&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
+viverra nec, fringilla in, laoreet vitae, risus.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
+Suspendisse id sem consectetuer libero luctus adipiscing.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A list item with a blockquote:&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;This is a blockquote
+inside a list item.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;当然，项目列表很可能会不小心产生，像是下面这样的写法：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;What a great season.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;换句话说，也就是在行首出现数字-句点-空白，要避免这样的状况，你可以在句点前面加上反斜杠。&lt;/p&gt;
+
+&lt;p&gt;1986. What a great season.&lt;/p&gt;
+
+&lt;p&gt;Here is an example of AppleScript:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tell application &quot;Foo&quot;
+    beep
+end tell
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.bdwm.net&quot;&gt;This link&lt;/a&gt; has no title attribute.&lt;/p&gt;
+
+&lt;p&gt;This is &lt;a href=&quot;http://weibo.com&quot; title=&quot;Optional title here&quot;&gt;an example&lt;/a&gt; reference-style link.&lt;/p&gt;
+
+&lt;p&gt;链接内容定义的形式为：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;方括号（前面可以选择性地加上至多三个空格来缩进），里面输入链接文字
+接着一个冒号
+接着一个以上的空格或制表符
+接着链接的网址
+选择性地接着 title 内容，可以用单引号、双引号或是括弧包着
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;need emphasized&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;emphasized&lt;/em&gt;.*this text is surrounded by literal asterisks*&lt;/p&gt;
+
+&lt;p&gt;Use the &lt;code&gt;printf()&lt;/code&gt; function.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;There is a literal backtick `` here.&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://attach3.bdwm.net/attach/0Announce/groups/GROUP_0/PersonalCorpus/T/triumph/D5F576B99//A6CD3D9C5/12.jpg&quot; alt=&quot;Queen&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;       下面编程语言（programming language），是用来定义计算机程序的形式语言。它是一种被标准化的交流技巧，用来向计算机发出指令。一种计算机语言让程序员能够准确地定义计算机所需要使用的数据，并精确地定义在不同情况下所应当采取的行动。[1] &lt;br /&gt;       最早的编程语言是在电脑发明之后产生的，当时是用来控制提花织布机及自动演奏钢琴的动作。在电脑领域已发明了上千不同的编程语言，而且每年仍有新的编程语言诞生。很多编程语言需要用指令方式说明计算的程序，而有些编程语言则属于声明式编程，说明需要的结果，而不说明如何计算。[1] &lt;br /&gt;       编程语言的描述一般可以分为语法及语义。语法是说明编程语言中，哪些符号或文字的组合方式是正确的，语义则是对于编程的解释。有些语言是用规格文件定义，例如C语言的规格文件也是ISO标准中一部份，2011年后的版本为ISO/IEC 9899:2011，而其他语言（像Perl）有一份主要的编程语言实现文件，视为是参考实现。[1] &lt;br /&gt;       编程语言俗称“计算机语言”，种类非常的多，总的来说可以分成机器语言、汇编语言、高级语言三大类。电脑每做的一次动作，一个步骤，都是按照已经用计算机语言编好的程序来执行的，程序是计算机要执行的指令的集合，而程序全部都是用我们所掌握的语言来编写的。所以人们要控制计算机一定要通过计算机语言向计算机发出命令。 目前通用的编程语言有两种形式：汇编语言和高级语言。[1] &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ww2.sinaimg.cn/large/64bc56c5jw1es1a0xez4ij20nl0v8gqo.jpg&quot; alt=&quot;Queen&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 12 May 2015 00:00:00 +0800</pubDate>
+        <link>http://thuzhongyi.github.io/programming/2015/05/12/Learing-markdown-1.html</link>
+        <guid isPermaLink="true">http://thuzhongyi.github.io/programming/2015/05/12/Learing-markdown-1.html</guid>
+        
+        <category>markdown</category>
+        
+        
+        <category>programming</category>
+        
+      </item>
+    
+  </channel>
+</rss>
