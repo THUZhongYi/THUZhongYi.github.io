@@ -4,8 +4,6 @@ title: Tags
 permalink: /tags/
 ---
 
-You can found specific post by tag.
-
 {% for tag in site.data.tags %}
 <font color="MidnightBlue" size="4.5px">{{ tag["name"] }}</font>
 <div>

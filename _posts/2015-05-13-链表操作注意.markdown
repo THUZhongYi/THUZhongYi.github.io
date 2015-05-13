@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "链表操作注意"
+title:  "链表操作注意#2#19#24"
 tags: [leetcode]
 ---
 
@@ -46,5 +46,88 @@ public:
 };
 {% endhighlight %}
 
+<h3>LeetCode #19 Remove Nth Node From End of List</h3>
+>Given a linked list, remove the nth node from the end of list and return its head.
+For example,Given linked list: 1->2->3->4->5, and n = 2.<br>
+>After removing the second node from the end, the linked list becomes 1->2->3->5.
+>Note:<br>
+>Given n will always be valid. Try to do this in one pass. 
+
+
+无非是一个相对定位的问题，永远访问与当前结点相隔n个结点（或者n-1？中文理解可能不同）的结点的next就可以了。
+
+还是要特别注意保存fat(father)指针。
+
+{% highlight c++ %}
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode *cur=head,*tmp=cur,*fat;
+        for(int i=0;i<n-1;i++) tmp=tmp->next;
+        if(!tmp->next) return head->next;
+        tmp=cur;
+        while(tmp->next){
+            fat=cur;
+            cur=cur->next;
+            tmp=cur;
+            for(int i=0;i<n-1;i++) tmp=tmp->next;
+        }
+        tmp=cur->next;
+        fat->next=tmp;
+        return head;
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #24 Swap Nodes in Pairs</h3>
+> Given a linked list, swap every two adjacent nodes and return its head.<br>
+For example, Given 1->2->3->4, <br>you should return the list as 2->1->4->3.<br>
+Your algorithm should use only constant space. You may not modify the values in the list, only nodes itself can be changed. 
+
+不用太在意奇偶数的问题。可以用递归写，应该会更清爽些。
+
+{% highlight c++ %}
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        ListNode *first,*cur=head,*lst,*tmp;
+        if(!head) return 0;
+        if(!head->next) return head;
+        tmp=head->next->next;
+        head->next->next=head;
+        cur=head->next;
+        head->next=tmp;
+        first=cur;
+        lst=cur->next;
+        cur=cur->next->next;
+        while(cur){
+            if(!cur->next) break;
+            tmp=cur->next->next;
+            lst->next=cur->next;
+            cur->next->next=cur;
+            cur->next=tmp;
+            lst=cur;
+            cur=cur->next;
+        }
+        return first;
+    }
+};
+{% endhighlight %}
 
 
