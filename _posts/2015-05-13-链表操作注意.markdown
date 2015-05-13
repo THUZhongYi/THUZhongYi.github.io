@@ -1,0 +1,50 @@
+---
+layout: post
+title:  "链表操作注意"
+tags: [leetcode]
+---
+
+<h3>LeetCode #2 Add Two Numbers</h3>
+
+>You are given two linked lists representing two non-negative numbers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+>Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+
+涉及到要对链表的顺序进行改变的时候，一个好的习惯就是一定要定义一个指向当前结点之前的那个结点的指针，这样才可以对当前结点在整个链表中的位置进行改变。<br>而基于这个习惯，由于头结点不存在上面提到的那样一个指针，所以必须先对开头进行特殊处理，然后以头结点后面那个结点为当前结点开始进行遍历。
+
+还有就是注意理解题目的意思...
+
+{% highlight c++ %}
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode *c1=l1,*c2=l2,*rs,*fst;int ext,p,q;
+        rs=new ListNode((c1->val+c2->val)%10);
+        ext=(c1->val+c2->val)/10;
+        fst=rs;c1=c1->next;c2=c2->next;
+        
+        while(c1||c2||ext) {
+            p=(c1)?c1->val:0;
+            q=(c2)?c2->val:0;
+            rs->next=new ListNode((p+q+ext)%10);
+            ext=(p+q+ext)/10;
+            c1=(c1)?c1->next:0;
+            c2=(c2)?c2->next:0;
+            rs=rs->next;
+        }
+        return fst;
+    }
+};
+{% endhighlight %}
+
+
+

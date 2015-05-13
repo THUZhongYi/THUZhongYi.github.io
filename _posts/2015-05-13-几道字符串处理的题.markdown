@@ -1,0 +1,139 @@
+---
+layout: post
+title:  "几道字符串处理的题"
+tags: [leetcode,cpp]
+---
+
+<h3>LeetCode #3 Longest Substring Without Repeating Characters</h3>
+
+>Given a string, find the length of the longest substring without repeating characters. For example, the longest substring without repeating letters for "abcabcbb" is "abc", which the length is 3. For "bbbbb" the longest substring is "b", with the length of 1.
+
+要找最长的，肯定是在遍历的过程中，不断把遇到的符合条件的不重复字符串与已经存起来的暂时最长的字符串进行比较咯。
+
+如果遇到一个在缓存字符串中重复的数字，就看它是不是处于第一位，是的话直接添头去尾；不是的话，如果缓存字符串比以前的长，那么就换掉，如果不是，就大量去尾，添个头继续来。
+
+下面这个方法其实麻烦了，因为string 类型本身就提供了很多操作，而且顺序和字符两个信息都很容易得到。使用string的find和substr操作可以替代下面的map的对应函数。而且应该更快。这个教训在下一道题得到了弥补。
+
+{% highlight c++ %}
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        map<char,int> st;int i=0,sz=0,bg=0;
+        while(i<s.size()){
+            if(st.count(s[i])){
+                if(st.find(s[i])->second>bg){
+                    sz=(sz>st.size())?sz:st.size();
+                    for(map<char,int>::iterator it=st.begin();it!=st.end();){
+                    	if(it->second>=bg&&it->second<st.find(s[i])->second) it=st.erase(it);
+                    	else it++;
+                    }
+                    bg=(st.find(s[i])->second)+1;
+                    st.erase(s[i]);
+                }
+                else {st.erase(s[i]);bg++;}
+            }
+            st[s[i]]=i;
+            i++;
+        }
+        return (sz>st.size())?sz:st.size();
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #5 Longest Palindromic Substring</h3>
+
+>Given a string S, find the longest palindromic substring in S. You may assume that the maximum length of S is 1000, and there exists one unique longest palindromic substring.
+
+string是个好容器，很多操作都是自带的。<br>
+这个问题的难点在于对称的字符串可能是偶数个字符，也可能是奇数个字符。在遍历的时候，对每个元素，就要做两种游走，一种奇数对称游走，一种偶数对称游走.不管奇数偶数，只要更长就行。总之我们设定的最长字符串的开头结尾p和q并不会影响i，所以一直遍历完，用substr取出最大对称字符串即可。
+
+{% highlight c++ %}
+class Solution {
+public:
+    string longestPalindrome(string s) {
+    	int i=2;int p,q,r;
+    	p=0;q=int(s[0]==s[1]);
+    	while(i<s.size()){
+    		if(s[i]==s[i-1]) {
+    			for(r=1;s[i+r]==s[i-r-1]&&i+r<s.size();r++);
+    			if(2*r-1>q-p) {p=i-r;q=i+r-1;}
+    		}
+    		if(s[i]==s[i-2]) {
+    			for(r=1;s[i+r]==s[i-r-2]&&i+r<s.size();r++);
+    			if(2*r>q-p) {p=i-r-1;q=i+r-1;}
+    		}
+    		i++;
+    	}
+    	return s.substr(p,q-p+1);
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #6 ZigZag Conversion</h3>
+
+> The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+
+	P    A   H   N
+	A P L S I  I G
+	Y     I    R
+
+>And then read line by line: "PAHNAPLSIIGYIR". Write the code that will take a string and make this conversion given a number of rows: string convert(string text, int nRows); convert("PAYPALISHIRING", 3) should return "PAHNAPLSIIGYIR". 
+
+很悲剧的被这个问题烦了很久。
+
+但是现在明白自己当时脑残是因为好几个等差数列放在一起，就不太能拎得清多一项少一项的问题了，特别是index从0开始。。。
+
+好吧，其实主要的步骤是：
+
+* 确认最后一个字符在竖边还是斜边上
+* 表示出最后一个字符以上的行每行有多少元素，以下的行每行有多少元素
+* 把原string中的元素挨个映射到新string中
+
+{% highlight c++ %}
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if(!s.size()) return "";
+        if(numRows==1) return s;
+    	string t(s.size(),' ');
+    	int N=2*numRows-2,n=s.size()/N,ext=s.size()%N,row,seq,pre;
+    	int f=(ext>numRows)?2*numRows-ext-1:ext-1;
+    	for(int i=0;i<s.size();i++){
+    		row=(i%N>=numRows)?2*numRows-i%N-2:i%N;
+    		if(row>0&&row<numRows){
+    			seq=(row==numRows-1)?(i/N):(i/N*2+int(i%N>=numRows));
+    			pre=n+2*n*(row-1)+((row>f)?(row+((ext>numRows)?(row-f):(f-row+1))):row);
+    			t[pre+seq]=s[i];
+    		}
+    		else {
+    			t[i/N]=s[i];
+    		}
+    	}
+    	return t;
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #14 Longest Common Prefix</h3>
+
+>Write a function to find the longest common prefix string amongst an array of strings. 
+
+这个很简单，不提。有三个注意的点，一是清楚找第一个不同元素时循环停在了哪里，二是substr里pos的准确含义，三是注意处理空容器的情况。
+
+{% highlight c++ %}
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+    	if(!strs.size()) return "";
+    	string s=strs[0];int length,l;
+        for(int i=1;i<strs.size();i++){
+        	length=(s.size()<strs[i].size())?s.size():strs[i].size();
+        	for(l=0;l<length&&s[l]==strs[i][l];l++);
+        	s=s.substr(0,l);
+        }
+    	return s;
+    }
+};
+{% endhighlight %}
+
+

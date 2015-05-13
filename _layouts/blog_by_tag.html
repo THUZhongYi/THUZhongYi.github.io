@@ -7,7 +7,7 @@ layout: default
 <div>
     {% if site.tags[page.tag] %}
         {% for post in site.tags[page.tag] %}
-            <a href="{{ post.url }}">{{ post.title }}</a><br>
+            <a href="{{ post.url }}">{{ post.title }}</a> <span class="post-meta"><i>{{ post.date | date: "%b %-d, %Y" }}</i></span><br>
         {% endfor %}
     {% else %}
         <p>There are no posts for this tag.</p>

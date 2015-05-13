@@ -12,11 +12,11 @@ header {position: fixed}
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Learning markdown 1</title>
-  <meta name="description" content="要制约的只有一些 HTML 区块元素――比如 &lt;div&gt;、&lt;table&gt;、&lt;pre&gt;、&lt;p&gt;等标签，必须在前后加上空行与其它内容区隔开，还要求它们的开始标签与结尾标签不能用制表符或空格来缩进。">
+  <title>找一个最快的find</title>
+  <meta name="description" content="LeetCode #1 Two Sum">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://thuzhongyi.github.io/2015/05/13/Learing-markdown-1.html">
+  <link rel="canonical" href="http://thuzhongyi.github.io/2015/05/13/%E6%89%BE%E4%B8%80%E4%B8%AA%E6%9C%80%E5%BF%AB%E7%9A%84find.html">
   <link rel="alternate" type="application/rss+xml" title="Last to triumph" href="http://thuzhongyi.github.io/feed.xml" />
 </head>
 
@@ -68,9 +68,17 @@ header {background-color:Seagreen}
           
         
           
+        
+          
+        
+          
           <a class="page-link" href="/tags/"><font color="Gold"><b>Tags</b></font></a>
           
         
+        
+          
+        
+          
         
           
         
@@ -125,6 +133,12 @@ header {background-color:Seagreen}
         
           
         
+          
+        
+          
+        
+        
+          
         
           
         
@@ -136,6 +150,8 @@ header {background-color:Seagreen}
         
           
           <a class="page-link" href="/"><font color="Gold"><b>Home</b></font></a>
+          
+        
           
         
           
@@ -174,9 +190,35 @@ header {background-color:Seagreen}
             
         
             
+        
+            
+        
+            
                 
             
         
+            
+        
+        
+            
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                
             
         
         
@@ -188,126 +230,51 @@ header {background-color:Seagreen}
 
 <div class="post">
 
-    <h1 class="post-title">Learning markdown 1</h1>
+    <h1 class="post-title">找一个最快的find</h1>
     <p class="post-meta">May 13, 2015</p>
     
-<p id="post-meta">Posted with <i class="fa fa-tag"></i>: <a href="/blog/tag/markdown/">Markdown</a></p>
+<p id="post-meta">tag<i class="fa fa-tags"></i>: <a href="/blog/tag/leetcode/">LeetCode</a>, <a href="/blog/tag/cpp/">C++</a></p>
   <article class="post-content">
-    <p>要制约的只有一些 HTML 区块元素――比如 &lt;div&gt;、&lt;table&gt;、&lt;pre&gt;、&lt;p&gt;等标签，必须在前后加上空行与其它内容区隔开，还要求它们的开始标签与结尾标签不能用制表符或空格来缩进。</p>
-
-<p>这是一个普通段落。</p>
-
-<table>
-    <tr>
-        <td>Foo</td>
-    </tr>
-</table>
-
-<p>这是另一个普通段落。
-和处在 HTML 区块标签间不同，Markdown 语法在 HTML 区段标签间是有效的。</p>
-
-<h1 id="section">我是一个小标题</h1>
-
-<h2 id="section-1">我是一个大标题</h2>
-
-<h1 id="section-2">我是一种更好的大标题</h1>
-
-<h5 id="section-3">我是一种更好的小小标题</h5>
+    <h3>LeetCode #1 Two Sum</h3>
 
 <blockquote>
-  <p>This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
-consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
-Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.</p>
+  <p>Given an array of integers, find two numbers such that they add up to a specific target number.
+The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. Please note that your returned answers (both index1 and index2) are not zero-based.
+You may assume that each input would have exactly one solution.</p>
 </blockquote>
 
 <blockquote>
-  <blockquote>
-    <p>我是更小的引用</p>
-  </blockquote>
+  <p>Input: numbers={2, 7, 11, 15}, target=9
+Output: index1=1, index2=2 </p>
 </blockquote>
 
-<blockquote>
-  <p>Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
-id sem consectetuer libero luctus adipiscing.</p>
-</blockquote>
+<p>原则上只能遍历一次vector，但是由于要返回的值是两个数在原来的vector中的index，所以每访问一个元素，理论上一定要存两个数据：nums[i]和i+1.确切地说，需要一种能够既存顺序又存数据的结构就够了。而且必须直接得到顺序，同时find数据又很快。<br />
+所以当然想到用map来存，不过有一种更好的容器unordered_map，它的key的储存是基于哈希表的（这也说明了有的类型可能由于比较函数的定义很差而不能做unordered_map的key），很快。在不考虑key的顺序的很多情况下，完全可以考虑用unordered_map代替map.</p>
 
-<p>下面是列表啦
-*blue
-*green
-*red</p>
+<p>这样在遍历的过程中，不断往回find(target-nums[i])时，就会相当快。</p>
 
-<ul>
-  <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
-viverra nec, fringilla in, laoreet vitae, risus.</li>
-  <li>Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
-Suspendisse id sem consectetuer libero luctus adipiscing.</li>
-</ul>
+<p>Here is a <a href="http://www.cplusplus.com/reference/unordered_map/unordered_map/">link</a> to know more about unordered_map.</p>
 
-<p>is better than</p>
-
-<ul>
-  <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
-viverra nec, fringilla in, laoreet vitae, risus.</li>
-  <li>
-    <p>Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
-Suspendisse id sem consectetuer libero luctus adipiscing.</p>
-  </li>
-  <li>
-    <p>A list item with a blockquote:</p>
-
-    <blockquote>
-      <p>This is a blockquote
-inside a list item.</p>
-    </blockquote>
-  </li>
-</ul>
-
-<p>当然，项目列表很可能会不小心产生，像是下面这样的写法：</p>
-
-<ol>
-  <li>What a great season.</li>
-</ol>
-
-<p>换句话说，也就是在行首出现数字-句点-空白，要避免这样的状况，你可以在句点前面加上反斜杠。</p>
-
-<p>1986. What a great season.</p>
-
-<p>Here is an example of AppleScript:</p>
-
-<pre><code>tell application "Foo"
-    beep
-end tell
-</code></pre>
-
-<hr />
-<p><a href="http://www.bdwm.net">This link</a> has no title attribute.</p>
-
-<p>This is <a href="http://weibo.com" title="Optional title here">an example</a> reference-style link.</p>
-
-<p>链接内容定义的形式为：</p>
-
-<pre><code>方括号（前面可以选择性地加上至多三个空格来缩进），里面输入链接文字
-接着一个冒号
-接着一个以上的空格或制表符
-接着链接的网址
-选择性地接着 title 内容，可以用单引号、双引号或是括弧包着
-</code></pre>
-
-<p><strong>need emphasized</strong></p>
-
-<p><em>emphasized</em>.*this text is surrounded by literal asterisks*</p>
-
-<p>Use the <code>printf()</code> function.</p>
-
-<p><code>There is a literal backtick `` here.</code></p>
-
-<p><img src="http://attach3.bdwm.net/attach/0Announce/groups/GROUP_0/PersonalCorpus/T/triumph/D5F576B99//A6CD3D9C5/12.jpg" alt="Queen" /></p>
-
-<p>       下面编程语言（programming language），是用来定义计算机程序的形式语言。它是一种被标准化的交流技巧，用来向计算机发出指令。一种计算机语言让程序员能够准确地定义计算机所需要使用的数据，并精确地定义在不同情况下所应当采取的行动。[1] <br />       最早的编程语言是在电脑发明之后产生的，当时是用来控制提花织布机及自动演奏钢琴的动作。在电脑领域已发明了上千不同的编程语言，而且每年仍有新的编程语言诞生。很多编程语言需要用指令方式说明计算的程序，而有些编程语言则属于声明式编程，说明需要的结果，而不说明如何计算。[1] <br />       编程语言的描述一般可以分为语法及语义。语法是说明编程语言中，哪些符号或文字的组合方式是正确的，语义则是对于编程的解释。有些语言是用规格文件定义，例如C语言的规格文件也是ISO标准中一部份，2011年后的版本为ISO/IEC 9899:2011，而其他语言（像Perl）有一份主要的编程语言实现文件，视为是参考实现。[1] <br />       编程语言俗称“计算机语言”，种类非常的多，总的来说可以分成机器语言、汇编语言、高级语言三大类。电脑每做的一次动作，一个步骤，都是按照已经用计算机语言编好的程序来执行的，程序是计算机要执行的指令的集合，而程序全部都是用我们所掌握的语言来编写的。所以人们要控制计算机一定要通过计算机语言向计算机发出命令。 目前通用的编程语言有两种形式：汇编语言和高级语言。[1] </p>
-
-<p><img src="http://ww2.sinaimg.cn/large/be5b4606jw1es1yqrdmeij21kw1kw7jr.jpg" alt="Queen" /></p>
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">twoSum</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">){</span>
+    <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">m</span><span class="p">;</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">s</span><span class="p">;</span>
+    
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">it</span><span class="o">=</span><span class="n">m</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">target</span><span class="o">-</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">it</span><span class="o">==</span><span class="n">m</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>
+            <span class="n">m</span><span class="p">[</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="n">s</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">);</span>
+            <span class="n">s</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></div>
 
 
   </article>

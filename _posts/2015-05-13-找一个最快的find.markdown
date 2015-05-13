@@ -1,0 +1,47 @@
+---
+layout: post
+title:  "找一个最快的find"
+tags: [leetcode,cpp]
+---
+
+<h3>LeetCode #1 Two Sum</h3>
+
+>Given an array of integers, find two numbers such that they add up to a specific target number.
+The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. Please note that your returned answers (both index1 and index2) are not zero-based.
+You may assume that each input would have exactly one solution.
+
+>Input: numbers={2, 7, 11, 15}, target=9
+Output: index1=1, index2=2 
+
+原则上只能遍历一次vector，但是由于要返回的值是两个数在原来的vector中的index，所以每访问一个元素，理论上一定要存两个数据：nums[i]和i+1.确切地说，需要一种能够既存顺序又存数据的结构就够了。而且必须直接得到顺序，同时find数据又很快。<br>
+所以当然想到用map来存，不过有一种更好的容器unordered_map，它的key的储存是基于哈希表的（这也说明了有的类型可能由于比较函数的定义很差而不能做unordered_map的key），很快。在不考虑key的顺序的很多情况下，完全可以考虑用unordered_map代替map.
+
+这样在遍历的过程中，不断往回find(target-nums[i])时，就会相当快。
+
+
+Here is a [link](http://www.cplusplus.com/reference/unordered_map/unordered_map/) to know more about unordered_map.
+
+
+{% highlight c++ %}
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target){
+    unordered_map<int,int> m;unordered_map<int,int>::iterator it;
+    vector<int> s;
+    
+    for(int i=0;i<nums.size();i++){
+        it=m.find(target-nums[i]);
+        if(it==m.end()){
+            m[nums[i]]=i+1;
+        }
+        else {
+            s.push_back(it->second);
+            s.push_back(i+1);
+            break;
+        }
+    }
+    return s;
+    }
+};
+{% endhighlight %}
+

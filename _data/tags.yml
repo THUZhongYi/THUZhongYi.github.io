@@ -12,3 +12,9 @@
 
 - slug: naive
   name: Naive
+
+- slug: leetcode
+  name: LeetCode
+
+- slug: cpp
+  name: C++
