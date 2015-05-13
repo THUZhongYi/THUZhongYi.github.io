@@ -2,25 +2,24 @@
 <html>
 
 <style>
-header {background-color: SeaGreen;top: 0px}
-header {position: fixed}
-
+header {background-color: SeaGreen;top: 0px;}
+header {position: fixed;}
 </style>
 
   {% include head.html %}
 
   <body>
+  <a name="top" id="top"></a>
 
     {% include header.html %}
 
-    <div class="page-content">
+    <div class="page-content" id="content">
       <div class="wrapper">
         {{ content }}
       </div>
+    
     </div>
-
+    <a href="#top" target="_self"><center>Back to Top</center></a>
     {% include footer.html %}
-
   </body>
-
 </html>

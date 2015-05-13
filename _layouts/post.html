@@ -2,6 +2,10 @@
 layout: default
 ---
 
+<style>
+
+</style>
+
 {% assign post = page %}
 {% if post.tags.size > 0 %}
     {% capture tags_content %}tag{% if post.tags.size == 1 %}<i class="fa fa-tag"></i>{% else %}<i class="fa fa-tags"></i>{% endif %}: {% endcapture %}
@@ -20,7 +24,7 @@ layout: default
     {% assign tags_content = '' %}
 {% endif %}
 
-<div class="post">
+<div class="post" id="post">
 
     <h1 class="post-title">{{ page.title }}</h1>
     <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>

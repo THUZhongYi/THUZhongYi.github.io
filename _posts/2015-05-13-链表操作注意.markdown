@@ -15,7 +15,7 @@ Output: 7 -> 0 -> 8
 
 还有就是注意理解题目的意思...
 
-{% highlight c++ %}
+{% highlight c++ linenos %}
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -58,7 +58,7 @@ For example,Given linked list: 1->2->3->4->5, and n = 2.<br>
 
 还是要特别注意保存fat(father)指针。
 
-{% highlight c++ %}
+{% highlight c++ linenos %}
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -94,7 +94,7 @@ Your algorithm should use only constant space. You may not modify the values in 
 
 不用太在意奇偶数的问题。可以用递归写，应该会更清爽些。
 
-{% highlight c++ %}
+{% highlight c++ linenos %}
 /**
  * Definition for singly-linked list.
  * struct ListNode {

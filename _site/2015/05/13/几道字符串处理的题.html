@@ -2,9 +2,8 @@
 <html>
 
 <style>
-header {background-color: SeaGreen;top: 0px}
-header {position: fixed}
-
+header {background-color: SeaGreen;top: 0px;}
+header {position: fixed;}
 </style>
 
   <head>
@@ -22,6 +21,7 @@ header {position: fixed}
 
 
   <body>
+  <a name="top" id="top"></a>
 
     <header class="site-header">
 
@@ -31,7 +31,7 @@ header {background-color:Seagreen}
 
   <div class="wrapper">
 
-    <a class="site-title" href="/"><font color="white"><b>Last to triumph</b></font></a>
+    <a class="site-title" href="/"><font color="white" size="6px"><b>Last to triumph</b></font></a>
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -56,6 +56,25 @@ header {background-color:Seagreen}
           
         
           
+          <a class="page-link" href="/"><font color="Gold"><b>Home</b></font></a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
         
           
         
@@ -72,7 +91,19 @@ header {background-color:Seagreen}
           
         
           
-          <a class="page-link" href="/tags/"><font color="Gold"><b>Tags</b></font></a>
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/tags/"><font color="Gold"><b>Tags</b></font>
           
         
         
@@ -137,37 +168,7 @@ header {background-color:Seagreen}
         
           
         
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-          <a class="page-link" href="/"><font color="Gold"><b>Home</b></font></a>
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
+
       </div>
     </nav>
 
@@ -176,9 +177,13 @@ header {background-color:Seagreen}
 </header>
 
 
-    <div class="page-content">
+    <div class="page-content" id="content">
       <div class="wrapper">
-        
+        <style>
+
+</style>
+
+
 
     
     
@@ -228,7 +233,7 @@ header {background-color:Seagreen}
     
 
 
-<div class="post">
+<div class="post" id="post">
 
     <h1 class="post-title">几道字符串处理的题#3#5#6#14</h1>
     <p class="post-meta">May 13, 2015</p>
@@ -247,29 +252,29 @@ header {background-color:Seagreen}
 
 <p>下面这个方法其实麻烦了，因为string 类型本身就提供了很多操作，而且顺序和字符两个信息都很容易得到。使用string的find和substr操作可以替代下面的map的对应函数。而且应该更快。这个教训在下一道题得到了弥补。</p>
 
-<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">lengthOfLongestSubstring</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">map</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">st</span><span class="p">;</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">sz</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">bg</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">])){</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">-&gt;</span><span class="n">second</span><span class="o">&gt;</span><span class="n">bg</span><span class="p">){</span>
-                    <span class="n">sz</span><span class="o">=</span><span class="p">(</span><span class="n">sz</span><span class="o">&gt;</span><span class="n">st</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="o">?</span><span class="nl">sz</span><span class="p">:</span><span class="n">st</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-                    <span class="k">for</span><span class="p">(</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="o">=</span><span class="n">st</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span><span class="n">it</span><span class="o">!=</span><span class="n">st</span><span class="p">.</span><span class="n">end</span><span class="p">();){</span>
-                    	<span class="k">if</span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="o">&gt;=</span><span class="n">bg</span><span class="o">&amp;&amp;</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="o">&lt;</span><span class="n">st</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">)</span> <span class="n">it</span><span class="o">=</span><span class="n">st</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">it</span><span class="p">);</span>
-                    	<span class="k">else</span> <span class="n">it</span><span class="o">++</span><span class="p">;</span>
-                    <span class="p">}</span>
-                    <span class="n">bg</span><span class="o">=</span><span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
-                    <span class="n">st</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-                <span class="p">}</span>
-                <span class="k">else</span> <span class="p">{</span><span class="n">st</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span><span class="n">bg</span><span class="o">++</span><span class="p">;}</span>
-            <span class="p">}</span>
-            <span class="n">st</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">=</span><span class="n">i</span><span class="p">;</span>
-            <span class="n">i</span><span class="o">++</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">sz</span><span class="o">&gt;</span><span class="n">st</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="o">?</span><span class="nl">sz</span><span class="p">:</span><span class="n">st</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">};</span></code></pre></div>
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="lineno"> 1</span> <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="lineno"> 2</span> <span class="k">public</span><span class="o">:</span>
+<span class="lineno"> 3</span>     <span class="kt">int</span> <span class="n">lengthOfLongestSubstring</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno"> 4</span>         <span class="n">map</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">st</span><span class="p">;</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">sz</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">bg</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="lineno"> 5</span>         <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span>
+<span class="lineno"> 6</span>             <span class="k">if</span><span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">])){</span>
+<span class="lineno"> 7</span>                 <span class="k">if</span><span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">-&gt;</span><span class="n">second</span><span class="o">&gt;</span><span class="n">bg</span><span class="p">){</span>
+<span class="lineno"> 8</span>                     <span class="n">sz</span><span class="o">=</span><span class="p">(</span><span class="n">sz</span><span class="o">&gt;</span><span class="n">st</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="o">?</span><span class="nl">sz</span><span class="p">:</span><span class="n">st</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="lineno"> 9</span>                     <span class="k">for</span><span class="p">(</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="o">=</span><span class="n">st</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span><span class="n">it</span><span class="o">!=</span><span class="n">st</span><span class="p">.</span><span class="n">end</span><span class="p">();){</span>
+<span class="lineno">10</span>                     	<span class="k">if</span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="o">&gt;=</span><span class="n">bg</span><span class="o">&amp;&amp;</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="o">&lt;</span><span class="n">st</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">)</span> <span class="n">it</span><span class="o">=</span><span class="n">st</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">it</span><span class="p">);</span>
+<span class="lineno">11</span>                     	<span class="k">else</span> <span class="n">it</span><span class="o">++</span><span class="p">;</span>
+<span class="lineno">12</span>                     <span class="p">}</span>
+<span class="lineno">13</span>                     <span class="n">bg</span><span class="o">=</span><span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+<span class="lineno">14</span>                     <span class="n">st</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="lineno">15</span>                 <span class="p">}</span>
+<span class="lineno">16</span>                 <span class="k">else</span> <span class="p">{</span><span class="n">st</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span><span class="n">bg</span><span class="o">++</span><span class="p">;}</span>
+<span class="lineno">17</span>             <span class="p">}</span>
+<span class="lineno">18</span>             <span class="n">st</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">=</span><span class="n">i</span><span class="p">;</span>
+<span class="lineno">19</span>             <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+<span class="lineno">20</span>         <span class="p">}</span>
+<span class="lineno">21</span>         <span class="k">return</span> <span class="p">(</span><span class="n">sz</span><span class="o">&gt;</span><span class="n">st</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="o">?</span><span class="nl">sz</span><span class="p">:</span><span class="n">st</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="lineno">22</span>     <span class="p">}</span>
+<span class="lineno">23</span> <span class="p">};</span></code></pre></div>
 
 <h3>LeetCode #5 Longest Palindromic Substring</h3>
 
@@ -280,25 +285,25 @@ header {background-color:Seagreen}
 <p>string是个好容器，很多操作都是自带的。<br />
 这个问题的难点在于对称的字符串可能是偶数个字符，也可能是奇数个字符。在遍历的时候，对每个元素，就要做两种游走，一种奇数对称游走，一种偶数对称游走.不管奇数偶数，只要更长就行。总之我们设定的最长字符串的开头结尾p和q并不会影响i，所以一直遍历完，用substr取出最大对称字符串即可。</p>
 
-<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">string</span> <span class="n">longestPalindrome</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
-    	<span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="kt">int</span> <span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">r</span><span class="p">;</span>
-    	<span class="n">p</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">q</span><span class="o">=</span><span class="kt">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-    	<span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span>
-    		<span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
-    			<span class="k">for</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">r</span><span class="p">]</span><span class="o">==</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">&amp;&amp;</span><span class="n">i</span><span class="o">+</span><span class="n">r</span><span class="o">&lt;</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">r</span><span class="o">++</span><span class="p">);</span>
-    			<span class="k">if</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span><span class="n">q</span><span class="o">-</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span><span class="n">p</span><span class="o">=</span><span class="n">i</span><span class="o">-</span><span class="n">r</span><span class="p">;</span><span class="n">q</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">;}</span>
-    		<span class="p">}</span>
-    		<span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="p">{</span>
-    			<span class="k">for</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">r</span><span class="p">]</span><span class="o">==</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="n">r</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">&amp;&amp;</span><span class="n">i</span><span class="o">+</span><span class="n">r</span><span class="o">&lt;</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">r</span><span class="o">++</span><span class="p">);</span>
-    			<span class="k">if</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="o">&gt;</span><span class="n">q</span><span class="o">-</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span><span class="n">p</span><span class="o">=</span><span class="n">i</span><span class="o">-</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">q</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">;}</span>
-    		<span class="p">}</span>
-    		<span class="n">i</span><span class="o">++</span><span class="p">;</span>
-    	<span class="p">}</span>
-    	<span class="k">return</span> <span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="o">-</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">};</span></code></pre></div>
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="lineno"> 1</span> <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="lineno"> 2</span> <span class="k">public</span><span class="o">:</span>
+<span class="lineno"> 3</span>     <span class="n">string</span> <span class="n">longestPalindrome</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno"> 4</span>     	<span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="kt">int</span> <span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">r</span><span class="p">;</span>
+<span class="lineno"> 5</span>     	<span class="n">p</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">q</span><span class="o">=</span><span class="kt">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="lineno"> 6</span>     	<span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span>
+<span class="lineno"> 7</span>     		<span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
+<span class="lineno"> 8</span>     			<span class="k">for</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">r</span><span class="p">]</span><span class="o">==</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">&amp;&amp;</span><span class="n">i</span><span class="o">+</span><span class="n">r</span><span class="o">&lt;</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">r</span><span class="o">++</span><span class="p">);</span>
+<span class="lineno"> 9</span>     			<span class="k">if</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span><span class="n">q</span><span class="o">-</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span><span class="n">p</span><span class="o">=</span><span class="n">i</span><span class="o">-</span><span class="n">r</span><span class="p">;</span><span class="n">q</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">;}</span>
+<span class="lineno">10</span>     		<span class="p">}</span>
+<span class="lineno">11</span>     		<span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="p">{</span>
+<span class="lineno">12</span>     			<span class="k">for</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">r</span><span class="p">]</span><span class="o">==</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="n">r</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">&amp;&amp;</span><span class="n">i</span><span class="o">+</span><span class="n">r</span><span class="o">&lt;</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">r</span><span class="o">++</span><span class="p">);</span>
+<span class="lineno">13</span>     			<span class="k">if</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="o">&gt;</span><span class="n">q</span><span class="o">-</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span><span class="n">p</span><span class="o">=</span><span class="n">i</span><span class="o">-</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">q</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">;}</span>
+<span class="lineno">14</span>     		<span class="p">}</span>
+<span class="lineno">15</span>     		<span class="n">i</span><span class="o">++</span><span class="p">;</span>
+<span class="lineno">16</span>     	<span class="p">}</span>
+<span class="lineno">17</span>     	<span class="k">return</span> <span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="o">-</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+<span class="lineno">18</span>     <span class="p">}</span>
+<span class="lineno">19</span> <span class="p">};</span></code></pre></div>
 
 <h3>LeetCode #6 ZigZag Conversion</h3>
 
@@ -327,28 +332,28 @@ Y     I    R
   <li>把原string中的元素挨个映射到新string中</li>
 </ul>
 
-<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">string</span> <span class="n">convert</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">numRows</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">numRows</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
-    	<span class="n">string</span> <span class="nf">t</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="sc">&#39; &#39;</span><span class="p">);</span>
-    	<span class="kt">int</span> <span class="n">N</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">numRows</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">/</span><span class="n">N</span><span class="p">,</span><span class="n">ext</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">%</span><span class="n">N</span><span class="p">,</span><span class="n">row</span><span class="p">,</span><span class="n">seq</span><span class="p">,</span><span class="n">pre</span><span class="p">;</span>
-    	<span class="kt">int</span> <span class="n">f</span><span class="o">=</span><span class="p">(</span><span class="n">ext</span><span class="o">&gt;</span><span class="n">numRows</span><span class="p">)</span><span class="o">?</span><span class="mi">2</span><span class="o">*</span><span class="n">numRows</span><span class="o">-</span><span class="n">ext</span><span class="o">-</span><span class="mi">1</span><span class="o">:</span><span class="n">ext</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-    	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-    		<span class="n">row</span><span class="o">=</span><span class="p">(</span><span class="n">i</span><span class="o">%</span><span class="n">N</span><span class="o">&gt;=</span><span class="n">numRows</span><span class="p">)</span><span class="o">?</span><span class="mi">2</span><span class="o">*</span><span class="n">numRows</span><span class="o">-</span><span class="n">i</span><span class="o">%</span><span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="o">:</span><span class="n">i</span><span class="o">%</span><span class="n">N</span><span class="p">;</span>
-    		<span class="k">if</span><span class="p">(</span><span class="n">row</span><span class="o">&gt;</span><span class="mi">0</span><span class="o">&amp;&amp;</span><span class="n">row</span><span class="o">&lt;</span><span class="n">numRows</span><span class="p">){</span>
-    			<span class="n">seq</span><span class="o">=</span><span class="p">(</span><span class="n">row</span><span class="o">==</span><span class="n">numRows</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">?</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="n">N</span><span class="p">)</span><span class="o">:</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="n">N</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="kt">int</span><span class="p">(</span><span class="n">i</span><span class="o">%</span><span class="n">N</span><span class="o">&gt;=</span><span class="n">numRows</span><span class="p">));</span>
-    			<span class="n">pre</span><span class="o">=</span><span class="n">n</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="o">*</span><span class="p">(</span><span class="n">row</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="p">((</span><span class="n">row</span><span class="o">&gt;</span><span class="n">f</span><span class="p">)</span><span class="o">?</span><span class="p">(</span><span class="n">row</span><span class="o">+</span><span class="p">((</span><span class="n">ext</span><span class="o">&gt;</span><span class="n">numRows</span><span class="p">)</span><span class="o">?</span><span class="p">(</span><span class="n">row</span><span class="o">-</span><span class="n">f</span><span class="p">)</span><span class="o">:</span><span class="p">(</span><span class="n">f</span><span class="o">-</span><span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">)))</span><span class="o">:</span><span class="n">row</span><span class="p">);</span>
-    			<span class="n">t</span><span class="p">[</span><span class="n">pre</span><span class="o">+</span><span class="n">seq</span><span class="p">]</span><span class="o">=</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-    		<span class="p">}</span>
-    		<span class="k">else</span> <span class="p">{</span>
-    			<span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="o">/</span><span class="n">N</span><span class="p">]</span><span class="o">=</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-    		<span class="p">}</span>
-    	<span class="p">}</span>
-    	<span class="k">return</span> <span class="n">t</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span></code></pre></div>
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="lineno"> 1</span> <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="lineno"> 2</span> <span class="k">public</span><span class="o">:</span>
+<span class="lineno"> 3</span>     <span class="n">string</span> <span class="n">convert</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">numRows</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno"> 4</span>         <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+<span class="lineno"> 5</span>         <span class="k">if</span><span class="p">(</span><span class="n">numRows</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+<span class="lineno"> 6</span>     	<span class="n">string</span> <span class="nf">t</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="sc">&#39; &#39;</span><span class="p">);</span>
+<span class="lineno"> 7</span>     	<span class="kt">int</span> <span class="n">N</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">numRows</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">/</span><span class="n">N</span><span class="p">,</span><span class="n">ext</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">%</span><span class="n">N</span><span class="p">,</span><span class="n">row</span><span class="p">,</span><span class="n">seq</span><span class="p">,</span><span class="n">pre</span><span class="p">;</span>
+<span class="lineno"> 8</span>     	<span class="kt">int</span> <span class="n">f</span><span class="o">=</span><span class="p">(</span><span class="n">ext</span><span class="o">&gt;</span><span class="n">numRows</span><span class="p">)</span><span class="o">?</span><span class="mi">2</span><span class="o">*</span><span class="n">numRows</span><span class="o">-</span><span class="n">ext</span><span class="o">-</span><span class="mi">1</span><span class="o">:</span><span class="n">ext</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="lineno"> 9</span>     	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<span class="lineno">10</span>     		<span class="n">row</span><span class="o">=</span><span class="p">(</span><span class="n">i</span><span class="o">%</span><span class="n">N</span><span class="o">&gt;=</span><span class="n">numRows</span><span class="p">)</span><span class="o">?</span><span class="mi">2</span><span class="o">*</span><span class="n">numRows</span><span class="o">-</span><span class="n">i</span><span class="o">%</span><span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="o">:</span><span class="n">i</span><span class="o">%</span><span class="n">N</span><span class="p">;</span>
+<span class="lineno">11</span>     		<span class="k">if</span><span class="p">(</span><span class="n">row</span><span class="o">&gt;</span><span class="mi">0</span><span class="o">&amp;&amp;</span><span class="n">row</span><span class="o">&lt;</span><span class="n">numRows</span><span class="p">){</span>
+<span class="lineno">12</span>     			<span class="n">seq</span><span class="o">=</span><span class="p">(</span><span class="n">row</span><span class="o">==</span><span class="n">numRows</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">?</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="n">N</span><span class="p">)</span><span class="o">:</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="n">N</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="kt">int</span><span class="p">(</span><span class="n">i</span><span class="o">%</span><span class="n">N</span><span class="o">&gt;=</span><span class="n">numRows</span><span class="p">));</span>
+<span class="lineno">13</span>     			<span class="n">pre</span><span class="o">=</span><span class="n">n</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="o">*</span><span class="p">(</span><span class="n">row</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="p">((</span><span class="n">row</span><span class="o">&gt;</span><span class="n">f</span><span class="p">)</span><span class="o">?</span><span class="p">(</span><span class="n">row</span><span class="o">+</span><span class="p">((</span><span class="n">ext</span><span class="o">&gt;</span><span class="n">numRows</span><span class="p">)</span><span class="o">?</span><span class="p">(</span><span class="n">row</span><span class="o">-</span><span class="n">f</span><span class="p">)</span><span class="o">:</span><span class="p">(</span><span class="n">f</span><span class="o">-</span><span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">)))</span><span class="o">:</span><span class="n">row</span><span class="p">);</span>
+<span class="lineno">14</span>     			<span class="n">t</span><span class="p">[</span><span class="n">pre</span><span class="o">+</span><span class="n">seq</span><span class="p">]</span><span class="o">=</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="lineno">15</span>     		<span class="p">}</span>
+<span class="lineno">16</span>     		<span class="k">else</span> <span class="p">{</span>
+<span class="lineno">17</span>     			<span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="o">/</span><span class="n">N</span><span class="p">]</span><span class="o">=</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="lineno">18</span>     		<span class="p">}</span>
+<span class="lineno">19</span>     	<span class="p">}</span>
+<span class="lineno">20</span>     	<span class="k">return</span> <span class="n">t</span><span class="p">;</span>
+<span class="lineno">21</span>     <span class="p">}</span>
+<span class="lineno">22</span> <span class="p">};</span></code></pre></div>
 
 <h3>LeetCode #14 Longest Common Prefix</h3>
 
@@ -358,19 +363,19 @@ Y     I    R
 
 <p>这个很简单，不提。有三个注意的点，一是清楚找第一个不同元素时循环停在了哪里，二是substr里pos的准确含义，三是注意处理空容器的情况。</p>
 
-<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">string</span> <span class="n">longestCommonPrefix</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">strs</span><span class="p">)</span> <span class="p">{</span>
-    	<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strs</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
-    	<span class="n">string</span> <span class="n">s</span><span class="o">=</span><span class="n">strs</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="kt">int</span> <span class="n">length</span><span class="p">,</span><span class="n">l</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">strs</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-        	<span class="n">length</span><span class="o">=</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&lt;</span><span class="n">strs</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">())</span><span class="o">?</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">:</span><span class="n">strs</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">();</span>
-        	<span class="k">for</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">l</span><span class="o">&lt;</span><span class="n">length</span><span class="o">&amp;&amp;</span><span class="n">s</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="o">==</span><span class="n">strs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">l</span><span class="p">];</span><span class="n">l</span><span class="o">++</span><span class="p">);</span>
-        	<span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">l</span><span class="p">);</span>
-        <span class="p">}</span>
-    	<span class="k">return</span> <span class="n">s</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span></code></pre></div>
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="lineno"> 1</span> <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="lineno"> 2</span> <span class="k">public</span><span class="o">:</span>
+<span class="lineno"> 3</span>     <span class="n">string</span> <span class="n">longestCommonPrefix</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">strs</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno"> 4</span>     	<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strs</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+<span class="lineno"> 5</span>     	<span class="n">string</span> <span class="n">s</span><span class="o">=</span><span class="n">strs</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="kt">int</span> <span class="n">length</span><span class="p">,</span><span class="n">l</span><span class="p">;</span>
+<span class="lineno"> 6</span>         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">strs</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<span class="lineno"> 7</span>         	<span class="n">length</span><span class="o">=</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&lt;</span><span class="n">strs</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">())</span><span class="o">?</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">:</span><span class="n">strs</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">();</span>
+<span class="lineno"> 8</span>         	<span class="k">for</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">l</span><span class="o">&lt;</span><span class="n">length</span><span class="o">&amp;&amp;</span><span class="n">s</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="o">==</span><span class="n">strs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">l</span><span class="p">];</span><span class="n">l</span><span class="o">++</span><span class="p">);</span>
+<span class="lineno"> 9</span>         	<span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">l</span><span class="p">);</span>
+<span class="lineno">10</span>         <span class="p">}</span>
+<span class="lineno">11</span>     	<span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+<span class="lineno">12</span>     <span class="p">}</span>
+<span class="lineno">13</span> <span class="p">};</span></code></pre></div>
 
 
   </article>
@@ -378,18 +383,26 @@ Y     I    R
 </div>
 
       </div>
+    
     </div>
+    <a href="#top" target="_self"><center>Back to Top</center></a>
+    
+<style>
+  
+footer#footer {background-color: SeaGreen;}
 
-    <footer class="site-footer">
+</style>
+
+<footer class="site-footer" id="footer">
 
   <div class="wrapper">
 
-    <h2 class="footer-heading">Last to triumph</h2>
+    <h2 class="footer-heading"><font color="White">Last to triumph</font></h2>
 
     <div class="footer-col-wrapper">
       <div class="footer-col  footer-col-1">
         <ul class="contact-list">
-          <li><a href="mailto:yizhong.pku@gmail.com">yizhong.pku@gmail.com</a></li>
+          <li><a href="mailto:yizhong.pku@gmail.com"><font color="Gold">yizhong.pku@gmail.com</font></a></li>
         </ul>
       </div>
 
@@ -404,7 +417,7 @@ Y     I    R
                 </svg>
               </span>
 
-              <span class="username">thuzhongyi</span>
+              <span class="username"><font color="AliceBlue">thuzhongyi</font></span>
             </a>
           </li>
           
@@ -419,7 +432,7 @@ Y     I    R
                 </svg>
               </span>
 
-              <span class="username">YiZhongPKU</span>
+              <span class="username"><font color="AliceBlue">YiZhongPKU</font></span>
             </a>
           </li>
           
@@ -427,16 +440,12 @@ Y     I    R
       </div>
 
       <div class="footer-col  footer-col-3">
-        <p class="text">This is a personal blog. Zhong Yi uses this blog to share learning experiences  and keep some daily thoughts. This website is continually improved along with  Zhong Yi's learning.
-</p>
+        <p class="text"><font color="white">This is a personal blog. Zhong Yi uses this blog to share learning experiences  and keep some daily thoughts. This website is continually improved along with  Zhong Yi's learning.
+</font></p>
       </div>
     </div>
 
   </div>
-
 </footer>
-
-
   </body>
-
 </html>

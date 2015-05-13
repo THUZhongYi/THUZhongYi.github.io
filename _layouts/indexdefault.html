@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+header {background-color: SeaGreen;top: 0px;}
+header {position: fixed;}
+div#content {background-color: :#EEEEEE; width: 540px;float: left;}
+div#profile {background-color: :#EEEEEE; width: 300px;float: left;}
+div#box {width: 840px;margin: 0px 240px;}
+.clear {clear:both;}
+</style>
+
+  {% include head.html %}
+
+  <body>
+  <a name="top" id="top"></a>
+
+    {% include header.html %}
+
+<div id="box">
+
+    <div class="page-content" id="content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </div>
+
+    <div class="page-content" id="profile">
+      <div class="wrapper">
+        
+      <center><img src="http://ww4.sinaimg.cn/large/be5b4606jw1es300qef6rg204g04qq61.gif" id=profile></center><br>
+
+      <center><h3>Pika~</h3></center>
+      <center><h2>Pika~</h2></center>
+      <center><h1>Pikachu!</h1></center>
+
+      </div>
+    </div>
+    <div class="clear"></div>
+  <a href="#top" target="_self"><center>Back to Top</center></a>
+</div>
+
+
+    {% include footer.html %}
+
+  </body>
+
+</html>

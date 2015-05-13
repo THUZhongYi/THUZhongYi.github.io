@@ -14,7 +14,7 @@ tags: [leetcode,cpp]
 
 下面这个方法其实麻烦了，因为string 类型本身就提供了很多操作，而且顺序和字符两个信息都很容易得到。使用string的find和substr操作可以替代下面的map的对应函数。而且应该更快。这个教训在下一道题得到了弥补。
 
-{% highlight c++ %}
+{% highlight c++ linenos %}
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
@@ -47,7 +47,7 @@ public:
 string是个好容器，很多操作都是自带的。<br>
 这个问题的难点在于对称的字符串可能是偶数个字符，也可能是奇数个字符。在遍历的时候，对每个元素，就要做两种游走，一种奇数对称游走，一种偶数对称游走.不管奇数偶数，只要更长就行。总之我们设定的最长字符串的开头结尾p和q并不会影响i，所以一直遍历完，用substr取出最大对称字符串即可。
 
-{% highlight c++ %}
+{% highlight c++ linenos %}
 class Solution {
 public:
     string longestPalindrome(string s) {
@@ -89,7 +89,7 @@ public:
 * 表示出最后一个字符以上的行每行有多少元素，以下的行每行有多少元素
 * 把原string中的元素挨个映射到新string中
 
-{% highlight c++ %}
+{% highlight c++ linenos %}
 class Solution {
 public:
     string convert(string s, int numRows) {
@@ -120,7 +120,7 @@ public:
 
 这个很简单，不提。有三个注意的点，一是清楚找第一个不同元素时循环停在了哪里，二是substr里pos的准确含义，三是注意处理空容器的情况。
 
-{% highlight c++ %}
+{% highlight c++ linenos %}
 class Solution {
 public:
     string longestCommonPrefix(vector<string>& strs) {

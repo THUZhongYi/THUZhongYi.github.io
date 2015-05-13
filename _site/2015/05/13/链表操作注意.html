@@ -2,9 +2,8 @@
 <html>
 
 <style>
-header {background-color: SeaGreen;top: 0px}
-header {position: fixed}
-
+header {background-color: SeaGreen;top: 0px;}
+header {position: fixed;}
 </style>
 
   <head>
@@ -22,6 +21,7 @@ header {position: fixed}
 
 
   <body>
+  <a name="top" id="top"></a>
 
     <header class="site-header">
 
@@ -31,7 +31,7 @@ header {background-color:Seagreen}
 
   <div class="wrapper">
 
-    <a class="site-title" href="/"><font color="white"><b>Last to triumph</b></font></a>
+    <a class="site-title" href="/"><font color="white" size="6px"><b>Last to triumph</b></font></a>
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -56,6 +56,25 @@ header {background-color:Seagreen}
           
         
           
+          <a class="page-link" href="/"><font color="Gold"><b>Home</b></font></a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
         
           
         
@@ -72,7 +91,19 @@ header {background-color:Seagreen}
           
         
           
-          <a class="page-link" href="/tags/"><font color="Gold"><b>Tags</b></font></a>
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/tags/"><font color="Gold"><b>Tags</b></font>
           
         
         
@@ -137,37 +168,7 @@ header {background-color:Seagreen}
         
           
         
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-          <a class="page-link" href="/"><font color="Gold"><b>Home</b></font></a>
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
+
       </div>
     </nav>
 
@@ -176,9 +177,13 @@ header {background-color:Seagreen}
 </header>
 
 
-    <div class="page-content">
+    <div class="page-content" id="content">
       <div class="wrapper">
-        
+        <style>
+
+</style>
+
+
 
     
     
@@ -206,7 +211,7 @@ header {background-color:Seagreen}
     
 
 
-<div class="post">
+<div class="post" id="post">
 
     <h1 class="post-title">链表操作注意#2#19#24</h1>
     <p class="post-meta">May 13, 2015</p>
@@ -228,34 +233,34 @@ Output: 7 -&gt; 0 -&gt; 8</p>
 
 <p>还有就是注意理解题目的意思…</p>
 
-<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cm">/**</span>
-<span class="cm"> * Definition for singly-linked list.</span>
-<span class="cm"> * struct ListNode {</span>
-<span class="cm"> *     int val;</span>
-<span class="cm"> *     ListNode *next;</span>
-<span class="cm"> *     ListNode(int x) : val(x), next(NULL) {}</span>
-<span class="cm"> * };</span>
-<span class="cm"> */</span>
-<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">ListNode</span><span class="o">*</span> <span class="n">addTwoNumbers</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">l1</span><span class="p">,</span> <span class="n">ListNode</span><span class="o">*</span> <span class="n">l2</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">ListNode</span> <span class="o">*</span><span class="n">c1</span><span class="o">=</span><span class="n">l1</span><span class="p">,</span><span class="o">*</span><span class="n">c2</span><span class="o">=</span><span class="n">l2</span><span class="p">,</span><span class="o">*</span><span class="n">rs</span><span class="p">,</span><span class="o">*</span><span class="n">fst</span><span class="p">;</span><span class="kt">int</span> <span class="n">ext</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">;</span>
-        <span class="n">rs</span><span class="o">=</span><span class="k">new</span> <span class="n">ListNode</span><span class="p">((</span><span class="n">c1</span><span class="o">-&gt;</span><span class="n">val</span><span class="o">+</span><span class="n">c2</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">)</span><span class="o">%</span><span class="mi">10</span><span class="p">);</span>
-        <span class="n">ext</span><span class="o">=</span><span class="p">(</span><span class="n">c1</span><span class="o">-&gt;</span><span class="n">val</span><span class="o">+</span><span class="n">c2</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="p">;</span>
-        <span class="n">fst</span><span class="o">=</span><span class="n">rs</span><span class="p">;</span><span class="n">c1</span><span class="o">=</span><span class="n">c1</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span><span class="n">c2</span><span class="o">=</span><span class="n">c2</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-        
-        <span class="k">while</span><span class="p">(</span><span class="n">c1</span><span class="o">||</span><span class="n">c2</span><span class="o">||</span><span class="n">ext</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">p</span><span class="o">=</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span><span class="o">?</span><span class="n">c1</span><span class="o">-&gt;</span><span class="nl">val</span><span class="p">:</span><span class="mi">0</span><span class="p">;</span>
-            <span class="n">q</span><span class="o">=</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span><span class="o">?</span><span class="n">c2</span><span class="o">-&gt;</span><span class="nl">val</span><span class="p">:</span><span class="mi">0</span><span class="p">;</span>
-            <span class="n">rs</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="k">new</span> <span class="n">ListNode</span><span class="p">((</span><span class="n">p</span><span class="o">+</span><span class="n">q</span><span class="o">+</span><span class="n">ext</span><span class="p">)</span><span class="o">%</span><span class="mi">10</span><span class="p">);</span>
-            <span class="n">ext</span><span class="o">=</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="n">q</span><span class="o">+</span><span class="n">ext</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="p">;</span>
-            <span class="n">c1</span><span class="o">=</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span><span class="o">?</span><span class="n">c1</span><span class="o">-&gt;</span><span class="nl">next</span><span class="p">:</span><span class="mi">0</span><span class="p">;</span>
-            <span class="n">c2</span><span class="o">=</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span><span class="o">?</span><span class="n">c2</span><span class="o">-&gt;</span><span class="nl">next</span><span class="p">:</span><span class="mi">0</span><span class="p">;</span>
-            <span class="n">rs</span><span class="o">=</span><span class="n">rs</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">fst</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span></code></pre></div>
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="lineno"> 1</span> <span class="cm">/**</span>
+<span class="lineno"> 2</span> <span class="cm"> * Definition for singly-linked list.</span>
+<span class="lineno"> 3</span> <span class="cm"> * struct ListNode {</span>
+<span class="lineno"> 4</span> <span class="cm"> *     int val;</span>
+<span class="lineno"> 5</span> <span class="cm"> *     ListNode *next;</span>
+<span class="lineno"> 6</span> <span class="cm"> *     ListNode(int x) : val(x), next(NULL) {}</span>
+<span class="lineno"> 7</span> <span class="cm"> * };</span>
+<span class="lineno"> 8</span> <span class="cm"> */</span>
+<span class="lineno"> 9</span> <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="lineno">10</span> <span class="k">public</span><span class="o">:</span>
+<span class="lineno">11</span>     <span class="n">ListNode</span><span class="o">*</span> <span class="n">addTwoNumbers</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">l1</span><span class="p">,</span> <span class="n">ListNode</span><span class="o">*</span> <span class="n">l2</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno">12</span>         <span class="n">ListNode</span> <span class="o">*</span><span class="n">c1</span><span class="o">=</span><span class="n">l1</span><span class="p">,</span><span class="o">*</span><span class="n">c2</span><span class="o">=</span><span class="n">l2</span><span class="p">,</span><span class="o">*</span><span class="n">rs</span><span class="p">,</span><span class="o">*</span><span class="n">fst</span><span class="p">;</span><span class="kt">int</span> <span class="n">ext</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">;</span>
+<span class="lineno">13</span>         <span class="n">rs</span><span class="o">=</span><span class="k">new</span> <span class="n">ListNode</span><span class="p">((</span><span class="n">c1</span><span class="o">-&gt;</span><span class="n">val</span><span class="o">+</span><span class="n">c2</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">)</span><span class="o">%</span><span class="mi">10</span><span class="p">);</span>
+<span class="lineno">14</span>         <span class="n">ext</span><span class="o">=</span><span class="p">(</span><span class="n">c1</span><span class="o">-&gt;</span><span class="n">val</span><span class="o">+</span><span class="n">c2</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="p">;</span>
+<span class="lineno">15</span>         <span class="n">fst</span><span class="o">=</span><span class="n">rs</span><span class="p">;</span><span class="n">c1</span><span class="o">=</span><span class="n">c1</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span><span class="n">c2</span><span class="o">=</span><span class="n">c2</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno">16</span>         
+<span class="lineno">17</span>         <span class="k">while</span><span class="p">(</span><span class="n">c1</span><span class="o">||</span><span class="n">c2</span><span class="o">||</span><span class="n">ext</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno">18</span>             <span class="n">p</span><span class="o">=</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span><span class="o">?</span><span class="n">c1</span><span class="o">-&gt;</span><span class="nl">val</span><span class="p">:</span><span class="mi">0</span><span class="p">;</span>
+<span class="lineno">19</span>             <span class="n">q</span><span class="o">=</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span><span class="o">?</span><span class="n">c2</span><span class="o">-&gt;</span><span class="nl">val</span><span class="p">:</span><span class="mi">0</span><span class="p">;</span>
+<span class="lineno">20</span>             <span class="n">rs</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="k">new</span> <span class="n">ListNode</span><span class="p">((</span><span class="n">p</span><span class="o">+</span><span class="n">q</span><span class="o">+</span><span class="n">ext</span><span class="p">)</span><span class="o">%</span><span class="mi">10</span><span class="p">);</span>
+<span class="lineno">21</span>             <span class="n">ext</span><span class="o">=</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="n">q</span><span class="o">+</span><span class="n">ext</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="p">;</span>
+<span class="lineno">22</span>             <span class="n">c1</span><span class="o">=</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span><span class="o">?</span><span class="n">c1</span><span class="o">-&gt;</span><span class="nl">next</span><span class="p">:</span><span class="mi">0</span><span class="p">;</span>
+<span class="lineno">23</span>             <span class="n">c2</span><span class="o">=</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span><span class="o">?</span><span class="n">c2</span><span class="o">-&gt;</span><span class="nl">next</span><span class="p">:</span><span class="mi">0</span><span class="p">;</span>
+<span class="lineno">24</span>             <span class="n">rs</span><span class="o">=</span><span class="n">rs</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno">25</span>         <span class="p">}</span>
+<span class="lineno">26</span>         <span class="k">return</span> <span class="n">fst</span><span class="p">;</span>
+<span class="lineno">27</span>     <span class="p">}</span>
+<span class="lineno">28</span> <span class="p">};</span></code></pre></div>
 
 <h3>LeetCode #19 Remove Nth Node From End of List</h3>
 <blockquote>
@@ -270,32 +275,32 @@ Given n will always be valid. Try to do this in one pass. </p>
 
 <p>还是要特别注意保存fat(father)指针。</p>
 
-<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cm">/**</span>
-<span class="cm"> * Definition for singly-linked list.</span>
-<span class="cm"> * struct ListNode {</span>
-<span class="cm"> *     int val;</span>
-<span class="cm"> *     ListNode *next;</span>
-<span class="cm"> *     ListNode(int x) : val(x), next(NULL) {}</span>
-<span class="cm"> * };</span>
-<span class="cm"> */</span>
-<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">ListNode</span><span class="o">*</span> <span class="n">removeNthFromEnd</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">ListNode</span> <span class="o">*</span><span class="n">cur</span><span class="o">=</span><span class="n">head</span><span class="p">,</span><span class="o">*</span><span class="n">tmp</span><span class="o">=</span><span class="n">cur</span><span class="p">,</span><span class="o">*</span><span class="n">fat</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">tmp</span><span class="o">=</span><span class="n">tmp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">tmp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span> <span class="k">return</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-        <span class="n">tmp</span><span class="o">=</span><span class="n">cur</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">tmp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">){</span>
-            <span class="n">fat</span><span class="o">=</span><span class="n">cur</span><span class="p">;</span>
-            <span class="n">cur</span><span class="o">=</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-            <span class="n">tmp</span><span class="o">=</span><span class="n">cur</span><span class="p">;</span>
-            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">tmp</span><span class="o">=</span><span class="n">tmp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">tmp</span><span class="o">=</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-        <span class="n">fat</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">tmp</span><span class="p">;</span>
-        <span class="k">return</span> <span class="n">head</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span></code></pre></div>
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="lineno"> 1</span> <span class="cm">/**</span>
+<span class="lineno"> 2</span> <span class="cm"> * Definition for singly-linked list.</span>
+<span class="lineno"> 3</span> <span class="cm"> * struct ListNode {</span>
+<span class="lineno"> 4</span> <span class="cm"> *     int val;</span>
+<span class="lineno"> 5</span> <span class="cm"> *     ListNode *next;</span>
+<span class="lineno"> 6</span> <span class="cm"> *     ListNode(int x) : val(x), next(NULL) {}</span>
+<span class="lineno"> 7</span> <span class="cm"> * };</span>
+<span class="lineno"> 8</span> <span class="cm"> */</span>
+<span class="lineno"> 9</span> <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="lineno">10</span> <span class="k">public</span><span class="o">:</span>
+<span class="lineno">11</span>     <span class="n">ListNode</span><span class="o">*</span> <span class="n">removeNthFromEnd</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno">12</span>         <span class="n">ListNode</span> <span class="o">*</span><span class="n">cur</span><span class="o">=</span><span class="n">head</span><span class="p">,</span><span class="o">*</span><span class="n">tmp</span><span class="o">=</span><span class="n">cur</span><span class="p">,</span><span class="o">*</span><span class="n">fat</span><span class="p">;</span>
+<span class="lineno">13</span>         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">tmp</span><span class="o">=</span><span class="n">tmp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno">14</span>         <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">tmp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span> <span class="k">return</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno">15</span>         <span class="n">tmp</span><span class="o">=</span><span class="n">cur</span><span class="p">;</span>
+<span class="lineno">16</span>         <span class="k">while</span><span class="p">(</span><span class="n">tmp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">){</span>
+<span class="lineno">17</span>             <span class="n">fat</span><span class="o">=</span><span class="n">cur</span><span class="p">;</span>
+<span class="lineno">18</span>             <span class="n">cur</span><span class="o">=</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno">19</span>             <span class="n">tmp</span><span class="o">=</span><span class="n">cur</span><span class="p">;</span>
+<span class="lineno">20</span>             <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">tmp</span><span class="o">=</span><span class="n">tmp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno">21</span>         <span class="p">}</span>
+<span class="lineno">22</span>         <span class="n">tmp</span><span class="o">=</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno">23</span>         <span class="n">fat</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">tmp</span><span class="p">;</span>
+<span class="lineno">24</span>         <span class="k">return</span> <span class="n">head</span><span class="p">;</span>
+<span class="lineno">25</span>     <span class="p">}</span>
+<span class="lineno">26</span> <span class="p">};</span></code></pre></div>
 
 <h3>LeetCode #24 Swap Nodes in Pairs</h3>
 <blockquote>
@@ -306,39 +311,39 @@ Your algorithm should use only constant space. You may not modify the values in 
 
 <p>不用太在意奇偶数的问题。可以用递归写，应该会更清爽些。</p>
 
-<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cm">/**</span>
-<span class="cm"> * Definition for singly-linked list.</span>
-<span class="cm"> * struct ListNode {</span>
-<span class="cm"> *     int val;</span>
-<span class="cm"> *     ListNode *next;</span>
-<span class="cm"> *     ListNode(int x) : val(x), next(NULL) {}</span>
-<span class="cm"> * };</span>
-<span class="cm"> */</span>
-<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">ListNode</span><span class="o">*</span> <span class="n">swapPairs</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">ListNode</span> <span class="o">*</span><span class="n">first</span><span class="p">,</span><span class="o">*</span><span class="n">cur</span><span class="o">=</span><span class="n">head</span><span class="p">,</span><span class="o">*</span><span class="n">lst</span><span class="p">,</span><span class="o">*</span><span class="n">tmp</span><span class="p">;</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">head</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span> <span class="k">return</span> <span class="n">head</span><span class="p">;</span>
-        <span class="n">tmp</span><span class="o">=</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-        <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">head</span><span class="p">;</span>
-        <span class="n">cur</span><span class="o">=</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-        <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">tmp</span><span class="p">;</span>
-        <span class="n">first</span><span class="o">=</span><span class="n">cur</span><span class="p">;</span>
-        <span class="n">lst</span><span class="o">=</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-        <span class="n">cur</span><span class="o">=</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">cur</span><span class="p">){</span>
-            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
-            <span class="n">tmp</span><span class="o">=</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-            <span class="n">lst</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-            <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">cur</span><span class="p">;</span>
-            <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">tmp</span><span class="p">;</span>
-            <span class="n">lst</span><span class="o">=</span><span class="n">cur</span><span class="p">;</span>
-            <span class="n">cur</span><span class="o">=</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">first</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span></code></pre></div>
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="lineno"> 1</span> <span class="cm">/**</span>
+<span class="lineno"> 2</span> <span class="cm"> * Definition for singly-linked list.</span>
+<span class="lineno"> 3</span> <span class="cm"> * struct ListNode {</span>
+<span class="lineno"> 4</span> <span class="cm"> *     int val;</span>
+<span class="lineno"> 5</span> <span class="cm"> *     ListNode *next;</span>
+<span class="lineno"> 6</span> <span class="cm"> *     ListNode(int x) : val(x), next(NULL) {}</span>
+<span class="lineno"> 7</span> <span class="cm"> * };</span>
+<span class="lineno"> 8</span> <span class="cm"> */</span>
+<span class="lineno"> 9</span> <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="lineno">10</span> <span class="k">public</span><span class="o">:</span>
+<span class="lineno">11</span>     <span class="n">ListNode</span><span class="o">*</span> <span class="n">swapPairs</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno">12</span>         <span class="n">ListNode</span> <span class="o">*</span><span class="n">first</span><span class="p">,</span><span class="o">*</span><span class="n">cur</span><span class="o">=</span><span class="n">head</span><span class="p">,</span><span class="o">*</span><span class="n">lst</span><span class="p">,</span><span class="o">*</span><span class="n">tmp</span><span class="p">;</span>
+<span class="lineno">13</span>         <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">head</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="lineno">14</span>         <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span> <span class="k">return</span> <span class="n">head</span><span class="p">;</span>
+<span class="lineno">15</span>         <span class="n">tmp</span><span class="o">=</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno">16</span>         <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">head</span><span class="p">;</span>
+<span class="lineno">17</span>         <span class="n">cur</span><span class="o">=</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno">18</span>         <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">tmp</span><span class="p">;</span>
+<span class="lineno">19</span>         <span class="n">first</span><span class="o">=</span><span class="n">cur</span><span class="p">;</span>
+<span class="lineno">20</span>         <span class="n">lst</span><span class="o">=</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno">21</span>         <span class="n">cur</span><span class="o">=</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno">22</span>         <span class="k">while</span><span class="p">(</span><span class="n">cur</span><span class="p">){</span>
+<span class="lineno">23</span>             <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+<span class="lineno">24</span>             <span class="n">tmp</span><span class="o">=</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno">25</span>             <span class="n">lst</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno">26</span>             <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">cur</span><span class="p">;</span>
+<span class="lineno">27</span>             <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">tmp</span><span class="p">;</span>
+<span class="lineno">28</span>             <span class="n">lst</span><span class="o">=</span><span class="n">cur</span><span class="p">;</span>
+<span class="lineno">29</span>             <span class="n">cur</span><span class="o">=</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="lineno">30</span>         <span class="p">}</span>
+<span class="lineno">31</span>         <span class="k">return</span> <span class="n">first</span><span class="p">;</span>
+<span class="lineno">32</span>     <span class="p">}</span>
+<span class="lineno">33</span> <span class="p">};</span></code></pre></div>
 
 
   </article>
@@ -346,18 +351,26 @@ Your algorithm should use only constant space. You may not modify the values in 
 </div>
 
       </div>
+    
     </div>
+    <a href="#top" target="_self"><center>Back to Top</center></a>
+    
+<style>
+  
+footer#footer {background-color: SeaGreen;}
 
-    <footer class="site-footer">
+</style>
+
+<footer class="site-footer" id="footer">
 
   <div class="wrapper">
 
-    <h2 class="footer-heading">Last to triumph</h2>
+    <h2 class="footer-heading"><font color="White">Last to triumph</font></h2>
 
     <div class="footer-col-wrapper">
       <div class="footer-col  footer-col-1">
         <ul class="contact-list">
-          <li><a href="mailto:yizhong.pku@gmail.com">yizhong.pku@gmail.com</a></li>
+          <li><a href="mailto:yizhong.pku@gmail.com"><font color="Gold">yizhong.pku@gmail.com</font></a></li>
         </ul>
       </div>
 
@@ -372,7 +385,7 @@ Your algorithm should use only constant space. You may not modify the values in 
                 </svg>
               </span>
 
-              <span class="username">thuzhongyi</span>
+              <span class="username"><font color="AliceBlue">thuzhongyi</font></span>
             </a>
           </li>
           
@@ -387,7 +400,7 @@ Your algorithm should use only constant space. You may not modify the values in 
                 </svg>
               </span>
 
-              <span class="username">YiZhongPKU</span>
+              <span class="username"><font color="AliceBlue">YiZhongPKU</font></span>
             </a>
           </li>
           
@@ -395,16 +408,12 @@ Your algorithm should use only constant space. You may not modify the values in 
       </div>
 
       <div class="footer-col  footer-col-3">
-        <p class="text">This is a personal blog. Zhong Yi uses this blog to share learning experiences  and keep some daily thoughts. This website is continually improved along with  Zhong Yi's learning.
-</p>
+        <p class="text"><font color="white">This is a personal blog. Zhong Yi uses this blog to share learning experiences  and keep some daily thoughts. This website is continually improved along with  Zhong Yi's learning.
+</font></p>
       </div>
     </div>
 
   </div>
-
 </footer>
-
-
   </body>
-
 </html>
