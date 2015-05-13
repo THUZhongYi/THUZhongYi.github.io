@@ -4,10 +4,21 @@ title: Tags
 permalink: /tags/
 ---
 
-You can found specific page by tag.
+You can found specific post by tag.
 
-To be constructed...
+{% for tag in site.data.tags %}
 
+<h4 align="left"><font color="MediumTurquoise">{{ tag["name"] }}</font></h4>
+<div>
+	{% if site.tags[tag["slug"]] %}
+        {% for post in site.tags[tag["slug"]] %}
+            <a href="{{ post.url }}"><font color="Green">{{ post.title }}</font></a><br>
+        {% endfor %}
+    {% else %}
+        <i>There are no posts for this tag.</i>
+    {% endif %}
+</div>
+
+{% endfor %}
 
 <br>
-<img src="http://ww3.sinaimg.cn/large/be5b4606jw1es1yq49f2oj208509oaaa.jpg" align="right">

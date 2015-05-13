@@ -1,8 +1,12 @@
 <header class="site-header">
 
+<style>
+header {background-color:Seagreen}
+</style>
+
   <div class="wrapper">
 
-    <a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>
+    <a class="site-title" href="{{ site.baseurl }}/"><font color="white"><b>{{ site.title }}</b></font></a>
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -16,8 +20,23 @@
 
       <div class="trigger">
         {% for page in site.pages %}
-          {% if page.title %}
-          <a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
+          {% if page.title == 'Tags' %}
+          <a class="page-link" href="{{ page.url | prepend: site.baseurl }}"><font color="white"><b>{{ page.title }}</b></font></a>
+          {% endif %}
+        {% endfor %}
+        {% for page in site.pages %}
+          {% if page.title == 'Projects' %}
+          <a class="page-link" href="{{ page.url | prepend: site.baseurl }}"><font color="white"><b>{{ page.title }}</b></font></a>
+          {% endif %}
+        {% endfor %}
+        {% for page in site.pages %}
+          {% if page.title == 'About' %}
+          <a class="page-link" href="{{ page.url | prepend: site.baseurl }}"><font color="white"><b>{{ page.title }}</b></font></a>
+          {% endif %}
+        {% endfor %}
+        {% for page in site.pages %}
+          {% if page.title == 'Home' %}
+          <a class="page-link" href="{{ page.url | prepend: site.baseurl }}"><font color="white"><b>{{ page.title }}</b></font></a>
           {% endif %}
         {% endfor %}
       </div>
