@@ -6,8 +6,8 @@
 </description>
     <link>http://thuzhongyi.github.io/</link>
     <atom:link href="http://thuzhongyi.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 17 May 2015 01:29:13 +0800</pubDate>
-    <lastBuildDate>Sun, 17 May 2015 01:29:13 +0800</lastBuildDate>
+    <pubDate>Sun, 17 May 2015 01:32:12 +0800</pubDate>
+    <lastBuildDate>Sun, 17 May 2015 01:32:12 +0800</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -144,7 +144,7 @@ For example,
 &lt;/blockquote&gt;
 
 &lt;p&gt;这个比上一道题要稍微复杂一些，大体结构是一样的。
-用一个快速查找的容器unordered_set来储存处理过的元素，每次进入递归时检查一下，如果处理过了就不再调到下一个元素。&lt;/p&gt;
+用一个快速查找的容器unordered_set来储存处理过的元素，每次进入递归时检查一下，如果处理过了就直接调到下一个元素。&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c--&quot; data-lang=&quot;c++&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
