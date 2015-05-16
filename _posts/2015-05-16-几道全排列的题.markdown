@@ -1,0 +1,159 @@
+---
+layout: post
+title:  "几道全排列的题#22#31#46#47"
+tags: [leetcode]
+---
+
+<h3>LeetCode #22 Generate Parentheses</h3>
+
+ >Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+For example, given n = 3, a solution set is:
+"((()))", "(()())", "(())()", "()(())", "()()()" 
+
+其实就是给了一个整数n,要求出n对括号的所有有效排列。
+注意到第一个字符一定是左括号，而且对于任何一个给定的排列，对应于这个左括号的右括号的位置也是唯一确定的。
+换句话讲，虽然给定一个这个右括号的位置，可能会有很多种排列，但是只要这个右括号的位置不同，排列一定是不同的。
+
+所以采用分治法，让第一个左括号和它的右括号之间所夹的括号对数自增。然后对于内部的排列，再用递归处理。
+
+{% highlight c++ %}
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+    	vector<string> v,v1,v2;string s;
+    	if(n==0) {v.push_back("");return v;}
+    	if(n==1) {v.push_back("()");return v;}
+    	for(int i=0;i<n;i++){
+    		v1=generateParenthesis(i);
+    		v2=generateParenthesis(n-1-i);
+    		for(int p=0;p<v1.size();p++){
+    			for(int q=0;q<v2.size();q++){
+    				s='('+v1[p]+')'+v2[q];
+    				v.push_back(s);
+    			}
+    		}
+    		v1.clear();v2.clear();
+    	}
+    	return v;
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #31 Next Permutation</h3>
+
+>Implement next permutation, which rearranges numbers into the lexicographically next greater permutation of numbers.
+If such arrangement is not possible, it must rearrange it as the lowest possible order (ie, sorted in ascending order).
+The replacement must be in-place, do not allocate extra memory.
+Here are some examples. Inputs are in the left-hand column and its corresponding outputs are in the right-hand column.
+
+>1,2,3 → 1,3,2
+
+>3,2,1 → 1,2,3
+
+>1,1,5 → 1,5,1
+
+
+这个题需要想很久想清楚前后两个排列之间的内在联系。
+从后往前遍历，找到第一个跳出逆序的数字，序号为i-1；然后再就地反向遍历，找到i的这个元素应该插入的位置j-1，使得j-1的元素恰好比i-1的元素稍大。交换它们；最后把j及以后的元素全部翻转啦，因为之前是逆序的，现在要变成顺序的，成为局部新排列的第一个。
+
+关于重复元素，一开始考虑到这种情况的存在，但是第一次设计的没有特别处理，碰巧也过了。所以上面的算法应该也是可以的。
+
+{% highlight c++ %}
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+    	int tmp,i,j;
+    	for(i=nums.size()-1;i>0&&nums[i-1]>=nums[i];i--);
+    	if(i){
+    		for(j=i;j<nums.size()&&nums[j]>nums[i-1];j++);
+    		tmp=nums[i-1];nums[i-1]=nums[j-1];
+    		nums[j-1]=tmp;
+    	}
+    	j=nums.size()-1;
+    	while(j>=ceil((nums.size()+i)/2)){
+    		tmp=nums[i-j+nums.size()-1];
+			nums[i-j+nums.size()-1]=nums[j];
+			nums[j]=tmp;
+    		j--;
+    	}
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #46 Permutations</h3>
+
+>Given a collection of numbers, return all possible permutations.
+For example,[1,2,3] have the following permutations:
+
+>[1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], and [3,2,1]. 
+
+很直白求一堆数的全排列而已，这道题假定的是不存在重复的输入数字，下一道题会考虑重复的情况。
+
+按顺序去除某个元素，把剩下的元素用递归得到全部排列。用一个大容器容纳这些排列。
+
+
+{% highlight c++ %}
+class Solution {
+public:
+    vector<vector<int> > permute(vector<int>& nums) {
+    	vector<vector<int> > v,temp;vector<int> *tmp,nnums;
+        if(nums.size()==0) return v;
+        if(nums.size()==1) {v.push_back(nums);return v;}
+        vector<int>::iterator it;
+        for(int i=0;i<nums.size();i++){
+        	nnums=nums;
+        	for(it=nnums.begin();it!=nnums.end()&&*it!=nums[i];it++);
+        	nnums.erase(it);
+        	temp=permute(nnums);
+        	for(int j=0;j<temp.size();j++){
+            	tmp=new vector<int>;
+            	tmp->push_back(nums[i]);
+        		for(int k=0;k<temp[j].size();k++) tmp->push_back(temp[j][k]);
+        		v.push_back(*tmp);
+        	}
+        }
+        return v;
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #47 Permutations II</h3>
+
+>Given a collection of numbers that might contain duplicates, return all possible unique permutations.
+For example,
+[1,1,2] have the following unique permutations:
+
+>[1,1,2], [1,2,1], and [2,1,1]. 
+
+这个比上一道题要稍微复杂一些，大体结构是一样的。
+用一个快速查找的容器unordered_set来储存处理过的元素，每次进入递归时检查一下，如果处理过了就不再调到下一个元素。
+
+{% highlight c++ %}
+class Solution {
+public:
+    vector<vector<int> > permuteUnique(vector<int>& nums) {
+    	vector<vector<int> > v,temp;vector<int> *tmp,nnums;
+        if(nums.size()==0) return v;
+        if(nums.size()==1) {v.push_back(nums);return v;}
+        vector<int>::iterator it;unordered_set<int> s;
+        for(int i=0;i<nums.size();i++){
+        	if(s.find(nums[i])!=s.end()) continue;
+        	nnums=nums;
+        	for(it=nnums.begin();it!=nnums.end()&&*it!=nums[i];it++);
+        	nnums.erase(it);
+        	temp=permuteUnique(nnums);
+        	for(int j=0;j<temp.size();j++){
+            	tmp=new vector<int>;
+            	tmp->push_back(nums[i]);
+        		for(int k=0;k<temp[j].size();k++) tmp->push_back(temp[j][k]);
+        		v.push_back(*tmp);
+        	}
+        	s.insert(nums[i]);
+        }
+        return v;
+    }
+};
+{% endhighlight %}
+
+
+
