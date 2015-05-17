@@ -1,0 +1,84 @@
+---
+layout: post
+title:  "反转数字的题#7#9"
+tags: [leetcode]
+---
+
+<h3>LeetCode #7 Reverse Integer</h3>
+
+>Reverse digits of an integer.
+
+>Example1: x = 123, return 321
+
+>Example2: x = -123, return -321
+
+>Have you thought about this?
+
+>Here are some good questions to ask before coding. Bonus points for you if you have already thought through this!
+
+>If the integer's last digit is 0, what should the output be? ie, cases such as 10, 100.
+
+>Did you notice that the reversed integer might overflow? Assume the input is a 32-bit integer, then the reverse of 1000000003 overflows. How should you handle such cases?
+
+>For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows.
+
+>Update (2014-11-10):
+Test cases had been added to test the overflow behavior. 
+
+
+基本思想是很朴素的，就是不断把余数除出来加入到新的数字中。一个考虑就是顺序的数字可能在int范围内，但反序就不一定了，所以用一个long先存反序数，然而做一个判断就好。显然，这个处理算法根本无需考虑末尾是不是零的情况。
+
+{% highlight c++ %}
+class Solution {
+public:
+    int reverse(int x) {
+    	int t=x;
+    	long y=t%10;
+    	t/=10;
+        while(t){
+        	y*=10;
+        	y+=t%10;
+        	t/=10;
+        }
+        if(y>2147483647||y<-2147483648) return 0;
+        return y;
+    }
+};
+{% endhighlight %}
+
+
+<h3>LeetCode #9 Palindrome Number</h3>
+
+>Determine whether an integer is a palindrome. Do this without extra space.
+
+<em>Some hints:</em>
+
+>Could negative integers be palindromes? (ie, -1)
+
+>If you are thinking of converting the integer to string, note the restriction of using extra space.
+
+>You could also try reversing an integer. However, if you have solved the problem "Reverse Integer", you know that the reversed integer might overflow. How would you handle such case?
+
+>There is a more generic way of solving this problem.
+
+直接在上面的基础上返回判断逆序数是否等于顺序数的bool值即可，基于上面已经有的较好的算法。
+
+{% highlight c++ %}
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if(x<0) return false;
+    	int t=x;
+    	long y=t%10;
+    	t/=10;
+        while(t){
+        	y*=10;
+        	y+=t%10;
+        	t/=10;
+        }
+    	return (long(x)==y);
+    }
+};
+{% endhighlight %}
+
+

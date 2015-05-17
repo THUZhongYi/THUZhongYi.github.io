@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "几道字符串处理的题#3#5#6#14"
-tags: [leetcode,cpp]
+tags: [leetcode]
 ---
 
 <h3>LeetCode #3 Longest Substring Without Repeating Characters</h3>

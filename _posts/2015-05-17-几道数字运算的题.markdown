@@ -1,0 +1,85 @@
+---
+layout: post
+title:  "几道数字运算的题#29#50#69"
+tags: [leetcode]
+---
+
+这几道题都是要求在不利用一些内置函数的情况下，实现一些本来比较复杂的数学函数。
+
+一开始我自然会想到用循环来做，但是被告知这样太慢了。于是想到递归来做，结果还是太慢了。事实上发现解决方案相当雷人。
+
+<h3>LeetCode #29 Divide Two Integers</h3>
+
+>Divide two integers without using multiplication, division and mod operator.
+If it is overflow, return MAX_INT. 
+
+虽然dividend和divisor都属于有效的范围，但结果也是可能是超出的（得益于上界和下界的绝对值不同= =）。
+
+核心呢。。。。就是取对数，然后相剪，再变回来。。。。
+
+注意用double存对数。
+
+{% highlight c++ %}
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+    	double dend=dividend,sor=divisor;
+        if(divisor==0) return 2147483647;
+        if(dividend==0) return 0;
+        double lgd,lgr;
+        lgd=log(dend/abs(dend)*dend);
+        lgr=log(sor/abs(sor)*sor);
+        double rst=(dend/abs(dend))*(sor/abs(sor))*exp(lgd-lgr);
+        if(rst>=2147483648||rst<=-2147483649) return 2147483647;
+        else return rst;
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #50 Pow(x, n)</h3>
+
+>Implement pow(x, n). 
+
+主要是注意一下符号问题。正数的幂总是正，负数的偶数次幂也是正，但奇数次幂是负。
+
+{% highlight c++ %}
+class Solution {
+public:
+    double myPow(double x, int n) {
+        if(n==0) return 1;
+        if(x==0) return 0;
+        if(n==1) return x;
+        if(n==-1) return 1/x;
+        double lg;
+        if(x>0) {lg=log(x);lg*=n;return exp(lg);}
+        else{
+        	lg=log(-x);lg*=n;
+        	return ((n%2)?(-1):1)*exp(lg);
+        }
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #69 Sqrt(x)</h3>
+
+>Implement int sqrt(int x).
+Compute and return the square root of x.
+
+虽然最终实现非常狗血，但是中途探索的过程还是有值得提的东西：
+
+一开始试图用对数的方式，但是却发现，无论用哪种类型存储对数，乘以0.5之后求幂都会精度损失。
+
+我想这里应该可以深入探究之后再写另一篇文章。
+
+{% highlight c++ %}
+class Solution {
+public:
+    int mySqrt(int x) {
+        if(x==0||x==1) return x;
+        return pow(x,0.5);
+    }
+};
+{% endhighlight %}
+
+
+

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "找一个最快的find#1"
-tags: [leetcode,cpp]
+tags: [leetcode]
 ---
 
 <h3>LeetCode #1 Two Sum</h3>
