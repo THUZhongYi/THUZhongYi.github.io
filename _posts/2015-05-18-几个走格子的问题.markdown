@@ -1,0 +1,130 @@
+---
+layout: post
+title:  "几个走格子的问题#55#62#63#70"
+tags: [leetcode]
+---
+
+我总结的所谓走格子的问题，指的是从一个点出发，在直线或者平面上，按照一定的行走规则，到达另一个点的问题，要么是求最短路径，要么是求行走方案数量，或者别的什么。毫无疑问，这样的问题是动态的，到达每一个点都是一个全新的开始，用递归或者动态规划，都是可能的思考方向。
+
+<h3>LeetCode #55 Jump Game</h3>
+
+>Given an array of non-negative integers, you are initially positioned at the first index of the array.<br>
+Each element in the array represents your maximum jump length at that position.<br>
+Determine if you are able to reach the last index.<br>
+For example:<br>
+A = [2,3,1,1,4], return true.<br>
+A = [3,2,1,0,4], return false. 
+
+这个问题的解决相当坎坷，或者说，我在解决这个问题时相当愚蠢。<br>
+很自然地，我一开始想到的方法是考虑，对于起点能够到达的点来说，它们能不能到达终点，只要它们之中有一个能够到达，那么说明起点就可以到达，这样，就自然的形成了一个递归的算法。<br>
+毫无疑问，虽然在local调试是通过的，但这个算法在leetcode没有通过的。因为它是在太慢了。原因显而易见，对于后面的点来讲，它们被访问过太多次了。<br>
+很直接的想法就是在这个算法的基础上去修修补补。比如用一个数组存储已经访问过的点的通达性（我们是从左往右算的，所以存了以前的点对于后面的点来说一点意义也没有，或者说可能有微小改善），还有别的一些想法，也都没有本质上的改善。<br>
+在上面的那个修补中，明显感到，从左往右考察通达性，必然会多次访问右边的元素，特别是在递归中，很难去确认某个点的通达性存储之后还会不会被用到。<br>
+思路的转变就是从右往左，用一个ms(int)来存一个数据：迄今为止能够到达终点的最靠左的点。从右往左遍历时，不能到达ms的点就跳过，能够到达ms的点就取代原来的ms。最终判断ms是不是起点。这样，右边的信息始终是被有效存储的。
+
+{% highlight c++ %}
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+    	int ms=nums.size()-1;
+    	for(int i=nums.size()-2;i>=0;i--){
+    		ms=(nums[i]+i>=ms)?i:ms;
+    	}
+    	return (ms==0);
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #62 Unique Paths</h3>
+
+>A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).<br>
+The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).<br>
+How many possible unique paths are there?
+
+<img src="http://leetcode.com/wp-content/uploads/2014/12/robot_maze.png">
+
+这个问题相当简单，很容易看出是一个排列组合问题，按照其数学表达式求其值就可以了。对于这个问题来讲，这个算法当然是最优的，因为除了一些数字类型，其他类没有用到，占用空间相当小，时间复杂度也最好O(max+min)。<br>
+但是这样做，把后面的题引向了一个不好的方向，很不好。
+
+{% highlight c++ %}
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        double s=1,s1=1;
+        if(m==1||n==1) return 1;
+        int max=(m>n)?(m-1):(n-1);
+        int min=(m<n)?(m-1):(n-1);
+        for(int i=max+1;i<=max+min;i++) {s*=i;s1*=i-max;}
+    	return s/s1;
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #63 Unique Paths II</h3>
+
+>Follow up for "Unique Paths":<br>
+Now consider if some obstacles are added to the grids. How many unique paths would there be?<br>
+An obstacle and empty space is marked as 1 and 0 respectively in the grid.<br>
+For example,<br>
+There is one obstacle in the middle of a 3x3 grid as illustrated below.<br>
+[<br>
+  [0,0,0],<br>
+  [0,1,0],<br>
+  [0,0,0]<br>
+]<br>
+The total number of unique paths is 2.<br>
+Note: m and n will be at most 100.
+
+由于上面的题根本没有仔细思考这个问题的计算本质，而只是数学上取得了一个巧，所以在这道题上，问题发生了一些现实性的变化，上面的算法就带来了很不好的影响。<br>
+自然而然，解决途中出现障碍的方法就是：从总的路线数量中，减去经过障碍点的路线数量。而每个经过障碍点的路线数量，等于到达它的数量乘以从它出发到达终点的数量。<br>#55一样，这带来了大量的重复计算量，根本通不过leetcode。（现在大概可以总结出来，递归虽然简单直观，可是效率往往堪忧）。
+根据优秀算法的一贯特点，最终终于想到，每个点只能计算一次（常数次）。这样，一个动态规划的步步为营的思路就产生了：每个点只能从上面或者左边到达，所以只要该点没有障碍，那么到达它的路线就是上面+左边，这样一直算到最后一点就完成了。每个点最多被访问三次。最后只要对边界做特殊处理就可以了。<br>
+递归太可怕了。
+
+{% highlight c++ %}
+class Solution {
+public:
+    int uniquePathsWithObstacles(vector<vector<int> >& obstacleGrid) {
+    	if(obstacleGrid[0][0]==1) return 0;
+    	for(int r=0;r<obstacleGrid.size();r++){
+    		for(int c=0;c<obstacleGrid[r].size();c++){
+    			if(r==0&&c==0) obstacleGrid[r][c]=1;
+    			else if(r==0&&c!=0){
+    				if(obstacleGrid[r][c]==1) obstacleGrid[r][c]=0;
+    				else obstacleGrid[r][c]=obstacleGrid[r][c-1];
+    			}
+    			else if(c==0&&r!=0){
+    				if (obstacleGrid[r][c]==1) obstacleGrid[r][c]=0;
+    				else obstacleGrid[r][c]=obstacleGrid[r-1][c];
+    			}
+    			else{
+    				if(obstacleGrid[r][c]==1) obstacleGrid[r][c]=0;
+    				else obstacleGrid[r][c]=obstacleGrid[r-1][c]+obstacleGrid[r][c-1];
+    			}
+    		}
+    	}
+    	return obstacleGrid[obstacleGrid.size()-1][obstacleGrid[0].size()-1];
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #70 Climbing Stairs</h3>
+
+>You are climbing a stair case. It takes n steps to reach to the top.<br>
+Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top? 
+
+从-1位置走到n-1位置。<br>
+显然这就是直线版的上一道题：一个点只能从倒数三点的位置（跳两步走一步），或者倒数两点的位置（跳两步或者连走两步）过来，而这两种是独立的，所以可以直接加起来作为临时的和。
+
+{% highlight c++ %}
+class Solution {
+public:
+    int climbStairs(int n) {
+    	int sum[n];
+    	sum[0]=1;sum[1]=2;sum[2]=3;
+    	for(int i=3;i<n;i++){
+    		sum[i]=sum[i-3]+sum[i-2]*2;
+    	}
+    	return sum[n-1];
+    }
+};
+{% endhighlight %}

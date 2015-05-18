@@ -11,11 +11,11 @@ header {position: fixed;}
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>找一个最快的find#1</title>
-  <meta name="description" content="LeetCode #1 Two Sum">
+  <title>矩阵运算#48</title>
+  <meta name="description" content="矩阵运算比较重要，单列出来。">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://thuzhongyi.github.io/2015/05/13/%E6%89%BE%E4%B8%80%E4%B8%AA%E6%9C%80%E5%BF%AB%E7%9A%84find.html">
+  <link rel="canonical" href="http://thuzhongyi.github.io/2015/05/18/%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97.html">
   <link rel="alternate" type="application/rss+xml" title="Last to triumph" href="http://thuzhongyi.github.io/feed.xml" />
 </head>
 
@@ -212,52 +212,43 @@ header {position: fixed;}
 
 <div class="post" id="post">
 
-    <h1 class="post-title">找一个最快的find#1</h1>
-    <p class="post-meta">May 13, 2015</p>
+    <h1 class="post-title">矩阵运算#48</h1>
+    <p class="post-meta">May 18, 2015</p>
     
 <p id="post-meta">tag<i class="fa fa-tag"></i>: <a href="/blog/tag/leetcode/">LeetCode</a></p>
   <article class="post-content">
-    <h3>LeetCode #1 Two Sum</h3>
+    <p>矩阵运算比较重要，单列出来。</p>
+
+<h3>LeetCode #48 Rotate Image</h3>
 
 <blockquote>
-  <p>Given an array of integers, find two numbers such that they add up to a specific target number.<br />
-The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. <br />Please note that your returned answers (both index1 and index2) are not zero-based.
-You may assume that each input would have exactly one solution.</p>
+  <p>You are given an n x n 2D matrix representing an image.<br />
+Rotate the image by 90 degrees (clockwise).<br />
+Follow up:<br />
+Could you do this in-place?</p>
 </blockquote>
 
-<blockquote>
-  <p>Input: numbers={2, 7, 11, 15}, target=9
-Output: index1=1, index2=2 </p>
-</blockquote>
+<p>用一个int的辅助空间，把对应的四个点挨个转90度即可。从内到外从左至右循环。<br />
+这里试想了一下，如果不是正方形，而是普通矩形，那么很简单：
+从最底部开始逐行向新矩阵赋值即可。</p>
 
-<p>原则上只能遍历一次vector，但是由于要返回的值是两个数在原来的vector中的index，所以每访问一个元素，理论上一定要存两个数据：nums[i]和i+1.确切地说，需要一种能够既存顺序又存数据的结构就够了。而且必须直接得到顺序，同时find数据又很快。<br />
-所以当然想到用map来存，不过有一种更好的容器unordered_map，它的key的储存是基于哈希表的（这也说明了有的类型可能由于比较函数的定义很差而不能做unordered_map的key），很快。在不考虑key的顺序的很多情况下，完全可以考虑用unordered_map代替map.</p>
-
-<p>这样在遍历的过程中，不断往回find(target-nums[i])时，就会相当快。</p>
-
-<p>Here is a <a href="http://www.cplusplus.com/reference/unordered_map/unordered_map/">link</a> to know more about unordered_map.</p>
-
-<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="lineno"> 1</span> <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="lineno"> 2</span> <span class="k">public</span><span class="o">:</span>
-<span class="lineno"> 3</span>     <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">twoSum</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">){</span>
-<span class="lineno"> 4</span>     <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">m</span><span class="p">;</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
-<span class="lineno"> 5</span>     <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">s</span><span class="p">;</span>
-<span class="lineno"> 6</span>     
-<span class="lineno"> 7</span>     <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-<span class="lineno"> 8</span>         <span class="n">it</span><span class="o">=</span><span class="n">m</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">target</span><span class="o">-</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-<span class="lineno"> 9</span>         <span class="k">if</span><span class="p">(</span><span class="n">it</span><span class="o">==</span><span class="n">m</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>
-<span class="lineno">10</span>             <span class="n">m</span><span class="p">[</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
-<span class="lineno">11</span>         <span class="p">}</span>
-<span class="lineno">12</span>         <span class="k">else</span> <span class="p">{</span>
-<span class="lineno">13</span>             <span class="n">s</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">);</span>
-<span class="lineno">14</span>             <span class="n">s</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
-<span class="lineno">15</span>             <span class="k">break</span><span class="p">;</span>
-<span class="lineno">16</span>         <span class="p">}</span>
-<span class="lineno">17</span>     <span class="p">}</span>
-<span class="lineno">18</span>     <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
-<span class="lineno">19</span>     <span class="p">}</span>
-<span class="lineno">20</span> <span class="p">};</span></code></pre></div>
-
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">void</span> <span class="n">rotate</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;&amp;</span> <span class="n">matrix</span><span class="p">)</span> <span class="p">{</span>
+    	<span class="kt">int</span> <span class="n">tmp</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="n">matrix</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+    	<span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+    	<span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+    	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+    		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
+    			<span class="n">tmp</span><span class="o">=</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+    			<span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">matrix</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
+    			<span class="n">matrix</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">matrix</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">n</span><span class="o">-</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+    			<span class="n">matrix</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">n</span><span class="o">-</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">matrix</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+    			<span class="n">matrix</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">tmp</span><span class="p">;</span>
+    		<span class="p">}</span>
+    	<span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></div>
 
   </article>
 

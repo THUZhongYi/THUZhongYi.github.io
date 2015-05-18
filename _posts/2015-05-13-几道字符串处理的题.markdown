@@ -1,12 +1,12 @@
 ---
 layout: post
-title:  "几道字符串处理的题#3#5#6#14#20#28"
+title:  "几道字符串处理的题#3#5#6#14#20#28#49#58"
 tags: [leetcode]
 ---
 
 <h3>LeetCode #3 Longest Substring Without Repeating Characters</h3>
 
->Given a string, find the length of the longest substring without repeating characters. For example, the longest substring without repeating letters for "abcabcbb" is "abc", which the length is 3. For "bbbbb" the longest substring is "b", with the length of 1.
+>Given a string, find the length of the longest substring without repeating characters. <br>For example, the longest substring without repeating letters for "abcabcbb" is "abc", which the length is 3. For "bbbbb" the longest substring is "b", with the length of 1.
 
 要找最长的，肯定是在遍历的过程中，不断把遇到的符合条件的不重复字符串与已经存起来的暂时最长的字符串进行比较咯。
 
@@ -42,7 +42,7 @@ public:
 
 <h3>LeetCode #5 Longest Palindromic Substring</h3>
 
->Given a string S, find the longest palindromic substring in S. You may assume that the maximum length of S is 1000, and there exists one unique longest palindromic substring.
+>Given a string S, find the longest palindromic substring in S. <br>You may assume that the maximum length of S is 1000, and there exists one unique longest palindromic substring.
 
 string是个好容器，很多操作都是自带的。<br>
 这个问题的难点在于对称的字符串可能是偶数个字符，也可能是奇数个字符。在遍历的时候，对每个元素，就要做两种游走，一种奇数对称游走，一种偶数对称游走.不管奇数偶数，只要更长就行。总之我们设定的最长字符串的开头结尾p和q并不会影响i，所以一直遍历完，用substr取出最大对称字符串即可。
@@ -184,6 +184,67 @@ public:
         }
         if(i>haystack.size()-needle.size()) return -1;
         return i;
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #49 Anagrams</h3>
+
+>Given an array of strings, return all groups of strings that are anagrams.<br>
+Note: All inputs will be in lower-case.
+
+需要一个快速查找和快速插入但是并不在乎顺序的容器，显然unordered_map或者unordered_set最好。
+又考虑到第二次碰到某元素后,初次遇到的那个元素也要被push到结果中，但又不能每次都push。所以选择map, first赋sort之后的标准型，second的first赋原型，second赋是否被push过。<br>
+还有一个很重要的点：可以对string直接sort。string是一个很好的顺序容器。
+
+{% highlight c++ %}
+class Solution {
+public:
+    vector<string> anagrams(vector<string>& strs) {
+        vector<string> v;string t;
+        unordered_map<string,pair<string,bool> > mp;
+        for(auto e:strs){
+            t=e;
+            if(t.size()>1) sort(t.begin(),t.end());
+            if(mp.count(t)){
+                if(!mp[t].second) {
+                    v.push_back(mp[t].first);
+                    mp[t].second=true;
+                }
+                v.push_back(e);
+            }
+            else {mp[t].first=e;mp[t].second=false;}
+        }
+        return v;
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #58 Length of Last Word</h3>
+
+>Given a string s consists of upper/lower-case alphabets and empty space characters ' ', return the length of last word in the string.<br>
+If the last word does not exist, return 0.<br>
+Note: A word is defined as a character sequence consists of non-space characters only.<br>
+For example,<br>
+Given s = "Hello World",<br>
+return 5. 
+
+输入可能会很糟糕，这一道题体现了字符串处理中很可能会出现的这种实际情况。算法必须考虑各种输入，算法必须考虑各种输入，算法必须考虑各种输入，重要的事情说三遍。<br>
+先把最右边的所有空格去除，然后用rfind找到最后一个空格即可。<br>
+一个经验是string提供的各种find函数，当找不到的时候，就会返回一个npos值，判断是否找到时，最好用这个值。
+
+{% highlight c++ %}
+class Solution {
+public:
+    int lengthOfLastWord(string s) {
+        string t;int i;
+        for(i=s.size()-1;i>=0&&s[i]==' ';i--);
+        t=s.substr(0,i+1);
+        if(!t.size()) return 0;
+        if(t.rfind(' ')!=t.npos){
+            return t.substr(t.rfind(' ')).size()-1;
+        }
+        else return t.size();
     }
 };
 {% endhighlight %}

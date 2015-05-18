@@ -11,7 +11,7 @@ header {position: fixed;}
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>几道字符串处理的题#3#5#6#14#20#28</title>
+  <title>几道字符串处理的题#3#5#6#14#20#28#49#58</title>
   <meta name="description" content="LeetCode #3 Longest Substring Without Repeating Characters">
 
   <link rel="stylesheet" href="/css/main.css">
@@ -212,7 +212,7 @@ header {position: fixed;}
 
 <div class="post" id="post">
 
-    <h1 class="post-title">几道字符串处理的题#3#5#6#14#20#28</h1>
+    <h1 class="post-title">几道字符串处理的题#3#5#6#14#20#28#49#58</h1>
     <p class="post-meta">May 13, 2015</p>
     
 <p id="post-meta">tag<i class="fa fa-tag"></i>: <a href="/blog/tag/leetcode/">LeetCode</a></p>
@@ -220,7 +220,7 @@ header {position: fixed;}
     <h3>LeetCode #3 Longest Substring Without Repeating Characters</h3>
 
 <blockquote>
-  <p>Given a string, find the length of the longest substring without repeating characters. For example, the longest substring without repeating letters for “abcabcbb” is “abc”, which the length is 3. For “bbbbb” the longest substring is “b”, with the length of 1.</p>
+  <p>Given a string, find the length of the longest substring without repeating characters. <br />For example, the longest substring without repeating letters for “abcabcbb” is “abc”, which the length is 3. For “bbbbb” the longest substring is “b”, with the length of 1.</p>
 </blockquote>
 
 <p>要找最长的，肯定是在遍历的过程中，不断把遇到的符合条件的不重复字符串与已经存起来的暂时最长的字符串进行比较咯。</p>
@@ -256,7 +256,7 @@ header {position: fixed;}
 <h3>LeetCode #5 Longest Palindromic Substring</h3>
 
 <blockquote>
-  <p>Given a string S, find the longest palindromic substring in S. You may assume that the maximum length of S is 1000, and there exists one unique longest palindromic substring.</p>
+  <p>Given a string S, find the longest palindromic substring in S. <br />You may assume that the maximum length of S is 1000, and there exists one unique longest palindromic substring.</p>
 </blockquote>
 
 <p>string是个好容器，很多操作都是自带的。<br />
@@ -405,6 +405,68 @@ Returns the index of the first occurrence of needle in haystack, or -1 if needle
         <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span></code></pre></div>
+
+<h3>LeetCode #49 Anagrams</h3>
+
+<blockquote>
+  <p>Given an array of strings, return all groups of strings that are anagrams.<br />
+Note: All inputs will be in lower-case.</p>
+</blockquote>
+
+<p>需要一个快速查找和快速插入但是并不在乎顺序的容器，显然unordered_map或者unordered_set最好。
+又考虑到第二次碰到某元素后,初次遇到的那个元素也要被push到结果中，但又不能每次都push。所以选择map, first赋sort之后的标准型，second的first赋原型，second赋是否被push过。<br />
+还有一个很重要的点：可以对string直接sort。string是一个很好的顺序容器。</p>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">anagrams</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">strs</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span><span class="n">string</span> <span class="n">t</span><span class="p">;</span>
+        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">mp</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="nl">e</span><span class="p">:</span><span class="n">strs</span><span class="p">){</span>
+            <span class="n">t</span><span class="o">=</span><span class="n">e</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="n">sort</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">t</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">mp</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">t</span><span class="p">)){</span>
+                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">mp</span><span class="p">[</span><span class="n">t</span><span class="p">].</span><span class="n">second</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">mp</span><span class="p">[</span><span class="n">t</span><span class="p">].</span><span class="n">first</span><span class="p">);</span>
+                    <span class="n">mp</span><span class="p">[</span><span class="n">t</span><span class="p">].</span><span class="n">second</span><span class="o">=</span><span class="nb">true</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="p">{</span><span class="n">mp</span><span class="p">[</span><span class="n">t</span><span class="p">].</span><span class="n">first</span><span class="o">=</span><span class="n">e</span><span class="p">;</span><span class="n">mp</span><span class="p">[</span><span class="n">t</span><span class="p">].</span><span class="n">second</span><span class="o">=</span><span class="nb">false</span><span class="p">;}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">v</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></div>
+
+<h3>LeetCode #58 Length of Last Word</h3>
+
+<blockquote>
+  <p>Given a string s consists of upper/lower-case alphabets and empty space characters ‘ ‘, return the length of last word in the string.<br />
+If the last word does not exist, return 0.<br />
+Note: A word is defined as a character sequence consists of non-space characters only.<br />
+For example,<br />
+Given s = “Hello World”,<br />
+return 5. </p>
+</blockquote>
+
+<p>输入可能会很糟糕，这一道题体现了字符串处理中很可能会出现的这种实际情况。算法必须考虑各种输入，算法必须考虑各种输入，算法必须考虑各种输入，重要的事情说三遍。<br />
+先把最右边的所有空格去除，然后用rfind找到最后一个空格即可。<br />
+一个经验是string提供的各种find函数，当找不到的时候，就会返回一个npos值，判断是否找到时，最好用这个值。</p>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">lengthOfLastWord</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">string</span> <span class="n">t</span><span class="p">;</span><span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&gt;=</span><span class="mi">0</span><span class="o">&amp;&amp;</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="sc">&#39; &#39;</span><span class="p">;</span><span class="n">i</span><span class="o">--</span><span class="p">);</span>
+        <span class="n">t</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">t</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">rfind</span><span class="p">(</span><span class="sc">&#39; &#39;</span><span class="p">)</span><span class="o">!=</span><span class="n">t</span><span class="p">.</span><span class="n">npos</span><span class="p">){</span>
+            <span class="k">return</span> <span class="n">t</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">rfind</span><span class="p">(</span><span class="sc">&#39; &#39;</span><span class="p">)).</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">return</span> <span class="n">t</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></div>
+
 
   </article>
 

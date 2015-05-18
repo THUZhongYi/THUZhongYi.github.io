@@ -1,0 +1,38 @@
+---
+layout: post
+title:  "矩阵运算#48"
+tags: [leetcode]
+---
+
+矩阵运算比较重要，单列出来。
+
+<h3>LeetCode #48 Rotate Image</h3>
+
+>You are given an n x n 2D matrix representing an image.<br>
+Rotate the image by 90 degrees (clockwise).<br>
+Follow up:<br>
+Could you do this in-place?
+
+用一个int的辅助空间，把对应的四个点挨个转90度即可。从内到外从左至右循环。<br>
+这里试想了一下，如果不是正方形，而是普通矩形，那么很简单：
+从最底部开始逐行向新矩阵赋值即可。
+
+{% highlight c++ %}
+class Solution {
+public:
+    void rotate(vector<vector<int> >& matrix) {
+    	int tmp,n=matrix.size();
+    	if(n==0) return;
+    	if(n==1) return;
+    	for(int i=0;i<n/2;i++){
+    		for(int j=i;j<n-i-1;j++){
+    			tmp=matrix[i][j];
+    			matrix[i][j]=matrix[n-j-1][i];
+    			matrix[n-j-1][i]=matrix[n-i-1][n-j-1];
+    			matrix[n-i-1][n-j-1]=matrix[j][n-i-1];
+    			matrix[j][n-i-1]=tmp;
+    		}
+    	}
+    }
+};
+{% endhighlight %}

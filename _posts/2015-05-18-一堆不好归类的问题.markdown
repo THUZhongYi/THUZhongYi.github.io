@@ -1,0 +1,207 @@
+---
+layout: post
+title:  "一堆不好归类的问题#11#26#27#34#35#53#66"
+tags: [leetcode]
+---
+
+这里的问题随时可能会因为其重要性上升，或者与其他问题类似而从这个文章中被剔除。
+
+<h3>LeetCode #11 Container With Most Water</h3>
+
+>Given n non-negative integers a1, a2, ..., an, where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the container contains the most water.
+
+>Note: You may not slant the container. 
+
+这个问题需要先仔细想清楚这个问题的结构：在最优的情况下，左板以左，不可能会有比左板更高的板，右板以右，不可能会有比友板更高的板，显然，如果存在那么现在的左右板就不是最优了。<br>
+如此，所有的待选左（右）板，都是其左（右）闭区间上最高的。所以我们就从左往右遍历，筛选出以height[0]为首项的一个严格递增列，从右往左遍历，筛选出height[n-1]为首项的一个严格递增列。<br>
+嵌套遍历这两个待选的左（右）板列，找到乘积最大的就可以了。
+
+{% highlight c++ %}
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+    	int i,j,l=0,r=height.size()-1;
+    	vector<int> v1,v2;
+    	v1.push_back(l);v2.push_back(r);
+    	int left=l,right=r,rm=(height[0]<height[height.size()-1])?height[0]:height[height.size()-1];
+    	while(l<height.size()){
+    		for(i=l;height[i]<=height[l];i++);
+    		l=i;v1.push_back(l);
+    	}
+    	while(r>=0){
+    		for(j=r;height[j]<=height[r];j--);
+    		r=j;v2.push_back(r);
+    	}
+    	for(i=0;i<v2.size();i++){
+    		for(j=0;v1[j]<v2[i];j++){
+    			r=(height[v2[i]]<height[v1[j]])?height[v2[i]]:height[v1[j]];
+    			if((v2[i]-v1[j])*r>(right-left)*rm) {left=v1[j];right=v2[i];rm=r;}
+    		}
+    	}
+    	return rm*(right-left);
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #26 Remove Duplicates from Sorted Array</h3>
+
+>Given a sorted array, remove the duplicates in place such that each element appear only once and return the new length.<br>
+Do not allocate extra space for another array, you must do this in place with constant memory.<br>
+For example,<br>
+Given input array nums = [1,1,2],<br>
+Your function should return length = 2, with the first two elements of nums being 1 and 2 respectively. It doesn't matter what you leave beyond the new length. 
+
+既然已经sorted了，重复的元素肯定在一起，就很简单了。
+
+{% highlight c++ %}
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+    	int i;
+    	if(!nums.size()) return 0;
+        for(i=0;i<nums.size()-1;){
+        	if(nums[i]==nums[i+1]) nums.erase(nums.begin()+i);
+        	else i++;
+        }
+    	return i+1;
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #27 Remove Element</h3>
+
+>Given an array and a value, remove all instances of that value in place and return the new length.<br>The order of elements can be changed. It doesn't matter what you leave beyond the new length. 
+
+这个就更简单了，跟上面几乎一样。
+
+{% highlight c++ %}
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int i;
+        for(i=0;i<nums.size();){
+        	if(nums[i]==val) nums.erase(nums.begin()+i);
+        	else i++;
+        }
+        return i;
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #34 Search for a Range</h3>
+
+>Given a sorted array of integers, find the starting and ending position of a given target value.<br>
+Your algorithm's runtime complexity must be in the order of O(log n).<br>
+If the target is not found in the array, return [-1, -1].<br>
+For example,<br>
+Given [5, 7, 7, 8, 8, 10] and target value 8,<br>
+return [3, 4]. 
+
+已经sorted了，很简单了。。。
+
+{% highlight c++ %}
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+    	vector<int> v;int i,j;
+        for(i=0;i<nums.size()&&nums[i]!=target;i++);
+        if(i==nums.size()) {
+        	v.push_back(-1);v.push_back(-1);
+        	return v;
+        }
+        for(j=i+1;j<nums.size()&&nums[j]==target;j++);
+        	v.push_back(i);v.push_back(j-1);
+        	return v;
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #35 Search Insert Position</h3>
+
+>Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.<br>
+You may assume no duplicates in the array.<br>
+Here are few examples.<br>
+[1,3,5,6], 5 → 2<br>
+[1,3,5,6], 2 → 1<br>
+[1,3,5,6], 7 → 4<br>
+[1,3,5,6], 0 → 0 
+
+不提。
+
+{% highlight c++ %}
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+    	int i;
+    	if(target<nums[0]) return 0;
+        for(i=0;i<nums.size();i++)
+        	if(target>=nums[i]&&target<=nums[i+1]) {
+        	if(target>nums[i]) i++;break;
+        	}
+        if(target>nums[nums.size()-1]) return nums.size();
+        return i;
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #53 Maximum Subarray</h3>
+
+>Find the contiguous subarray within an array (containing at least one number) which has the largest sum.<br>
+For example, given the array [−2,1,−3,4,−1,2,1,−5,4],<br>
+the contiguous subarray [4,−1,2,1] has the largest sum = 6.<br>
+More practice:<br>
+If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
+
+很像前面遇到过的字符串处理的某些问题。<br>
+在遇到下一个负数之前，总和sum都是不减的，一旦开始遇到负数，sum到达一个局部的最大值，sum由此开始减少。如果在这轮负数中sum减到了0及以下，那么就可以放弃了，因为这一串正数和负数的总和是负的，即便append到后面的序列上，也是负作用。讲迄今为止的最优msum和局部最优sum比较之后，从下一个正数开始一样的过程。只遍历一遍，常数的辅助空间。
+
+{% highlight c++ %}
+class Solution {
+public:
+	int maxSubArray(vector<int>& nums) {
+		int j=0,msum,sum,neg=nums[0];
+		while(nums[j]<=0&&j<nums.size()) {
+			neg=(neg>nums[j])?neg:nums[j];j++;
+		}
+		if(j==nums.size()) return neg;
+		sum=msum=nums[j];
+		for(int i=j+1;i<nums.size();){
+			if(nums[i]>=0) {sum+=nums[i];i++;}
+			if(nums[i]<0) {
+				msum=(msum>sum)?msum:sum;
+				while(nums[i]<=0) {
+					sum+=nums[i];
+					i++;
+				}
+				if(sum<0) sum=0;
+			}
+		}
+		return msum=(msum>sum)?msum:sum;;
+	}
+};
+{% endhighlight %}
+
+<h3>LeetCode #66 Maximum Subarray</h3>
+
+>Given a non-negative number represented as an array of digits, plus one to the number.<br>
+The digits are stored such that the most significant digit is at the head of the list.
+
+不提。
+
+{% highlight c++ %}
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+    	if(!digits.size()){
+    		digits.insert(digits.end(),1);
+    	}
+    	vector<int>::iterator it=digits.end();
+    	it--;(*it)++;
+    	while(*it>9){
+    		if(it==digits.begin()){*it=0;digits.insert(it,1);break;}
+    		*it=0;it--;(*it)++;
+    	}
+    	return digits;
+    }
+};
+{% endhighlight %}
