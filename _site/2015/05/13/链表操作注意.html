@@ -11,7 +11,7 @@ header {position: fixed;}
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>链表操作注意#2#19#24</title>
+  <title>链表操作注意#2#19#21#24</title>
   <meta name="description" content="LeetCode #2 Add Two Numbers">
 
   <link rel="stylesheet" href="/css/main.css">
@@ -212,7 +212,7 @@ header {position: fixed;}
 
 <div class="post" id="post">
 
-    <h1 class="post-title">链表操作注意#2#19#24</h1>
+    <h1 class="post-title">链表操作注意#2#19#21#24</h1>
     <p class="post-meta">May 13, 2015</p>
     
 <p id="post-meta">tag<i class="fa fa-tag"></i>: <a href="/blog/tag/leetcode/">LeetCode</a></p>
@@ -300,6 +300,41 @@ Given n will always be valid. Try to do this in one pass. </p>
 <span class="lineno">24</span>         <span class="k">return</span> <span class="n">head</span><span class="p">;</span>
 <span class="lineno">25</span>     <span class="p">}</span>
 <span class="lineno">26</span> <span class="p">};</span></code></pre></div>
+
+<h3>LeetCode #21 Merge Two Sorted Lists</h3>
+
+<blockquote>
+  <p>Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.</p>
+</blockquote>
+
+<p>很简单，不提。</p>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cm">/**</span>
+<span class="cm"> * Definition for singly-linked list.</span>
+<span class="cm"> * struct ListNode {</span>
+<span class="cm"> *     int val;</span>
+<span class="cm"> *     ListNode *next;</span>
+<span class="cm"> *     ListNode(int x) : val(x), next(NULL) {}</span>
+<span class="cm"> * };</span>
+<span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">ListNode</span><span class="o">*</span> <span class="n">mergeTwoLists</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">l1</span><span class="p">,</span> <span class="n">ListNode</span><span class="o">*</span> <span class="n">l2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">l1</span><span class="p">)</span> <span class="k">return</span> <span class="n">l2</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">l2</span><span class="p">)</span> <span class="k">return</span> <span class="n">l1</span><span class="p">;</span>
+        <span class="n">ListNode</span> <span class="o">*</span><span class="n">p</span><span class="o">=</span><span class="n">l1</span><span class="p">,</span><span class="o">*</span><span class="n">q</span><span class="o">=</span><span class="n">l2</span><span class="p">,</span><span class="o">*</span><span class="n">first</span><span class="p">,</span><span class="o">*</span><span class="n">tmp</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">val</span><span class="o">&lt;=</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">)</span> <span class="p">{</span><span class="n">first</span><span class="o">=</span><span class="n">p</span><span class="p">;</span><span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;}</span>
+        <span class="k">else</span> <span class="p">{</span><span class="n">first</span><span class="o">=</span><span class="n">q</span><span class="p">;</span><span class="n">q</span><span class="o">=</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;}</span>
+        <span class="n">tmp</span><span class="o">=</span><span class="n">first</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">p</span><span class="o">&amp;&amp;</span><span class="n">q</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">val</span><span class="o">&lt;=</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">)</span> <span class="p">{</span><span class="n">tmp</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">p</span><span class="p">;</span><span class="n">tmp</span><span class="o">=</span><span class="n">p</span><span class="p">;</span><span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;}</span>
+            <span class="k">else</span> <span class="p">{</span><span class="n">tmp</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">q</span><span class="p">;</span><span class="n">tmp</span><span class="o">=</span><span class="n">q</span><span class="p">;</span><span class="n">q</span><span class="o">=</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;}</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">tmp</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">p</span><span class="p">;</span>
+        <span class="k">else</span> <span class="n">tmp</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">q</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">first</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></div>
 
 <h3>LeetCode #24 Swap Nodes in Pairs</h3>
 <blockquote>

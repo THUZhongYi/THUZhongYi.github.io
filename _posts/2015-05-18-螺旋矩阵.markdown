@@ -1,0 +1,82 @@
+---
+layout: post
+title:  "螺旋矩阵#54#59"
+tags: [leetcode]
+---
+
+<h3>LeetCode #54 Spiral Matrix</h3>
+
+>Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.<br>For example,<br>Given the following matrix:<br>
+[<br>
+ [ 1, 2, 3 ],<br>
+ [ 4, 5, 6 ],<br>
+ [ 7, 8, 9 ]<br>
+]<br>
+You should return [1,2,3,6,9,8,7,4,5]. 
+
+把一个螺旋矩阵输入为一个顺序容器。唯一的方法就是一圈一圈地数呗，最后剩下的要么是横或纵的一条，要么是四块，要么就什么都没有，稍微处理一下就可以了。
+
+{% highlight c++ %}
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+    	vector<int> v;
+    	int n=0,row=matrix.size();
+    	if(!row) return v;
+    	int col=matrix[0].size();
+    	if(!col) return v;
+    	while(row-2*n>=2&&col-2*n>=2){
+    		for(int i=n;i<col-n;i++) v.push_back(matrix[n][i]);
+    		for(int i=n+1;i<row-n;i++) v.push_back(matrix[i][col-n-1]);
+    		for(int i=col-n-2;i>=n;i--) v.push_back(matrix[row-n-1][i]);
+    		for(int i=row-n-2;i>=n+1;i--) v.push_back(matrix[i][n]);
+    		n++;
+    	}
+    	if(row==2*n+1&&col==2*n+1) v.push_back(matrix[n][n]);
+    	else if(row==2*n+1&&col>2*n+1) for(int i=n;i<col-n;i++) v.push_back(matrix[n][i]);
+    	else if(col==2*n+1&&row>2*n+1) for(int i=n;i<row-n;i++) v.push_back(matrix[i][col-n-1]);
+    	return v;
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #59 Spiral Matrix II</h3>
+
+>Given an integer n, generate a square matrix filled with elements from 1 to n2 in spiral order.<br>
+For example,<br>
+Given n = 3,<br>
+You should return the following matrix:<br>
+[<br>
+ [ 1, 2, 3 ],<br>
+ [ 8, 9, 4 ],<br>
+ [ 7, 6, 5 ]<br>
+]
+
+反过来讲就相对来说复杂一些，需要仔细观察行与行之间的关系，以及每一行的内部结构：从第几个开始是顺序系列，到第几个结束。<br>
+也不用考虑奇偶数，把中间的行当做上半部的一行或者下半部的一行都可以。
+
+{% highlight c++ %}
+class Solution {
+public:
+    vector<vector<int> > generateMatrix(int n) {
+    	vector<vector<int> > v;
+    	vector<int> *tmp;
+    	for(int i=0;i<n;i++){
+    		tmp=new vector<int>;
+    		if(i<=n/2){
+    			for(int j=0;j<i-1;j++) tmp->push_back(v[i-1][j]-1);
+    			if(i) tmp->push_back(4*i*(n-i));
+    			for(int j=i;j<n-i;j++) tmp->push_back(4*i*(n-i)+j-i+1);
+    			for(int j=n-i;j<n;j++) tmp->push_back(v[i-1][j]+1);
+    		}
+    		else{
+    			for(int j=0;j<n-i;j++) tmp->push_back(v[i-1][j]-1);
+    			for(int j=n-i;j<i+1;j++) tmp->push_back((*tmp)[j-1]-1);
+    			for(int j=i+1;j<n;j++) tmp->push_back(v[i-1][j]+1);
+    		}
+    		v.push_back(*tmp);
+    	}
+    	return v;
+    }
+};
+{% endhighlight %}

@@ -11,7 +11,7 @@ header {position: fixed;}
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>几道字符串处理的题#3#5#6#14</title>
+  <title>几道字符串处理的题#3#5#6#14#20#28</title>
   <meta name="description" content="LeetCode #3 Longest Substring Without Repeating Characters">
 
   <link rel="stylesheet" href="/css/main.css">
@@ -212,7 +212,7 @@ header {position: fixed;}
 
 <div class="post" id="post">
 
-    <h1 class="post-title">几道字符串处理的题#3#5#6#14</h1>
+    <h1 class="post-title">几道字符串处理的题#3#5#6#14#20#28</h1>
     <p class="post-meta">May 13, 2015</p>
     
 <p id="post-meta">tag<i class="fa fa-tag"></i>: <a href="/blog/tag/leetcode/">LeetCode</a></p>
@@ -354,6 +354,57 @@ Y     I    R
 <span class="lineno">12</span>     <span class="p">}</span>
 <span class="lineno">13</span> <span class="p">};</span></code></pre></div>
 
+<h3>LeetCode #20 Valid Parentheses</h3>
+
+<blockquote>
+  <p>Given a string containing just the characters ‘(‘, ‘)’, ‘{‘, ‘}’, ‘[’ and ‘]’, determine if the input string is valid.<br />
+The brackets must close in the correct order, “()” and “()[]{}” are all valid but “(]” and “([)]” are not.</p>
+</blockquote>
+
+<p>用一个栈来解决这个问题就好了，用查找很快且能存储一对元素的unordered_map来存左右括号对应关系，用查找很快只存单个元素的unordered_ser来存左括号。每次先判断是不是左括号，如果不是，看是否与栈顶相对应，不是的话就直接返回false，是的话就pop()然后继续。</p>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">bool</span> <span class="n">isValid</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">stack</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">st</span><span class="p">;</span>
+        <span class="n">unordered_set</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">ust</span><span class="p">;</span><span class="n">ust</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="sc">&#39;(&#39;</span><span class="p">);</span><span class="n">ust</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="sc">&#39;[&#39;</span><span class="p">);</span><span class="n">ust</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="sc">&#39;{&#39;</span><span class="p">);</span>
+        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">ump</span><span class="p">;</span><span class="n">ump</span><span class="p">[</span><span class="sc">&#39;)&#39;</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;(&#39;</span><span class="p">;</span><span class="n">ump</span><span class="p">[</span><span class="sc">&#39;]&#39;</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;[&#39;</span><span class="p">;</span><span class="n">ump</span><span class="p">[</span><span class="sc">&#39;}&#39;</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;{&#39;</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">ust</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">!=</span><span class="n">ust</span><span class="p">.</span><span class="n">end</span><span class="p">())</span> <span class="n">st</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="p">{</span>
+                    <span class="k">if</span><span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">top</span><span class="p">()</span><span class="o">==</span><span class="n">ump</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span> <span class="n">st</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+                    <span class="k">else</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></div>
+
+<h3>LeetCode #28 Implement strStr()</h3>
+
+<blockquote>
+  <p>Implement strStr().<br />
+Returns the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.</p>
+</blockquote>
+
+<p>很简单，从0开始不断往前遍历即可。最主要的是要使用substr函数，以及注意到第一个参数表示开始截取的位置，第二个参数表示总共要截取的元素个数。</p>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">strStr</span><span class="p">(</span><span class="n">string</span> <span class="n">haystack</span><span class="p">,</span> <span class="n">string</span> <span class="n">needle</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">needle</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&gt;</span><span class="n">haystack</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">haystack</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="n">needle</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">haystack</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">needle</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="o">==</span><span class="n">needle</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">&gt;</span><span class="n">haystack</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="n">needle</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></div>
 
   </article>
 

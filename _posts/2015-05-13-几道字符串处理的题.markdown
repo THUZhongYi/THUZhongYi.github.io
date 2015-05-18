@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "几道字符串处理的题#3#5#6#14"
+title:  "几道字符串处理的题#3#5#6#14#20#28"
 tags: [leetcode]
 ---
 
@@ -136,4 +136,54 @@ public:
 };
 {% endhighlight %}
 
+<h3>LeetCode #20 Valid Parentheses</h3>
 
+>Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.<br>
+The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+
+用一个栈来解决这个问题就好了，用查找很快且能存储一对元素的unordered_map来存左右括号对应关系，用查找很快只存单个元素的unordered_ser来存左括号。每次先判断是不是左括号，如果不是，看是否与栈顶相对应，不是的话就直接返回false，是的话就pop()然后继续。
+
+{% highlight c++ %}
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> st;
+        unordered_set<char> ust;ust.insert('(');ust.insert('[');ust.insert('{');
+        unordered_map<char,char> ump;ump[')']='(';ump[']']='[';ump['}']='{';
+        for(int i=0;i<s.size();i++){
+            if(ust.find(s[i])!=ust.end()) st.push(s[i]);
+            else{
+                if(st.size()) {
+                    if(st.top()==ump[s[i]]) st.pop();
+                    else return false;
+                }
+                else return false;
+            }
+        }
+        if(st.size()) return false;
+        return true;
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #28 Implement strStr()</h3>
+
+>Implement strStr().<br>
+Returns the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+
+很简单，从0开始不断往前遍历即可。最主要的是要使用substr函数，以及注意到第一个参数表示开始截取的位置，第二个参数表示总共要截取的元素个数。
+
+{% highlight c++ %}
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int i;
+        if(needle.size()>haystack.size()) return -1;
+        for(i=0;i<=haystack.size()-needle.size();i++){
+            if(haystack.substr(i,needle.size())==needle) break;
+        }
+        if(i>haystack.size()-needle.size()) return -1;
+        return i;
+    }
+};
+{% endhighlight %}

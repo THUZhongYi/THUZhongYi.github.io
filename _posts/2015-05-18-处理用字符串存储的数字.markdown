@@ -1,0 +1,173 @@
+---
+layout: post
+title:  "处理用字符串存储的数字#38#43#67"
+tags: [leetcode]
+---
+
+<h3>LeetCode #38 Count and Say</h3>
+
+>The count-and-say sequence is the sequence of integers beginning as follows:<br>
+1, 11, 21, 1211, 111221, ...<br>
+1 is read off as "one 1" or 11.<br>
+11 is read off as "two 1s" or 21.<br>
+21 is read off as "one 2, then one 1" or 1211.<br>
+Given an integer n, generate the nth sequence.<br>
+Note: The sequence of integers will be represented as a string. 
+
+真是一个无趣的题。。。从字符串"1"开始，把前一个字符串当做数按位读出来，存为一个字符串，如此继续下去。。。
+求第n个字符串是什么。
+
+每个数字都是被存在字符串里，但是数字类型的范围本身是有限的。所以如果直接用一个数字转来转去，很快就会不够用了，即便是long double。。。很高兴的一点就是不会有零的出现，这样为之后省了很多麻烦，下一道题就不得不面对这个麻烦。
+
+为了解决数字可能相当大的问题，我们就建立一种通用的读储存数字的字符串的方式：一段一段地读。为了适于int型大概极限到10位的事实，我选择了9位为跨度。如果想采用别的类型，可以采用更大的跨度。但本质上一点区别也没有。。。
+
+用一个栈来存要输入的信息：数字及其频率。
+对于每段，挨个压入栈中。然后输入。期间的转换都由stringstream来做辅助。
+
+{% highlight c++ %}
+class Solution {
+public:
+    string countAndSay(int n) {
+    	if(n==1) return "1";
+    	string t="",tmpstr,tmp;unsigned temp,r;
+    	stringstream ss;
+    	stack<pair<int,int> > s;pair<int,int> *tp;
+    	tmp=countAndSay(n-1);
+    	int x=tmp.size()/9;
+    	for(int j=0;j<=x;j++){
+    		if(tmp.size()-9*j>=9) tmpstr=tmp.substr(tmp.size()-9*j-9,9);
+    		else tmpstr=tmp.substr(0,tmp.size()-9*j);
+    		ss<<tmpstr;ss>>temp;ss.clear();
+    		while(temp){
+    			r=temp%10;
+    			if(s.empty()){
+    				tp=new pair<int,int>;
+    				tp->first=r;tp->second=1;
+    				s.push(*tp);
+    			}
+    			else{
+    				if(r==s.top().first) s.top().second++;
+    				else {
+    					tp=new pair<int,int>;
+    					tp->first=r;tp->second=1;
+    					s.push(*tp);
+    				}
+    			}
+    			temp/=10;
+    		}
+    	}
+        while(!s.empty()){
+        	tmpstr="";
+        	ss<<s.top().second;ss>>tmpstr;
+        	t+=tmpstr;
+        	ss.clear();
+        	ss<<s.top().first;ss>>tmpstr;
+        	t+=tmpstr;
+        	s.pop();ss.clear();
+        }
+        return t;
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #43 Multiply Strings</h3>
+
+>Given two numbers represented as strings, return multiplication of the numbers as a string.<br>
+Note: The numbers can be arbitrarily large and are non-negative.
+
+有了上面的经验，对字符串num1和num2都以4位的跨度进行遍历，拿一个定位为至多8位的数字数组来存储每段与每段的乘积。乘积可能涉及到两个元素，所以要做一个单独的判断。
+
+最后依次输出这个结果数组，不足位的用0补齐8位。最后把字符串都全部串起来，找到从头开始第一个不为零的数，开始截取，输出皆可。
+
+{% highlight c++ %}
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        int length1=num1.size()/4,length2=num2.size()/4;
+        stringstream ss;int tmp1,tmp2;string tmpstr,result="",*zero;
+        int rlength=(length1+1)*(length2+1)/2+1;
+        int rst[rlength+1];for(int i=0;i<rlength+1;i++) rst[i]=0;
+        for(int p=0;p<=length1;p++){
+        	for(int q=0;q<=length2;q++){
+        		if(num1.size()-4*p>=4) tmpstr=num1.substr(num1.size()-4*p-4,4);
+        		else tmpstr=num1.substr(0,num1.size()-4*p);
+        		ss<<tmpstr;ss>>tmp1;
+        		ss.clear();tmpstr.clear();
+        		if(num2.size()-4*q>=4) tmpstr=num2.substr(num2.size()-4*q-4,4);
+        		else tmpstr=num2.substr(0,num2.size()-4*q);
+        		ss<<tmpstr;ss>>tmp2;
+        		ss.clear();tmpstr.clear();
+        		if((p+q)%2){
+        			rst[(p+q)/2]+=(tmp1*tmp2)%10000*10000;
+        			rst[(p+q)/2+1]+=(tmp1*tmp2)/10000;
+        		}
+        		else{
+        			rst[(p+q)/2]+=(tmp1*tmp2)%100000000;
+        			rst[(p+q)/2+1]+=(tmp1*tmp2)/100000000;
+        		}
+        		tmp1=0;tmp2=0;
+        		for(int i=0;i<rlength-1;i++) if(rst[i]%100000000) {
+        			rst[i+1]+=rst[i]/100000000;
+        			rst[i]=rst[i]%100000000;
+        		}
+        	}
+        }
+        for(int i=rlength;i>=0;i--){
+        	ss<<rst[i];ss>>tmpstr;
+        	if(tmpstr.size()<8) {
+        		zero=new string(8-tmpstr.size(),'0');
+        		tmpstr=*zero+tmpstr;
+        	}
+        	result=result+tmpstr;
+        	ss.clear();tmpstr.clear();
+        }
+        for(tmp1=0;tmp1<result.size()&&result[tmp1]=='0';tmp1++);
+        if(tmp1!=result.size()) return result.substr(tmp1);
+        else return "0";
+    }
+};
+{% endhighlight %}
+
+<h3>LeetCode #67 Add Binary</h3>
+
+>Given two binary strings, return their sum (also a binary string).<br>
+For example,<br>
+a = "11"<br>
+b = "1"<br>
+Return "100". 
+
+相对上面这个问题，这个就简单多了。最要注意的问题就是每次运算之后，进位tmp什么时候赋1，什么时候赋0。
+
+{% highlight c++ %}
+class Solution {
+public:
+    string addBinary(string a, string b) {
+    	stringstream ss;int i,t,p,tmp=0;
+        string maxs=(a.size()>=b.size())?a:b;
+        string mins=(a.size()<b.size())?a:b;
+        for(i=mins.size()-1;i>=0;i--){
+        	t=p=0;
+        	ss<<maxs[maxs.size()-mins.size()+i];ss>>t;ss.clear();
+        	ss<<mins[i];ss>>p;ss.clear();
+        	if(t+p+tmp>1){
+        		if(t+p+tmp==3) {tmp=1;mins[i]='1';}
+        		else {tmp=1;mins[i]='0';}
+        	}
+        	else if(t+p+tmp==1){tmp=0;mins[i]='1';}
+        	else{tmp=0;mins[i]='0';}
+        }
+        maxs=maxs.substr(0,maxs.size()-mins.size())+mins;
+        if(mins.size()<maxs.size()){
+        	if(!tmp) return maxs;
+        	for(int j=maxs.size()-mins.size()-1;j>=0;j--){
+        		t=0;ss<<maxs[j];ss>>t;ss.clear();
+        		if(t+tmp>1){tmp=1;maxs[j]='0';}
+        		else {tmp=0;maxs[j]='1';break;}
+        	}
+        	if(tmp) maxs='1'+maxs;
+        }
+        else{if(tmp) maxs='1'+maxs;}
+        return maxs;
+    }
+};
+{% endhighlight %}

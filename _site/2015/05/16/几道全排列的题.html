@@ -11,7 +11,7 @@ header {position: fixed;}
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>几道全排列的题#22#31#46#47</title>
+  <title>几道全排列的题#22#31#46#47#60</title>
   <meta name="description" content="LeetCode #22 Generate Parentheses">
 
   <link rel="stylesheet" href="/css/main.css">
@@ -212,7 +212,7 @@ header {position: fixed;}
 
 <div class="post" id="post">
 
-    <h1 class="post-title">几道全排列的题#22#31#46#47</h1>
+    <h1 class="post-title">几道全排列的题#22#31#46#47#60</h1>
     <p class="post-meta">May 16, 2015</p>
     
 <p id="post-meta">tag<i class="fa fa-tag"></i>: <a href="/blog/tag/leetcode/">LeetCode</a></p>
@@ -373,6 +373,45 @@ For example,
         	<span class="n">s</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">v</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></div>
+
+<h3>LeetCode #60 Permutation Sequence</h3>
+
+<blockquote>
+  <p>The set [1,2,3,…,n] contains a total of n! unique permutations.<br />
+By listing and labeling all of the permutations in order,<br />
+We get the following sequence (ie, for n = 3):<br />
+    “123”<br />
+    “132”<br />
+    “213”<br />
+    “231”<br />
+    “312”<br />
+    “321”<br />
+Given n and k, return the kth permutation sequence.<br />
+Note: Given n will be between 1 and 9 inclusive.</p>
+</blockquote>
+
+<p>首先最重要的还是观察这个序列的结构。k是(n-1)!的多少个整数倍，决定了首位是n个数的序列中的第几个。把这个数从n个数的序列中拿出之后，依然做同样的事情，看k%((n-1)!)是(n-2)!的多少个整数倍，决定了第二位是n-1个数的序列（就是拿掉刚才那个数之后得到的序列）中的第几个。如此循环，直到最后。</p>
+
+<p>那么一个很重要的问题就是要用什么数据结构，既能实现删除排号为n的某个元素，又能保持原有的相对顺序？我想到的方法是用数组，每删掉一个元素后，把它之后的元素依次往前挪。这样就可以了。不知道还有没有更快更省空间的结构？</p>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">string</span> <span class="n">getPermutation</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">vc</span><span class="p">[</span><span class="n">n</span><span class="p">],</span><span class="n">tmp</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">seq</span><span class="o">=</span><span class="n">k</span><span class="p">;</span>
+        <span class="n">stringstream</span> <span class="n">ss</span><span class="p">;</span><span class="n">string</span> <span class="n">s</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="n">temp</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span><span class="n">vc</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">i</span><span class="p">;</span><span class="n">tmp</span><span class="o">*=</span><span class="n">i</span><span class="p">;}</span>
+        <span class="n">tmp</span><span class="o">/=</span><span class="n">n</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">--</span><span class="p">){</span>
+            <span class="n">ss</span><span class="o">&lt;&lt;</span><span class="n">vc</span><span class="p">[(</span><span class="n">seq</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">tmp</span><span class="p">];</span><span class="n">ss</span><span class="o">&gt;&gt;</span><span class="n">temp</span><span class="p">;</span>
+            <span class="n">s</span><span class="o">+=</span><span class="n">temp</span><span class="p">;</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="p">(</span><span class="n">seq</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">tmp</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">i</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="n">vc</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">vc</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+            <span class="n">seq</span><span class="o">=</span><span class="p">(</span><span class="n">seq</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">tmp</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="n">tmp</span><span class="o">/=</span><span class="n">i</span><span class="p">;</span>
+            <span class="n">ss</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span><span class="n">temp</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="n">ss</span><span class="o">&lt;&lt;</span><span class="n">vc</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="n">ss</span><span class="o">&gt;&gt;</span><span class="n">temp</span><span class="p">;</span><span class="n">s</span><span class="o">+=</span><span class="n">temp</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span></code></pre></div>
 

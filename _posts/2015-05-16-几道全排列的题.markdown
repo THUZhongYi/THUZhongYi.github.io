@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "几道全排列的题#22#31#46#47"
+title:  "几道全排列的题#22#31#46#47#60"
 tags: [leetcode]
 ---
 
@@ -155,5 +155,41 @@ public:
 };
 {% endhighlight %}
 
+<h3>LeetCode #60 Permutation Sequence</h3>
 
+>The set [1,2,3,…,n] contains a total of n! unique permutations.<br>
+By listing and labeling all of the permutations in order,<br>
+We get the following sequence (ie, for n = 3):<br>
+    "123"<br>
+    "132"<br>
+    "213"<br>
+    "231"<br>
+    "312"<br>
+    "321"<br>
+Given n and k, return the kth permutation sequence.<br>
+Note: Given n will be between 1 and 9 inclusive.
 
+首先最重要的还是观察这个序列的结构。k是(n-1)!的多少个整数倍，决定了首位是n个数的序列中的第几个。把这个数从n个数的序列中拿出之后，依然做同样的事情，看k%((n-1)!)是(n-2)!的多少个整数倍，决定了第二位是n-1个数的序列（就是拿掉刚才那个数之后得到的序列）中的第几个。如此循环，直到最后。
+
+那么一个很重要的问题就是要用什么数据结构，既能实现删除排号为n的某个元素，又能保持原有的相对顺序？我想到的方法是用数组，每删掉一个元素后，把它之后的元素依次往前挪。这样就可以了。不知道还有没有更快更省空间的结构？
+
+{% highlight c++ %}
+class Solution {
+public:
+    string getPermutation(int n, int k) {
+        int vc[n],tmp=1,seq=k;
+        stringstream ss;string s="",temp;
+        for(int i=1;i<n+1;i++) {vc[i-1]=i;tmp*=i;}
+        tmp/=n;
+        for(int i=n-1;i>0;i--){
+            ss<<vc[(seq-1)/tmp];ss>>temp;
+            s+=temp;
+            for(int j=(seq-1)/tmp;j<i;j++) vc[j]=vc[j+1];
+            seq=(seq-1)%tmp+1;tmp/=i;
+            ss.clear();temp.clear();
+        }
+        ss<<vc[0];ss>>temp;s+=temp;
+        return s;
+    }
+};
+{% endhighlight %}

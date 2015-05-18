@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+header {background-color: SeaGreen;top: 0px;}
+header {position: fixed;}
+</style>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>处理用字符串存储的数字#38#43#67</title>
+  <meta name="description" content="LeetCode #38 Count and Say">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://thuzhongyi.github.io/2015/05/18/%E5%A4%84%E7%90%86%E7%94%A8%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AD%98%E5%82%A8%E7%9A%84%E6%95%B0%E5%AD%97.html">
+  <link rel="alternate" type="application/rss+xml" title="Last to triumph" href="http://thuzhongyi.github.io/feed.xml" />
+</head>
+
+
+  <body>
+  <a name="top" id="top"></a>
+
+    <header class="site-header">
+
+<style>
+</style>
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/"><font color="white" size="6px"><b>Last to triumph</b></font></a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/"><font color="Gold"><b>Home</b></font></a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/tags/"><font color="Gold"><b>Tags</b></font>
+          
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/projects/"><font color="Gold"><b>Projects</b></font></a>
+          
+        
+          
+        
+        
+          
+          <a class="page-link" href="/about/"><font color="Gold"><b>About</b></font></a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content" id="content">
+      <div class="wrapper">
+        <style>
+
+</style>
+
+
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                
+            
+        
+            
+        
+        
+            
+            
+        
+    
+
+
+<div class="post" id="post">
+
+    <h1 class="post-title">处理用字符串存储的数字#38#43#67</h1>
+    <p class="post-meta">May 18, 2015</p>
+    
+<p id="post-meta">tag<i class="fa fa-tag"></i>: <a href="/blog/tag/leetcode/">LeetCode</a></p>
+  <article class="post-content">
+    <h3>LeetCode #38 Count and Say</h3>
+
+<blockquote>
+  <p>The count-and-say sequence is the sequence of integers beginning as follows:<br />
+1, 11, 21, 1211, 111221, …<br />
+1 is read off as “one 1” or 11.<br />
+11 is read off as “two 1s” or 21.<br />
+21 is read off as “one 2, then one 1” or 1211.<br />
+Given an integer n, generate the nth sequence.<br />
+Note: The sequence of integers will be represented as a string. </p>
+</blockquote>
+
+<p>真是一个无趣的题。。。从字符串”1”开始，把前一个字符串当做数按位读出来，存为一个字符串，如此继续下去。。。
+求第n个字符串是什么。</p>
+
+<p>每个数字都是被存在字符串里，但是数字类型的范围本身是有限的。所以如果直接用一个数字转来转去，很快就会不够用了，即便是long double。。。很高兴的一点就是不会有零的出现，这样为之后省了很多麻烦，下一道题就不得不面对这个麻烦。</p>
+
+<p>为了解决数字可能相当大的问题，我们就建立一种通用的读储存数字的字符串的方式：一段一段地读。为了适于int型大概极限到10位的事实，我选择了9位为跨度。如果想采用别的类型，可以采用更大的跨度。但本质上一点区别也没有。。。</p>
+
+<p>用一个栈来存要输入的信息：数字及其频率。
+对于每段，挨个压入栈中。然后输入。期间的转换都由stringstream来做辅助。</p>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">string</span> <span class="n">countAndSay</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    	<span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="s">&quot;1&quot;</span><span class="p">;</span>
+    	<span class="n">string</span> <span class="n">t</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="n">tmpstr</span><span class="p">,</span><span class="n">tmp</span><span class="p">;</span><span class="kt">unsigned</span> <span class="n">temp</span><span class="p">,</span><span class="n">r</span><span class="p">;</span>
+    	<span class="n">stringstream</span> <span class="n">ss</span><span class="p">;</span>
+    	<span class="n">stack</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">s</span><span class="p">;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">tp</span><span class="p">;</span>
+    	<span class="n">tmp</span><span class="o">=</span><span class="n">countAndSay</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    	<span class="kt">int</span> <span class="n">x</span><span class="o">=</span><span class="n">tmp</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">/</span><span class="mi">9</span><span class="p">;</span>
+    	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">x</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
+    		<span class="k">if</span><span class="p">(</span><span class="n">tmp</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">9</span><span class="o">*</span><span class="n">j</span><span class="o">&gt;=</span><span class="mi">9</span><span class="p">)</span> <span class="n">tmpstr</span><span class="o">=</span><span class="n">tmp</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">tmp</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">9</span><span class="o">*</span><span class="n">j</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">);</span>
+    		<span class="k">else</span> <span class="n">tmpstr</span><span class="o">=</span><span class="n">tmp</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">tmp</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">9</span><span class="o">*</span><span class="n">j</span><span class="p">);</span>
+    		<span class="n">ss</span><span class="o">&lt;&lt;</span><span class="n">tmpstr</span><span class="p">;</span><span class="n">ss</span><span class="o">&gt;&gt;</span><span class="n">temp</span><span class="p">;</span><span class="n">ss</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+    		<span class="k">while</span><span class="p">(</span><span class="n">temp</span><span class="p">){</span>
+    			<span class="n">r</span><span class="o">=</span><span class="n">temp</span><span class="o">%</span><span class="mi">10</span><span class="p">;</span>
+    			<span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+    				<span class="n">tp</span><span class="o">=</span><span class="k">new</span> <span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">;</span>
+    				<span class="n">tp</span><span class="o">-&gt;</span><span class="n">first</span><span class="o">=</span><span class="n">r</span><span class="p">;</span><span class="n">tp</span><span class="o">-&gt;</span><span class="n">second</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+    				<span class="n">s</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="o">*</span><span class="n">tp</span><span class="p">);</span>
+    			<span class="p">}</span>
+    			<span class="k">else</span><span class="p">{</span>
+    				<span class="k">if</span><span class="p">(</span><span class="n">r</span><span class="o">==</span><span class="n">s</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">first</span><span class="p">)</span> <span class="n">s</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">second</span><span class="o">++</span><span class="p">;</span>
+    				<span class="k">else</span> <span class="p">{</span>
+    					<span class="n">tp</span><span class="o">=</span><span class="k">new</span> <span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">;</span>
+    					<span class="n">tp</span><span class="o">-&gt;</span><span class="n">first</span><span class="o">=</span><span class="n">r</span><span class="p">;</span><span class="n">tp</span><span class="o">-&gt;</span><span class="n">second</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+    					<span class="n">s</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="o">*</span><span class="n">tp</span><span class="p">);</span>
+    				<span class="p">}</span>
+    			<span class="p">}</span>
+    			<span class="n">temp</span><span class="o">/=</span><span class="mi">10</span><span class="p">;</span>
+    		<span class="p">}</span>
+    	<span class="p">}</span>
+        <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">s</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+        	<span class="n">tmpstr</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">;</span>
+        	<span class="n">ss</span><span class="o">&lt;&lt;</span><span class="n">s</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">second</span><span class="p">;</span><span class="n">ss</span><span class="o">&gt;&gt;</span><span class="n">tmpstr</span><span class="p">;</span>
+        	<span class="n">t</span><span class="o">+=</span><span class="n">tmpstr</span><span class="p">;</span>
+        	<span class="n">ss</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+        	<span class="n">ss</span><span class="o">&lt;&lt;</span><span class="n">s</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">first</span><span class="p">;</span><span class="n">ss</span><span class="o">&gt;&gt;</span><span class="n">tmpstr</span><span class="p">;</span>
+        	<span class="n">t</span><span class="o">+=</span><span class="n">tmpstr</span><span class="p">;</span>
+        	<span class="n">s</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span><span class="n">ss</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">t</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></div>
+
+<h3>LeetCode #43 Multiply Strings</h3>
+
+<blockquote>
+  <p>Given two numbers represented as strings, return multiplication of the numbers as a string.<br />
+Note: The numbers can be arbitrarily large and are non-negative.</p>
+</blockquote>
+
+<p>有了上面的经验，对字符串num1和num2都以4位的跨度进行遍历，拿一个定位为至多8位的数字数组来存储每段与每段的乘积。乘积可能涉及到两个元素，所以要做一个单独的判断。</p>
+
+<p>最后依次输出这个结果数组，不足位的用0补齐8位。最后把字符串都全部串起来，找到从头开始第一个不为零的数，开始截取，输出皆可。</p>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">string</span> <span class="n">multiply</span><span class="p">(</span><span class="n">string</span> <span class="n">num1</span><span class="p">,</span> <span class="n">string</span> <span class="n">num2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">length1</span><span class="o">=</span><span class="n">num1</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="n">length2</span><span class="o">=</span><span class="n">num2</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">/</span><span class="mi">4</span><span class="p">;</span>
+        <span class="n">stringstream</span> <span class="n">ss</span><span class="p">;</span><span class="kt">int</span> <span class="n">tmp1</span><span class="p">,</span><span class="n">tmp2</span><span class="p">;</span><span class="n">string</span> <span class="n">tmpstr</span><span class="p">,</span><span class="n">result</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="o">*</span><span class="n">zero</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">rlength</span><span class="o">=</span><span class="p">(</span><span class="n">length1</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">length2</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">rst</span><span class="p">[</span><span class="n">rlength</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">rlength</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">rst</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">p</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">p</span><span class="o">&lt;=</span><span class="n">length1</span><span class="p">;</span><span class="n">p</span><span class="o">++</span><span class="p">){</span>
+        	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">q</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">q</span><span class="o">&lt;=</span><span class="n">length2</span><span class="p">;</span><span class="n">q</span><span class="o">++</span><span class="p">){</span>
+        		<span class="k">if</span><span class="p">(</span><span class="n">num1</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">p</span><span class="o">&gt;=</span><span class="mi">4</span><span class="p">)</span> <span class="n">tmpstr</span><span class="o">=</span><span class="n">num1</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">num1</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">p</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+        		<span class="k">else</span> <span class="n">tmpstr</span><span class="o">=</span><span class="n">num1</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">num1</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">p</span><span class="p">);</span>
+        		<span class="n">ss</span><span class="o">&lt;&lt;</span><span class="n">tmpstr</span><span class="p">;</span><span class="n">ss</span><span class="o">&gt;&gt;</span><span class="n">tmp1</span><span class="p">;</span>
+        		<span class="n">ss</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span><span class="n">tmpstr</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+        		<span class="k">if</span><span class="p">(</span><span class="n">num2</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">q</span><span class="o">&gt;=</span><span class="mi">4</span><span class="p">)</span> <span class="n">tmpstr</span><span class="o">=</span><span class="n">num2</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">num2</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">q</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+        		<span class="k">else</span> <span class="n">tmpstr</span><span class="o">=</span><span class="n">num2</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">num2</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">q</span><span class="p">);</span>
+        		<span class="n">ss</span><span class="o">&lt;&lt;</span><span class="n">tmpstr</span><span class="p">;</span><span class="n">ss</span><span class="o">&gt;&gt;</span><span class="n">tmp2</span><span class="p">;</span>
+        		<span class="n">ss</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span><span class="n">tmpstr</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+        		<span class="k">if</span><span class="p">((</span><span class="n">p</span><span class="o">+</span><span class="n">q</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="p">){</span>
+        			<span class="n">rst</span><span class="p">[(</span><span class="n">p</span><span class="o">+</span><span class="n">q</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span><span class="o">+=</span><span class="p">(</span><span class="n">tmp1</span><span class="o">*</span><span class="n">tmp2</span><span class="p">)</span><span class="o">%</span><span class="mi">10000</span><span class="o">*</span><span class="mi">10000</span><span class="p">;</span>
+        			<span class="n">rst</span><span class="p">[(</span><span class="n">p</span><span class="o">+</span><span class="n">q</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">+=</span><span class="p">(</span><span class="n">tmp1</span><span class="o">*</span><span class="n">tmp2</span><span class="p">)</span><span class="o">/</span><span class="mi">10000</span><span class="p">;</span>
+        		<span class="p">}</span>
+        		<span class="k">else</span><span class="p">{</span>
+        			<span class="n">rst</span><span class="p">[(</span><span class="n">p</span><span class="o">+</span><span class="n">q</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span><span class="o">+=</span><span class="p">(</span><span class="n">tmp1</span><span class="o">*</span><span class="n">tmp2</span><span class="p">)</span><span class="o">%</span><span class="mi">100000000</span><span class="p">;</span>
+        			<span class="n">rst</span><span class="p">[(</span><span class="n">p</span><span class="o">+</span><span class="n">q</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">+=</span><span class="p">(</span><span class="n">tmp1</span><span class="o">*</span><span class="n">tmp2</span><span class="p">)</span><span class="o">/</span><span class="mi">100000000</span><span class="p">;</span>
+        		<span class="p">}</span>
+        		<span class="n">tmp1</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">tmp2</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+        		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">rlength</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="k">if</span><span class="p">(</span><span class="n">rst</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">%</span><span class="mi">100000000</span><span class="p">)</span> <span class="p">{</span>
+        			<span class="n">rst</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">+=</span><span class="n">rst</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="mi">100000000</span><span class="p">;</span>
+        			<span class="n">rst</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">rst</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">%</span><span class="mi">100000000</span><span class="p">;</span>
+        		<span class="p">}</span>
+        	<span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">rlength</span><span class="p">;</span><span class="n">i</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">--</span><span class="p">){</span>
+        	<span class="n">ss</span><span class="o">&lt;&lt;</span><span class="n">rst</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="n">ss</span><span class="o">&gt;&gt;</span><span class="n">tmpstr</span><span class="p">;</span>
+        	<span class="k">if</span><span class="p">(</span><span class="n">tmpstr</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&lt;</span><span class="mi">8</span><span class="p">)</span> <span class="p">{</span>
+        		<span class="n">zero</span><span class="o">=</span><span class="k">new</span> <span class="n">string</span><span class="p">(</span><span class="mi">8</span><span class="o">-</span><span class="n">tmpstr</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="sc">&#39;0&#39;</span><span class="p">);</span>
+        		<span class="n">tmpstr</span><span class="o">=*</span><span class="n">zero</span><span class="o">+</span><span class="n">tmpstr</span><span class="p">;</span>
+        	<span class="p">}</span>
+        	<span class="n">result</span><span class="o">=</span><span class="n">result</span><span class="o">+</span><span class="n">tmpstr</span><span class="p">;</span>
+        	<span class="n">ss</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span><span class="n">tmpstr</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">tmp1</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">tmp1</span><span class="o">&lt;</span><span class="n">result</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&amp;&amp;</span><span class="n">result</span><span class="p">[</span><span class="n">tmp1</span><span class="p">]</span><span class="o">==</span><span class="sc">&#39;0&#39;</span><span class="p">;</span><span class="n">tmp1</span><span class="o">++</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">tmp1</span><span class="o">!=</span><span class="n">result</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="k">return</span> <span class="n">result</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">tmp1</span><span class="p">);</span>
+        <span class="k">else</span> <span class="k">return</span> <span class="s">&quot;0&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></div>
+
+<h3>LeetCode #67 Add Binary</h3>
+
+<blockquote>
+  <p>Given two binary strings, return their sum (also a binary string).<br />
+For example,<br />
+a = “11”<br />
+b = “1”<br />
+Return “100”. </p>
+</blockquote>
+
+<p>相对上面这个问题，这个就简单多了。最要注意的问题就是每次运算之后，进位tmp什么时候赋1，什么时候赋0。</p>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">string</span> <span class="n">addBinary</span><span class="p">(</span><span class="n">string</span> <span class="n">a</span><span class="p">,</span> <span class="n">string</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    	<span class="n">stringstream</span> <span class="n">ss</span><span class="p">;</span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">tmp</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+        <span class="n">string</span> <span class="n">maxs</span><span class="o">=</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&gt;=</span><span class="n">b</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="o">?</span><span class="nl">a</span><span class="p">:</span><span class="n">b</span><span class="p">;</span>
+        <span class="n">string</span> <span class="n">mins</span><span class="o">=</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&lt;</span><span class="n">b</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="o">?</span><span class="nl">a</span><span class="p">:</span><span class="n">b</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">mins</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">--</span><span class="p">){</span>
+        	<span class="n">t</span><span class="o">=</span><span class="n">p</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+        	<span class="n">ss</span><span class="o">&lt;&lt;</span><span class="n">maxs</span><span class="p">[</span><span class="n">maxs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="n">mins</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">+</span><span class="n">i</span><span class="p">];</span><span class="n">ss</span><span class="o">&gt;&gt;</span><span class="n">t</span><span class="p">;</span><span class="n">ss</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+        	<span class="n">ss</span><span class="o">&lt;&lt;</span><span class="n">mins</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="n">ss</span><span class="o">&gt;&gt;</span><span class="n">p</span><span class="p">;</span><span class="n">ss</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+        	<span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="o">+</span><span class="n">p</span><span class="o">+</span><span class="n">tmp</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">){</span>
+        		<span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="o">+</span><span class="n">p</span><span class="o">+</span><span class="n">tmp</span><span class="o">==</span><span class="mi">3</span><span class="p">)</span> <span class="p">{</span><span class="n">tmp</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">mins</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;1&#39;</span><span class="p">;}</span>
+        		<span class="k">else</span> <span class="p">{</span><span class="n">tmp</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">mins</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;0&#39;</span><span class="p">;}</span>
+        	<span class="p">}</span>
+        	<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="o">+</span><span class="n">p</span><span class="o">+</span><span class="n">tmp</span><span class="o">==</span><span class="mi">1</span><span class="p">){</span><span class="n">tmp</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">mins</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;1&#39;</span><span class="p">;}</span>
+        	<span class="k">else</span><span class="p">{</span><span class="n">tmp</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">mins</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;0&#39;</span><span class="p">;}</span>
+        <span class="p">}</span>
+        <span class="n">maxs</span><span class="o">=</span><span class="n">maxs</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">maxs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="n">mins</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="o">+</span><span class="n">mins</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">mins</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&lt;</span><span class="n">maxs</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span>
+        	<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">tmp</span><span class="p">)</span> <span class="k">return</span> <span class="n">maxs</span><span class="p">;</span>
+        	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">maxs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="n">mins</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">--</span><span class="p">){</span>
+        		<span class="n">t</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">ss</span><span class="o">&lt;&lt;</span><span class="n">maxs</span><span class="p">[</span><span class="n">j</span><span class="p">];</span><span class="n">ss</span><span class="o">&gt;&gt;</span><span class="n">t</span><span class="p">;</span><span class="n">ss</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+        		<span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="o">+</span><span class="n">tmp</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">){</span><span class="n">tmp</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">maxs</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;0&#39;</span><span class="p">;}</span>
+        		<span class="k">else</span> <span class="p">{</span><span class="n">tmp</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">maxs</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;1&#39;</span><span class="p">;</span><span class="k">break</span><span class="p">;}</span>
+        	<span class="p">}</span>
+        	<span class="k">if</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span> <span class="n">maxs</span><span class="o">=</span><span class="sc">&#39;1&#39;</span><span class="o">+</span><span class="n">maxs</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span><span class="p">{</span><span class="k">if</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span> <span class="n">maxs</span><span class="o">=</span><span class="sc">&#39;1&#39;</span><span class="o">+</span><span class="n">maxs</span><span class="p">;}</span>
+        <span class="k">return</span> <span class="n">maxs</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></div>
+
+  </article>
+
+</div>
+
+      </div>
+    
+    </div>
+    <a href="#top" target="_self"><center>Back to Top</center></a>
+    
+<style>
+footer {background-color: SeaGreen;}
+</style>
+
+<footer class="site-footer">
+
+  <div class="wrapper" id="footer">
+
+    <h2 class="footer-heading"><font color="White">Last to triumph</font></h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li><a href="mailto:yizhong.pku@gmail.com"><font color="Gold">yizhong.pku@gmail.com</font></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/thuzhongyi">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username"><font color="AliceBlue">thuzhongyi</font></span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/YiZhongPKU">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username"><font color="AliceBlue">YiZhongPKU</font></span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text"><font color="white">This is a personal blog. Zhong Yi uses this blog to share learning experiences  and keep some daily thoughts. This website is continually improved along with  Zhong Yi's learning.
+</font></p>
+      </div>
+    </div>
+
+  </div>
+</footer>
+  </body>
+</html>

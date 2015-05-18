@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "链表操作注意#2#19#24"
+title:  "链表操作注意#2#19#21#24"
 tags: [leetcode]
 ---
 
@@ -87,6 +87,42 @@ public:
 };
 {% endhighlight %}
 
+<h3>LeetCode #21 Merge Two Sorted Lists</h3>
+
+>Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
+
+很简单，不提。
+
+{% highlight c++ %}
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        if(!l1) return l2;
+        else if(!l2) return l1;
+        ListNode *p=l1,*q=l2,*first,*tmp;
+        if(p->val<=q->val) {first=p;p=p->next;}
+        else {first=q;q=q->next;}
+        tmp=first;
+        while(p&&q){
+            if(p->val<=q->val) {tmp->next=p;tmp=p;p=p->next;}
+            else {tmp->next=q;tmp=q;q=q->next;}
+        }
+        if(p) tmp->next=p;
+        else tmp->next=q;
+        return first;
+    }
+};
+{% endhighlight %}
+
+
 <h3>LeetCode #24 Swap Nodes in Pairs</h3>
 > Given a linked list, swap every two adjacent nodes and return its head.<br>
 For example, Given 1->2->3->4, <br>you should return the list as 2->1->4->3.<br>
@@ -129,5 +165,4 @@ public:
     }
 };
 {% endhighlight %}
-
 
