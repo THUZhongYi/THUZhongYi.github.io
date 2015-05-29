@@ -22,7 +22,7 @@ Updates of my projects will be published here.
 
 将以上海为样本。运用的工具是python（用于抓取房价及距离），opencv和opengl（用于作图），js和html5（动态网页），matlab（建模）。
 
-<embed src="http://music.163.com/style/swf/widget.swf?sid=30482601&type=2&auto=1&width=320&height=66" width="340" height="86"  allowNetworking="all"><br>
+<embed src="http://music.163.com/style/swf/widget.swf?sid=212430&type=2&auto=1&width=320&height=66" width="340" height="86"  allowNetworking="all"><br>
 
 <h4><b>Start date: June 6th.</b></h4>
 <h4><b>Target date of version 1.0: Aug 14th.</b></h4><br>
