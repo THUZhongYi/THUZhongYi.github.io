@@ -1,5 +1,5 @@
 ---
 layout: blog_by_tag
 tag: diary
-permalink: diary/
+permalink: /blog/tag/diary/
 ---

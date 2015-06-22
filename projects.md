@@ -28,4 +28,3 @@ Updates of my projects will be published here.
 <h4><b>Target date of version 1.0: Aug 14th.</b></h4><br>
 
 <br>
-<img src="http://ww3.sinaimg.cn/large/be5b4606jw1es1yq49f2oj208509oaaa.jpg">
