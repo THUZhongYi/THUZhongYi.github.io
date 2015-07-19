@@ -3,7 +3,12 @@ layout: default
 ---
 
 <style>
-
+div#post {
+    background-color: #E0EEE0;
+    padding: 5%;
+    -moz-box-shadow: 10px 0 5px #888888; /* 老的 Firefox */
+    box-shadow: 10px 0 5px #888888;
+}
 </style>
 
 {% assign post = page %}
@@ -29,9 +34,9 @@ layout: default
     <h1 class="post-title">{{ page.title }}</h1>
     <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
     
-<p id="post-meta">{{ tags_content }}</p>
-  <article class="post-content">
+    <p id="post-meta">{{ tags_content }}</p>
+    <article class="post-content">
     {{ content }}
-  </article>
+    </article>
 
 </div>

@@ -42,8 +42,27 @@ footer.site-footer {
   bottom: 0;
 }
 div#box {
-  margin: 3% 18% 0 18%;
+  margin: 4% 18% 0 18%;
 }
+div.float-box {
+  float: left;
+  width: 5%;
+  height: 10%;
+  background-color: #84bf96;
+  position:fixed;
+  transition: width 1s, background-color 2s;
+  -moz-transition: width 1s, background-color 2s;	/* Firefox 4 */
+  -webkit-transition: width 1s, background-color 2s;	/* Safari 和 Chrome */
+  -o-transition: width 1s, background-color 2s;	/* Opera */  
+}
+div.float-box:hover {
+  width:15%;
+  background-color: seagreen;
+}
+.fb1 {top:15%;}
+.fb2 {top:26%;}
+.fb3 {top:37%;}
+.fb4 {top:48%;}
 div#content {
   width: 100%;
   float: left;
@@ -275,11 +294,29 @@ ul.post-list > li:hover {
 </header>
 
     
+<div class="float-box fb1">
+  
+</div>
+<div class="float-box fb2">
+  
+</div>
+<div class="float-box fb3">
+  
+</div>
+<div class="float-box fb4">
+  
+</div>
+    
 <div id="box">
     <div class="page-content" id="content">
       <div class="wrapper">
         <style>
-
+div#post {
+    background-color: #E0EEE0;
+    padding: 5%;
+    -moz-box-shadow: 10px 0 5px #888888; /* 老的 Firefox */
+    box-shadow: 10px 0 5px #888888;
+}
 </style>
 
 
@@ -317,8 +354,8 @@ ul.post-list > li:hover {
     <h1 class="post-title">处理用字符串存储的数字#38#43#67</h1>
     <p class="post-meta">May 18, 2015</p>
     
-<p id="post-meta">tag<i class="fa fa-tag"></i>: <a href="/blog/tag/leetcode/">LeetCode</a></p>
-  <article class="post-content">
+    <p id="post-meta">tag<i class="fa fa-tag"></i>: <a href="/blog/tag/leetcode/">LeetCode</a></p>
+    <article class="post-content">
     <h3>LeetCode #38 Count and Say</h3>
 
 <blockquote>
@@ -487,7 +524,7 @@ Return “100”. </p>
     <span class="p">}</span>
 <span class="p">};</span></code></pre></div>
 
-  </article>
+    </article>
 
 </div>
 
