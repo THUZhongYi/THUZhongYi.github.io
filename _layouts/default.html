@@ -1,25 +1,122 @@
 <!DOCTYPE html>
 <html>
 
+<a name="top" id="top"></a>  
+  
+  {% include head.html %}  
+
 <style>
-header {background-color: SeaGreen;top: 0px;}
-header {position: fixed;}
+body {
+  background-color: #E1E1E1;
+}
+header.site-header {
+  background-color: seagreen;
+  width:100%;
+  height: 6%;
+  border-style: none;
+  position: fixed;
+  top: 0;
+  -moz-box-shadow: 0 3px 3px #888888; /* 老的 Firefox */
+  box-shadow: 0 3px 3px #888888;
+}
+footer.site-footer {
+  width: 100%;
+  height: 1%;
+  background-color: seagreen;
+  border-style: none;
+  -moz-box-shadow: 0 -3px 3px #888888; /* 老的 Firefox */
+  box-shadow: 0 -3px 3px #888888;
+  position: fixed;
+  bottom: 0;
+}
+div#box {
+  margin: 3% 18% 0 18%;
+}
+div#content {
+  width: 100%;
+  float: left;
+}
+a.page-link:link, a.page-link:visited {
+  text-decoration: none;
+  font-weight:bold;
+  font-size: auto;
+  transition: font-size 0.5s;
+  -moz-transition: font-size 0.5s;	/* Firefox 4 */
+  -webkit-transition: font-size 0.5s;	/* Safari 和 Chrome */
+  -o-transition: font-size 0.5s;	/* Opera */
+}
+a.page-link:hover, a.page-link:active {
+  font-size: 200%;
+}
+a.post-link:link, a.post-link:visited {
+  text-decoration: none;
+  font-size: auto;
+  color:black;
+  transition: color 0.5s;
+  -moz-transition: color 0.5s;	/* Firefox 4 */
+  -webkit-transition: color 0.5s;	/* Safari 和 Chrome */
+  -o-transition: color 0.5s;	/* Opera */
+}
+a.post-link:hover, a.post-link:active {
+  color :gold;
+}
+a.site-title:link {
+  text-decoration: none;
+}
+ul.post-list > li {
+  display: block;
+  padding: 1% 5% 0 5%;
+  transition: background-color 1s, box-shadow 2s;
+  -moz-transition: background-color 1s, box-shadow 2s;	/* Firefox 4 */
+  -webkit-transition: background-color 1s, box-shadow 2s;	/* Safari 和 Chrome */
+  -o-transition: background-color 1s, box-shadow 2s;	/* Opera */
+
+}
+ul.post-list > li:hover {
+  background-color:#84bf96;
+  -moz-box-shadow: 10px 10px 5px #888888; /* 老的 Firefox */
+  box-shadow: 10px 10px 5px #888888;
+}
+#back-to-top:link, #back-to-top:visited {
+  display: block;
+  text-decoration: none;
+  color:seagreen;
+  border:2px solid;
+  border-radius:25px;
+  -moz-border-radius:25px; /* Old Firefox */
+  width: 120px;
+  border-color: seagreen;
+  margin-left:auto;
+  margin-right:auto;
+}
+#back-to-top:hover {
+  background-color:seagreen;
+  border:2px solid seagreen;
+  text-decoration: none;
+  border-radius:25px;
+  color:white;
+  -moz-border-radius:25px; /* Old Firefox */
+  width: 120px;
+}
+.clear {
+  clear:both;
+}
 </style>
 
-  {% include head.html %}
-
-  <body>
-  <a name="top" id="top"></a>
-
+<body>
+  
     {% include header.html %}
-
+    
+<div id="box">
     <div class="page-content" id="content">
       <div class="wrapper">
         {{ content }}
       </div>
-    
     </div>
-    <a href="#top" target="_self"><center>Back to Top</center></a>
-    {% include footer.html %}
+    <div class="clear"></div> 
+    <a href="#top" target="_self" id="back-to-top"><center>Back to Top</center></a>
+</div>
+    
   </body>
+
 </html>

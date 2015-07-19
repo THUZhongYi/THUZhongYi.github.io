@@ -1,8 +1,5 @@
 <header class="site-header">
 
-<style>
-</style>
-
   <div class="wrapper">
 
     <a class="site-title" href="{{ site.baseurl }}/"><font color="white" size="6px"><b>{{ site.title }}</b></font></a>
@@ -25,7 +22,7 @@
         {% endfor %}
         {% for page in site.pages %}
           {% if page.title == 'Tags' %}
-          <a class="page-link" href="{{ page.url | prepend: site.baseurl }}"><font color="Gold"><b>{{ page.title }}</b></font>
+          <a class="page-link" href="{{ page.url | prepend: site.baseurl }}"><font color="Gold"><b>{{ page.title }}</b></font></a>
           {% endif %}
         {% endfor %}
         {% for page in site.pages %}
