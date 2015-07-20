@@ -31,7 +31,6 @@ header.site-header {
   -moz-box-shadow: 0 3px 3px #888888; /* 老的 Firefox */
   box-shadow: 0 3px 3px #888888;
 }
-
 footer.site-footer {
   padding: 0;
   width: 100%;
@@ -117,26 +116,57 @@ div.big-float-box:hover {
 .quick-link {
   display: block;
   color:black;
+  margin: 0;
   font-weight: bold;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
+}
+div.qls {
+  display: none;
+  height: 84%;
+  width: 100%;
+  background-color: steelblue;
+  transition: height 2s, width 2s, display 2s, background-color 2s;
+  -moz-transition: height 2s, width 2s, display 2s, background-color 2s;	/* Firefox 4 */
+  -webkit-transition: height 2s, width 2s, display 2s, background-color 2s;	/* Safari 和 Chrome */
+  -o-transition: height 2s, width 2s, display 2s, background-color 2s;	/* Opera */  
+}
+div.big-float-box:hover div.qls {
+  display: block; 
+  padding: 0;
+  height: 84%;
+  width: 100%;
+  background-color: gold;
+}
+ul.qls, ul.qls a {
+  font-family: Arial, Helvetica, sans-serif;
+  list-style-type: none;
+  text-decoration: none;
+  display: none;
+}
+div.big-float-box:hover ul.qls a, div.big-float-box:hover ul.qls {
+  display: block;
 }
 div#content {
   width: 100%;
   float: left;
 }
-a.site-title:link, a.site-title:visited {
-  margin-top: 0;
+img.site-title {
+  margin-top: 3px;
   margin-left: 10%;
   text-align: center;
   width: 45px;
   height: 45px;
-  font-weight: bold;
-  text-decoration: none;
-  font-size: auto;
+  transition: transform 1s;
+  -moz-transition: -moz-transform 1s;
+  -webkit-transition: -webkit-transform 1s;
+  -o-transition: -o-transform 1s;
 }
-a.site-title:hover, a.site-title:active {
-  
+img.site-title:hover {
+  transform: rotate(720deg);
+  -webkit-transform: rotate(720deg);
+  -o-transform: rotate(720deg);
+  -moz-transform: rotate(720deg);
 }
 a.page-link:link, a.page-link:visited {
   text-decoration: none;
@@ -172,9 +202,20 @@ ul.post-list > li {
   -moz-transition: background-color 1s, box-shadow 2s;	/* Firefox 4 */
   -webkit-transition: background-color 1s, box-shadow 2s;	/* Safari 和 Chrome */
   -o-transition: background-color 1s, box-shadow 2s;	/* Opera */
-
 }
 ul.post-list > li:hover {
+  background-color: lightsteelblue;
+  -moz-box-shadow: 10px 10px 5px #888888; /* 老的 Firefox */
+  box-shadow: 10px 10px 5px #888888;
+}
+div.by-tag {
+  padding: 1% 5% 0 5%;
+  transition: background-color 1s, box-shadow 2s;
+  -moz-transition: background-color 1s, box-shadow 2s;	/* Firefox 4 */
+  -webkit-transition: background-color 1s, box-shadow 2s;	/* Safari 和 Chrome */
+  -o-transition: background-color 1s, box-shadow 2s;	/* Opera */  
+}
+div.by-tag:hover {
   background-color: lightsteelblue;
   -moz-box-shadow: 10px 10px 5px #888888; /* 老的 Firefox */
   box-shadow: 10px 10px 5px #888888;
@@ -215,7 +256,12 @@ ul.post-list > li:hover {
 
   <div class="wrapper">
 
-    <a class="site-title" href="/"><img src="http://ww4.sinaimg.cn/large/be5b4606gw1eu939s5l3pj20c80c8t9x.jpg" alt=Last to triumph /img></a>
+    <a href="/">
+      <div class="profile">
+        
+      </div>
+      <img src="http://ww4.sinaimg.cn/large/be5b4606gw1eu939s5l3pj20c80c8t9x.jpg" alt=Last to triumph  class="site-title" /img>
+    </a>
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -223,7 +269,6 @@ ul.post-list > li:hover {
           <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
           <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
           <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
-
         </svg>
       </a>
 
@@ -379,6 +424,18 @@ ul.post-list > li:hover {
 
 <div class="big-float-box">
   <p class="quick-link">QUICK LINKS</p>
+  <div class="qls">
+    <ul class="qls">
+      <br>
+      <li><a  class="qls" href="http://www.baidu.com">Baidu</a></li>
+      <li><a  class="qls" href="http://www.baidu.com">Baidu</a></li>
+      <li><a  class="qls" href="http://www.baidu.com">Baidu</a></li>
+      <li><a  class="qls" href="http://www.baidu.com">Baidu</a></li>   
+      <li><a  class="qls" href="http://www.baidu.com">Baidu</a></li>
+      <li><a  class="qls" href="http://www.baidu.com">Baidu</a></li>
+      <li><a  class="qls" href="http://www.baidu.com">Baidu</a></li>   
+    </ul>
+  </div>
 </div>
     
 <div id="box">
@@ -562,7 +619,7 @@ Each time you can either climb 1 or 2 steps. In how many distinct ways can you c
       </div>
     </div>
     <div class="clear"></div> 
-    <a href="#top" target="_self" id="back-to-top"><center>Back to Top</center></a>
+    <a  class="qls" href="#top" target="_self" id="back-to-top"><center>Back to Top</center></a>
 </div>
 
   <footer class="site-footer">

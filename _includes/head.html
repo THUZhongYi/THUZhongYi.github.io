@@ -26,7 +26,6 @@ header.site-header {
   -moz-box-shadow: 0 3px 3px #888888; /* 老的 Firefox */
   box-shadow: 0 3px 3px #888888;
 }
-
 footer.site-footer {
   padding: 0;
   width: 100%;
@@ -112,26 +111,57 @@ div.big-float-box:hover {
 .quick-link {
   display: block;
   color:black;
+  margin: 0;
   font-weight: bold;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
+}
+div.qls {
+  display: none;
+  height: 84%;
+  width: 100%;
+  background-color: steelblue;
+  transition: height 2s, width 2s, display 2s, background-color 2s;
+  -moz-transition: height 2s, width 2s, display 2s, background-color 2s;	/* Firefox 4 */
+  -webkit-transition: height 2s, width 2s, display 2s, background-color 2s;	/* Safari 和 Chrome */
+  -o-transition: height 2s, width 2s, display 2s, background-color 2s;	/* Opera */  
+}
+div.big-float-box:hover div.qls {
+  display: block; 
+  padding: 0;
+  height: 84%;
+  width: 100%;
+  background-color: gold;
+}
+ul.qls, ul.qls a {
+  font-family: Arial, Helvetica, sans-serif;
+  list-style-type: none;
+  text-decoration: none;
+  display: none;
+}
+div.big-float-box:hover ul.qls a, div.big-float-box:hover ul.qls {
+  display: block;
 }
 div#content {
   width: 100%;
   float: left;
 }
-a.site-title:link, a.site-title:visited {
-  margin-top: 0;
+img.site-title {
+  margin-top: 3px;
   margin-left: 10%;
   text-align: center;
   width: 45px;
   height: 45px;
-  font-weight: bold;
-  text-decoration: none;
-  font-size: auto;
+  transition: transform 1s;
+  -moz-transition: -moz-transform 1s;
+  -webkit-transition: -webkit-transform 1s;
+  -o-transition: -o-transform 1s;
 }
-a.site-title:hover, a.site-title:active {
-  
+img.site-title:hover {
+  transform: rotate(720deg);
+  -webkit-transform: rotate(720deg);
+  -o-transform: rotate(720deg);
+  -moz-transform: rotate(720deg);
 }
 a.page-link:link, a.page-link:visited {
   text-decoration: none;
@@ -167,9 +197,20 @@ ul.post-list > li {
   -moz-transition: background-color 1s, box-shadow 2s;	/* Firefox 4 */
   -webkit-transition: background-color 1s, box-shadow 2s;	/* Safari 和 Chrome */
   -o-transition: background-color 1s, box-shadow 2s;	/* Opera */
-
 }
 ul.post-list > li:hover {
+  background-color: lightsteelblue;
+  -moz-box-shadow: 10px 10px 5px #888888; /* 老的 Firefox */
+  box-shadow: 10px 10px 5px #888888;
+}
+div.by-tag {
+  padding: 1% 5% 0 5%;
+  transition: background-color 1s, box-shadow 2s;
+  -moz-transition: background-color 1s, box-shadow 2s;	/* Firefox 4 */
+  -webkit-transition: background-color 1s, box-shadow 2s;	/* Safari 和 Chrome */
+  -o-transition: background-color 1s, box-shadow 2s;	/* Opera */  
+}
+div.by-tag:hover {
   background-color: lightsteelblue;
   -moz-box-shadow: 10px 10px 5px #888888; /* 老的 Firefox */
   box-shadow: 10px 10px 5px #888888;
