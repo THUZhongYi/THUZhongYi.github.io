@@ -6,7 +6,199 @@
   <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
 
-  <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
+  <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}"> 
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" />
+  
+  <style>
+body {
+  background-color: #E1E1E1;
+}
+header.site-header {
+  min-height: 56px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: steelblue;
+  width:100%;
+  height: 6%;
+  border-style: none;
+  position: fixed;
+  top: 0;
+  -moz-box-shadow: 0 3px 3px #888888; /* 老的 Firefox */
+  box-shadow: 0 3px 3px #888888;
+}
+
+footer.site-footer {
+  padding: 0;
+  width: 100%;
+  height: 15px;
+  background-color: steelblue;
+  border-style: none;
+  -moz-box-shadow: 0 -3px 3px #888888; /* 老的 Firefox */
+  box-shadow: 0 -3px 3px #888888;
+  position: fixed;
+  bottom: 0;
+}
+div.acknowledgement {
+  border-style: none;
+  width: 50%;
+  float: left;
+  height: 15px;
+}
+p.ack {
+  display: block;
+
+  font-weight: bold;
+  font-size: 11px;
+  font-family: Arial, Helvetica, sans-serif;
+
+  color:#E1E1E1;
+}
+p.ack.ack1 {
+  text-align: left;
+  margin-left: 5%;  
+}
+p.ack.ack2 {
+  text-align: right; 
+  margin-right: 5%;
+}
+div#box {
+  margin: 4% 12% 0 12%;
+}
+div.float-box {
+  border-radius:0 8px 8px 0;
+  -moz-border-radius:0 8px 8px 0; /* Old Firefox */
+  float: left;
+  width: 2%;
+  height: 10%;
+  background-color: steelblue;
+  position:fixed;
+  transition: width 1s, background-color 2s, box-shadow 2s;
+  -moz-transition: width 1s, background-color 2s, box-shadow 2s;	/* Firefox 4 */
+  -webkit-transition: width 1s, background-color 2s, box-shadow 2s;	/* Safari 和 Chrome */
+  -o-transition: width 1s, background-color 2s, box-shadow 2s;	/* Opera */  
+}
+.fb1 {top:15%;}
+.fb2 {top:26%;}
+.fb3 {top:37%;}
+.fb4 {top:48%;}
+div.big-float-box {
+  width: 15%;
+  height: 5%;
+  background-color: steelblue;
+  position:fixed;
+  top: 15%;
+  right: 3%;
+  border-radius:8px;
+  -moz-border-radius:8px; /* Old Firefox */
+  transition: height 1s, background-color 2s, box-shadow 2s;
+  -moz-transition: height 1s, background-color 2s, box-shadow 2s;	/* Firefox 4 */
+  -webkit-transition: height 1s, background-color 2s, box-shadow 2s;	/* Safari 和 Chrome */
+  -o-transition: height 1s, background-color 2s, box-shadow 2s;	/* Opera */  
+}
+div.float-box:hover, div.big-float-box:hover {
+  border-radius:8px;
+  -moz-border-radius:8px; /* Old Firefox */
+  width:15%;
+  background-color: gold;
+  -moz-box-shadow: 10px 10px 5px #888888; /* 老的 Firefox */
+  box-shadow: 10px 10px 5px #888888;
+}
+div.big-float-box:hover {
+  height: 43%;
+  background-color: gold;
+  -moz-box-shadow: 10px 10px 5px #888888; /* 老的 Firefox */
+  box-shadow: 10px 10px 5px #888888;
+}
+.quick-link {
+  display: block;
+  color:black;
+  font-weight: bold;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+div#content {
+  width: 100%;
+  float: left;
+}
+a.site-title:link, a.site-title:visited {
+  margin-top: 0;
+  margin-left: 10%;
+  text-align: center;
+  width: 45px;
+  height: 45px;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: auto;
+}
+a.site-title:hover, a.site-title:active {
+  
+}
+a.page-link:link, a.page-link:visited {
+  text-decoration: none;
+  font-weight:bold;
+  color: gold;
+  font-size: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: font-size 0.5s;
+  -moz-transition: font-size 0.5s;	/* Firefox 4 */
+  -webkit-transition: font-size 0.5s;	/* Safari 和 Chrome */
+  -o-transition: font-size 0.5s;	/* Opera */
+}
+a.page-link:hover, a.page-link:active {
+  font-size: 200%;
+}
+a.post-link:link, a.post-link:visited {
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none;
+  font-size: auto;
+  color:black;
+  transition: color 0.5s;
+  -moz-transition: color 0.5s;	/* Firefox 4 */
+  -webkit-transition: color 0.5s;	/* Safari 和 Chrome */
+  -o-transition: color 0.5s;	/* Opera */
+}
+a.post-link:hover, a.post-link:active {
+  color :gold;
+}
+ul.post-list > li {
+  display: block;
+  padding: 1% 5% 0 5%;
+  transition: background-color 1s, box-shadow 2s;
+  -moz-transition: background-color 1s, box-shadow 2s;	/* Firefox 4 */
+  -webkit-transition: background-color 1s, box-shadow 2s;	/* Safari 和 Chrome */
+  -o-transition: background-color 1s, box-shadow 2s;	/* Opera */
+
+}
+ul.post-list > li:hover {
+  background-color: lightsteelblue;
+  -moz-box-shadow: 10px 10px 5px #888888; /* 老的 Firefox */
+  box-shadow: 10px 10px 5px #888888;
+}
+#back-to-top:link, #back-to-top:visited {
+  display: block;
+  text-decoration: none;
+  color:steelblue;
+  border:2px solid;
+  border-radius:25px;
+  -moz-border-radius:25px; /* Old Firefox */
+  width: 120px;
+  border-color: steelblue;
+  margin-left:auto;
+  margin-right:auto;
+  margin-bottom: 3%;
+}
+#back-to-top:hover {
+  background-color:steelblue;
+  border:2px solid steelblue;
+  text-decoration: none;
+  border-radius:25px;
+  color:white;
+  -moz-border-radius:25px; /* Old Firefox */
+  width: 120px;
+}
+.clear {
+  clear:both;
+}
+</style>
+  
 </head>

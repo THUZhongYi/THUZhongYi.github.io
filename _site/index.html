@@ -12,19 +12,18 @@
   <meta name="description" content="This is a personal blog. Zhong Yi uses this blog to share learning experiences  and keep some daily thoughts. This website is continually improved along with  Zhong Yi's learning.
 ">
 
-  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/main.css"> 
   <link rel="canonical" href="http://thuzhongyi.github.io/">
   <link rel="alternate" type="application/rss+xml" title="Last to triumph" href="http://thuzhongyi.github.io/feed.xml" />
-</head>
   
-
-<style>
+  <style>
 body {
   background-color: #E1E1E1;
 }
 header.site-header {
+  min-height: 56px;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: seagreen;
+  background-color: steelblue;
   width:100%;
   height: 6%;
   border-style: none;
@@ -33,45 +32,117 @@ header.site-header {
   -moz-box-shadow: 0 3px 3px #888888; /* 老的 Firefox */
   box-shadow: 0 3px 3px #888888;
 }
+
 footer.site-footer {
+  padding: 0;
   width: 100%;
-  height: 1%;
-  background-color: seagreen;
+  height: 15px;
+  background-color: steelblue;
   border-style: none;
   -moz-box-shadow: 0 -3px 3px #888888; /* 老的 Firefox */
   box-shadow: 0 -3px 3px #888888;
   position: fixed;
   bottom: 0;
 }
+div.acknowledgement {
+  border-style: none;
+  width: 50%;
+  float: left;
+  height: 15px;
+}
+p.ack {
+  display: block;
+
+  font-weight: bold;
+  font-size: 11px;
+  font-family: Arial, Helvetica, sans-serif;
+
+  color:#E1E1E1;
+}
+p.ack.ack1 {
+  text-align: left;
+  margin-left: 5%;  
+}
+p.ack.ack2 {
+  text-align: right; 
+  margin-right: 5%;
+}
 div#box {
-  margin: 4% 18% 0 18%;
+  margin: 4% 12% 0 12%;
 }
 div.float-box {
+  border-radius:0 8px 8px 0;
+  -moz-border-radius:0 8px 8px 0; /* Old Firefox */
   float: left;
-  width: 5%;
+  width: 2%;
   height: 10%;
-  background-color: #84bf96;
+  background-color: steelblue;
   position:fixed;
-  transition: width 1s, background-color 2s;
-  -moz-transition: width 1s, background-color 2s;	/* Firefox 4 */
-  -webkit-transition: width 1s, background-color 2s;	/* Safari 和 Chrome */
-  -o-transition: width 1s, background-color 2s;	/* Opera */  
-}
-div.float-box:hover {
-  width:15%;
-  background-color: seagreen;
+  transition: width 1s, background-color 2s, box-shadow 2s;
+  -moz-transition: width 1s, background-color 2s, box-shadow 2s;	/* Firefox 4 */
+  -webkit-transition: width 1s, background-color 2s, box-shadow 2s;	/* Safari 和 Chrome */
+  -o-transition: width 1s, background-color 2s, box-shadow 2s;	/* Opera */  
 }
 .fb1 {top:15%;}
 .fb2 {top:26%;}
 .fb3 {top:37%;}
 .fb4 {top:48%;}
+div.big-float-box {
+  width: 15%;
+  height: 5%;
+  background-color: steelblue;
+  position:fixed;
+  top: 15%;
+  right: 3%;
+  border-radius:8px;
+  -moz-border-radius:8px; /* Old Firefox */
+  transition: height 1s, background-color 2s, box-shadow 2s;
+  -moz-transition: height 1s, background-color 2s, box-shadow 2s;	/* Firefox 4 */
+  -webkit-transition: height 1s, background-color 2s, box-shadow 2s;	/* Safari 和 Chrome */
+  -o-transition: height 1s, background-color 2s, box-shadow 2s;	/* Opera */  
+}
+div.float-box:hover, div.big-float-box:hover {
+  border-radius:8px;
+  -moz-border-radius:8px; /* Old Firefox */
+  width:15%;
+  background-color: gold;
+  -moz-box-shadow: 10px 10px 5px #888888; /* 老的 Firefox */
+  box-shadow: 10px 10px 5px #888888;
+}
+div.big-float-box:hover {
+  height: 43%;
+  background-color: gold;
+  -moz-box-shadow: 10px 10px 5px #888888; /* 老的 Firefox */
+  box-shadow: 10px 10px 5px #888888;
+}
+.quick-link {
+  display: block;
+  color:black;
+  font-weight: bold;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
 div#content {
   width: 100%;
   float: left;
 }
+a.site-title:link, a.site-title:visited {
+  margin-top: 0;
+  margin-left: 10%;
+  text-align: center;
+  width: 45px;
+  height: 45px;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: auto;
+}
+a.site-title:hover, a.site-title:active {
+  
+}
 a.page-link:link, a.page-link:visited {
   text-decoration: none;
   font-weight:bold;
+  color: gold;
   font-size: auto;
   font-family: Arial, Helvetica, sans-serif;
   transition: font-size 0.5s;
@@ -95,9 +166,6 @@ a.post-link:link, a.post-link:visited {
 a.post-link:hover, a.post-link:active {
   color :gold;
 }
-a.site-title:link {
-  text-decoration: none;
-}
 ul.post-list > li {
   display: block;
   padding: 1% 5% 0 5%;
@@ -108,25 +176,26 @@ ul.post-list > li {
 
 }
 ul.post-list > li:hover {
-  background-color:#84bf96;
+  background-color: lightsteelblue;
   -moz-box-shadow: 10px 10px 5px #888888; /* 老的 Firefox */
   box-shadow: 10px 10px 5px #888888;
 }
 #back-to-top:link, #back-to-top:visited {
   display: block;
   text-decoration: none;
-  color:seagreen;
+  color:steelblue;
   border:2px solid;
   border-radius:25px;
   -moz-border-radius:25px; /* Old Firefox */
   width: 120px;
-  border-color: seagreen;
+  border-color: steelblue;
   margin-left:auto;
   margin-right:auto;
+  margin-bottom: 3%;
 }
 #back-to-top:hover {
-  background-color:seagreen;
-  border:2px solid seagreen;
+  background-color:steelblue;
+  border:2px solid steelblue;
   text-decoration: none;
   border-radius:25px;
   color:white;
@@ -137,6 +206,9 @@ ul.post-list > li:hover {
   clear:both;
 }
 </style>
+  
+</head>
+  
 
 <body>
   
@@ -144,7 +216,7 @@ ul.post-list > li:hover {
 
   <div class="wrapper">
 
-    <a class="site-title" href="/"><font color="white" size="6px"><b>Last to triumph</b></font></a>
+    <a class="site-title" href="/"><img src="http://ww4.sinaimg.cn/large/be5b4606gw1eu939s5l3pj20c80c8t9x.jpg" alt=Last to triumph /img></a>
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -171,7 +243,7 @@ ul.post-list > li:hover {
           
         
           
-          <a class="page-link" href="/"><font color="Gold"><b>Home</b></font></a>
+          <a class="page-link" href="/">Home</a>
           
         
           
@@ -220,7 +292,7 @@ ul.post-list > li:hover {
           
         
           
-          <a class="page-link" href="/tags/"><font color="Gold"><b>Tags</b></font></a>
+          <a class="page-link" href="/tags/">Tags</a>
           
         
         
@@ -251,14 +323,14 @@ ul.post-list > li:hover {
           
         
           
-          <a class="page-link" href="/projects/"><font color="Gold"><b>Projects</b></font></a>
+          <a class="page-link" href="/projects/">Projects</a>
           
         
           
         
         
           
-          <a class="page-link" href="/about/"><font color="Gold"><b>About</b></font></a>
+          <a class="page-link" href="/about/">About</a>
           
         
           
@@ -298,17 +370,16 @@ ul.post-list > li:hover {
 </header>
 
     
-<div class="float-box fb1">
-  
-</div>
-<div class="float-box fb2">
-  
-</div>
-<div class="float-box fb3">
-  
-</div>
-<div class="float-box fb4">
-  
+<div class="float-box fb1"></div>
+
+<div class="float-box fb2"></div>
+
+<div class="float-box fb3"></div>
+
+<div class="float-box fb4"></div>
+
+<div class="big-float-box">
+  <p class="quick-link">QUICK LINKS</p>
 </div>
     
 <div id="box">
@@ -861,7 +932,15 @@ ul.post-list > li:hover {
     <div class="clear"></div> 
     <a href="#top" target="_self" id="back-to-top"><center>Back to Top</center></a>
 </div>
+
+  <footer class="site-footer">
+	<div class="acknowledgement">
+		<p class="ack ack1">yizhong.pku@gmail.com</p>
+	</div>
+	<div class="acknowledgement">
+		<p class="ack ack2">© 2015.01- Powered by Zhong Yi</p>
+	</div>
+</footer>
     
   </body>
-
 </html>
