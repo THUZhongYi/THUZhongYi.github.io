@@ -3,6 +3,9 @@
 
 - slug: cpp
   name: C++
+  
+- slug: windows-api
+  name: Windows API
 
 - slug: diary
   name: Diary
@@ -21,3 +24,4 @@
 
 - slug: naive
   name: Naive
+  

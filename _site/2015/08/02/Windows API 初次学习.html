@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html>
+
+<a name="top" id="top"></a>  
+  
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Windows API 初次学习</title>
+  <meta name="description" content="前段时间有一个手机游戏很火，叫做Crossy Road，我也玩了很久。在玩的过程中为了玩的更好，我思考了关于这个游戏的原理的问题，从而萌生了在Windows下写这个游戏的一个简易版的念头。贴一张游戏截图：">
+
+  <link rel="stylesheet" href="/css/main.css"> 
+  <link rel="canonical" href="http://thuzhongyi.github.io/2015/08/02/Windows%20API%20%E5%88%9D%E6%AC%A1%E5%AD%A6%E4%B9%A0.html">
+  <link rel="alternate" type="application/rss+xml" title="Last to triumph" href="http://thuzhongyi.github.io/feed.xml" />
+  
+  <style>
+body {
+  background-color: #E1E1E1;
+}
+header.site-header {
+  min-height: 56px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: steelblue;
+  width:100%;
+  height: 6%;
+  border-style: none;
+  position: fixed;
+  top: 0;
+  -moz-box-shadow: 0 3px 3px #888888; /* 老的 Firefox */
+  box-shadow: 0 3px 3px #888888;
+}
+footer.site-footer {
+  padding: 0;
+  width: 100%;
+  height: 15px;
+  background-color: steelblue;
+  border-style: none;
+  -moz-box-shadow: 0 -3px 3px #888888; /* 老的 Firefox */
+  box-shadow: 0 -3px 3px #888888;
+  position: fixed;
+  bottom: 0;
+}
+div.acknowledgement {
+  border-style: none;
+  width: 50%;
+  float: left;
+  height: 15px;
+}
+p.ack {
+  display: block;
+
+  font-weight: bold;
+  font-size: 11px;
+  font-family: Arial, Helvetica, sans-serif;
+
+  color:#E1E1E1;
+}
+p.ack.ack1 {
+  text-align: left;
+  margin-left: 5%;  
+}
+p.ack.ack2 {
+  text-align: right; 
+  margin-right: 5%;
+}
+div#box {
+  margin: 4% 12% 0 12%;
+}
+div.float-box {
+  border-radius:0 8px 8px 0;
+  -moz-border-radius:0 8px 8px 0; /* Old Firefox */
+  float: left;
+  width: 2%;
+  height: 10%;
+  background-color: steelblue;
+  position:fixed;
+  transition: width 1s, background-color 2s, box-shadow 2s;
+  -moz-transition: width 1s, background-color 2s, box-shadow 2s;	/* Firefox 4 */
+  -webkit-transition: width 1s, background-color 2s, box-shadow 2s;	/* Safari 和 Chrome */
+  -o-transition: width 1s, background-color 2s, box-shadow 2s;	/* Opera */  
+}
+.fb1 {top:15%;}
+.fb2 {top:26%;}
+.fb3 {top:37%;}
+.fb4 {top:48%;}
+div.big-float-box {
+  width: 15%;
+  height: 5%;
+  background-color: steelblue;
+  position:fixed;
+  top: 15%;
+  right: 3%;
+  border-radius:8px;
+  -moz-border-radius:8px; /* Old Firefox */
+  transition: height 1s, background-color 2s, box-shadow 2s;
+  -moz-transition: height 1s, background-color 2s, box-shadow 2s;	/* Firefox 4 */
+  -webkit-transition: height 1s, background-color 2s, box-shadow 2s;	/* Safari 和 Chrome */
+  -o-transition: height 1s, background-color 2s, box-shadow 2s;	/* Opera */  
+}
+div.float-box:hover, div.big-float-box:hover {
+  border-radius:8px;
+  -moz-border-radius:8px; /* Old Firefox */
+  width:15%;
+  background-color: gold;
+  -moz-box-shadow: 10px 10px 5px #888888; /* 老的 Firefox */
+  box-shadow: 10px 10px 5px #888888;
+}
+div.big-float-box:hover {
+  height: 43%;
+  background-color: gold;
+  -moz-box-shadow: 10px 10px 5px #888888; /* 老的 Firefox */
+  box-shadow: 10px 10px 5px #888888;
+}
+.quick-link {
+  display: block;
+  color:black;
+  margin: 0;
+  font-weight: bold;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+div.qls {
+  display: none;
+  height: 84%;
+  width: 100%;
+  background-color: steelblue;
+  transition: height 2s, width 2s, display 2s, background-color 2s;
+  -moz-transition: height 2s, width 2s, display 2s, background-color 2s;	/* Firefox 4 */
+  -webkit-transition: height 2s, width 2s, display 2s, background-color 2s;	/* Safari 和 Chrome */
+  -o-transition: height 2s, width 2s, display 2s, background-color 2s;	/* Opera */  
+}
+div.big-float-box:hover div.qls {
+  display: block; 
+  padding: 0;
+  height: 84%;
+  width: 100%;
+  background-color: gold;
+}
+ul.qls, ul.qls a {
+  font-family: Arial, Helvetica, sans-serif;
+  list-style-type: none;
+  text-decoration: none;
+  display: none;
+}
+div.big-float-box:hover ul.qls a, div.big-float-box:hover ul.qls {
+  display: block;
+}
+div#content {
+  width: 100%;
+  float: left;
+}
+img.site-title {
+  margin-top: 3px;
+  margin-left: 10%;
+  text-align: center;
+  width: 45px;
+  height: 45px;
+  transition: transform 1s;
+  -moz-transition: -moz-transform 1s;
+  -webkit-transition: -webkit-transform 1s;
+  -o-transition: -o-transform 1s;
+}
+img.site-title:hover {
+  transform: rotate(720deg);
+  -webkit-transform: rotate(720deg);
+  -o-transform: rotate(720deg);
+  -moz-transform: rotate(720deg);
+}
+a.page-link:link, a.page-link:visited {
+  text-decoration: none;
+  font-weight:bold;
+  color: gold;
+  font-size: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: font-size 0.5s;
+  -moz-transition: font-size 0.5s;	/* Firefox 4 */
+  -webkit-transition: font-size 0.5s;	/* Safari 和 Chrome */
+  -o-transition: font-size 0.5s;	/* Opera */
+}
+a.page-link:hover, a.page-link:active {
+  font-size: 200%;
+}
+a.post-link:link, a.post-link:visited {
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none;
+  font-size: auto;
+  color:black;
+  transition: color 0.5s;
+  -moz-transition: color 0.5s;	/* Firefox 4 */
+  -webkit-transition: color 0.5s;	/* Safari 和 Chrome */
+  -o-transition: color 0.5s;	/* Opera */
+}
+a.post-link:hover, a.post-link:active {
+  color :gold;
+}
+ul.post-list > li {
+  display: block;
+  padding: 1% 5% 0 5%;
+  transition: background-color 1s, box-shadow 2s;
+  -moz-transition: background-color 1s, box-shadow 2s;	/* Firefox 4 */
+  -webkit-transition: background-color 1s, box-shadow 2s;	/* Safari 和 Chrome */
+  -o-transition: background-color 1s, box-shadow 2s;	/* Opera */
+}
+ul.post-list > li:hover {
+  background-color: lightsteelblue;
+  -moz-box-shadow: 10px 10px 5px #888888; /* 老的 Firefox */
+  box-shadow: 10px 10px 5px #888888;
+}
+div.by-tag {
+  padding: 1% 5% 0 5%;
+  transition: background-color 1s, box-shadow 2s;
+  -moz-transition: background-color 1s, box-shadow 2s;	/* Firefox 4 */
+  -webkit-transition: background-color 1s, box-shadow 2s;	/* Safari 和 Chrome */
+  -o-transition: background-color 1s, box-shadow 2s;	/* Opera */  
+}
+div.by-tag:hover {
+  background-color: lightsteelblue;
+  -moz-box-shadow: 10px 10px 5px #888888; /* 老的 Firefox */
+  box-shadow: 10px 10px 5px #888888;
+}
+#back-to-top:link, #back-to-top:visited {
+  display: block;
+  text-decoration: none;
+  color:steelblue;
+  border:2px solid;
+  border-radius:25px;
+  -moz-border-radius:25px; /* Old Firefox */
+  width: 120px;
+  border-color: steelblue;
+  margin-left:auto;
+  margin-right:auto;
+  margin-bottom: 3%;
+}
+#back-to-top:hover {
+  background-color:steelblue;
+  border:2px solid steelblue;
+  text-decoration: none;
+  border-radius:25px;
+  color:white;
+  -moz-border-radius:25px; /* Old Firefox */
+  width: 120px;
+}
+.clear {
+  clear:both;
+}
+</style>
+  
+</head>
+  
+
+<body>
+  
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a href="/">
+      <div class="profile">
+        
+      </div>
+      <img src="http://ww4.sinaimg.cn/large/be5b4606gw1eu939s5l3pj20c80c8t9x.jpg" alt=Last to triumph  class="site-title" /img>
+    </a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/">Home</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/tags/">Tags</a>
+          
+        
+          
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/projects/">Projects</a>
+          
+        
+          
+        
+          
+        
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+    
+<div class="float-box fb1"></div>
+
+<div class="float-box fb2"></div>
+
+<div class="float-box fb3"></div>
+
+<div class="float-box fb4"></div>
+
+<div class="big-float-box">
+  <p class="quick-link">QUICK LINKS</p>
+  <div class="qls">
+    <ul class="qls">
+      <br>
+      <li><a  class="qls" href="http://www.baidu.com">Baidu</a></li>
+      <li><a  class="qls" href="http://www.baidu.com">Baidu</a></li>
+      <li><a  class="qls" href="http://www.baidu.com">Baidu</a></li>
+      <li><a  class="qls" href="http://www.baidu.com">Baidu</a></li>   
+      <li><a  class="qls" href="http://www.baidu.com">Baidu</a></li>
+      <li><a  class="qls" href="http://www.baidu.com">Baidu</a></li>
+      <li><a  class="qls" href="http://www.baidu.com">Baidu</a></li>   
+    </ul>
+  </div>
+</div>
+    
+<div id="box">
+    <div class="page-content" id="content">
+      <div class="wrapper">
+        <style>
+div#post {
+    background-color: white;
+    padding: 5%;
+    -moz-box-shadow: 10px 0 5px #888888; /* 老的 Firefox */
+    box-shadow: 10px 0 5px #888888;
+}
+</style>
+
+
+
+    
+    
+        
+            
+        
+            
+        
+            
+                
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+        
+            
+            
+        
+    
+
+
+<div class="post" id="post">
+
+    <h1 class="post-title">Windows API 初次学习</h1>
+    <p class="post-meta">Aug 2, 2015</p>
+    
+    <p id="post-meta">tag<i class="fa fa-tag"></i>: <a href="/blog/tag/windows-api/">Windows API</a></p>
+    <article class="post-content">
+    <p>前段时间有一个手机游戏很火，叫做Crossy Road，我也玩了很久。在玩的过程中为了玩的更好，我思考了关于这个游戏的原理的问题，从而萌生了在Windows下写这个游戏的一个简易版的念头。
+贴一张游戏截图：</p>
+
+<p><img src="http://vignette3.wikia.nocookie.net/crossyroad/images/8/8c/Baby_Duck.png/revision/latest?cb=20150226113948" /></p>
+
+<p>哦不，贴错了=。=，这是其中一个角色Baby duck</p>
+
+<p><img src="http://www.gamezebo.com/wp-content/uploads/2015/02/CrossyRoad_InAction_Dragon.jpg" /></p>
+
+<p>这才是游戏截图…</p>
+
+<p>所以我开始了解Windows游戏开发的知识，第一个遇到的需要克服的大块是Direct3D，然后在MSDN上找到了怎么使用Direct3D绘制界面以及编写小游戏的简单程序演示，在这里就遇到了第二个需要克服的大块。在Direct3D之前，必须先要学会使用Windows API编写基本的Windows程序的框架，了解Windows窗口的基本原理。所以就有了下面将提到的一些基本知识，而这篇文章就是一个非常基础的Windows API的初尝体验。</p>
+
+<p>编写Windows应用程序时，必须（至少对于一般人来说）通过Windows API才能够实现对于Windows系统的基础服务和图形接口等等的调用。</p>
+
+<p>先创建一个空的C++工程。</p>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="lineno"> 1</span> <span class="c1">//include部分</span>
+<span class="lineno"> 2</span> <span class="cp">#include &lt;Windows.h&gt;</span>
+<span class="lineno"> 3</span> <span class="cp">#include &lt;stdlib.h&gt;</span>
+<span class="lineno"> 4</span> <span class="cp">#include &lt;string.h&gt;</span>
+<span class="lineno"> 5</span> <span class="cp">#include &lt;tchar.h&gt;</span>
+<span class="lineno"> 6</span> <span class="cp">#include &quot;resource.h&quot;</span>
+<span class="lineno"> 7</span> 
+<span class="lineno"> 8</span> <span class="c1">//然后定义两个全局常量</span>
+<span class="lineno"> 9</span> <span class="c1">//the main window class name</span>
+<span class="lineno">10</span> <span class="k">static</span> <span class="n">TCHAR</span> <span class="n">szWindowClass</span><span class="p">[]</span> <span class="o">=</span> <span class="n">_T</span><span class="p">(</span><span class="s">&quot;Win32Demo1&quot;</span><span class="p">);</span>
+<span class="lineno">11</span> <span class="c1">//the string appears in the title bar</span>
+<span class="lineno">12</span> <span class="k">static</span> <span class="n">TCHAR</span> <span class="n">szTitle</span><span class="p">[]</span> <span class="o">=</span> <span class="n">_T</span><span class="p">(</span><span class="s">&quot;Win32 Guided Tour Application&quot;</span><span class="p">);</span></code></pre></div>
+
+<p>和最基本的C++程序不同的是，Win32程序的核心函数是WinMain函数，而且必须指定其调用方式WINAPI，所以定义的规范写法是：</p>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="lineno"> 1</span> <span class="kt">int</span> <span class="n">WINAPI</span> <span class="nf">WinMain</span><span class="p">(</span><span class="n">HINSTANCE</span> <span class="n">hInstance</span><span class="p">,</span> <span class="n">HINSTANCE</span> <span class="n">hPrevInstance</span><span class="p">,</span> <span class="n">LPSTR</span> <span class="n">lpCmdLine</span><span class="p">,</span> <span class="kt">int</span> <span class="n">nCmdShow</span><span class="p">)</span>
+<span class="lineno"> 2</span> <span class="c1">//下面我们进入WinMain函数的函数体</span>
+<span class="lineno"> 3</span> <span class="p">{</span>
+<span class="lineno"> 4</span> <span class="c1">//首先必须明确一种窗口结构，并且对它进行register。所谓register，就是把必须指定的成员都显式指定。</span>
+<span class="lineno"> 5</span>     <span class="n">WNDCLASSEX</span> <span class="n">wcex</span><span class="p">;</span>
+<span class="lineno"> 6</span>     <span class="n">wcex</span><span class="p">.</span><span class="n">cbSize</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">WNDCLASSEX</span><span class="p">);</span>
+<span class="lineno"> 7</span>     <span class="n">wcex</span><span class="p">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">CS_HREDRAW</span> <span class="o">|</span> <span class="n">CS_VREDRAW</span><span class="p">;</span>
+<span class="lineno"> 8</span>     <span class="n">wcex</span><span class="p">.</span><span class="n">lpfnWndProc</span> <span class="o">=</span> <span class="n">WndProc</span><span class="p">;</span>    
+<span class="lineno"> 9</span>     <span class="n">wcex</span><span class="p">.</span><span class="n">cbClsExtra</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="lineno">10</span>     <span class="n">wcex</span><span class="p">.</span><span class="n">cbWndExtra</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="lineno">11</span>     <span class="n">wcex</span><span class="p">.</span><span class="n">hInstance</span> <span class="o">=</span> <span class="n">hInstance</span><span class="p">;</span>
+<span class="lineno">12</span>     <span class="n">wcex</span><span class="p">.</span><span class="n">hIcon</span> <span class="o">=</span> <span class="n">LoadIcon</span><span class="p">(</span><span class="n">GetModuleHandle</span><span class="p">(</span><span class="nb">NULL</span><span class="p">),</span> <span class="n">MAKEINTRESOURCE</span><span class="p">(</span><span class="n">IDI_MYICON</span><span class="p">));</span>
+<span class="lineno">13</span>     <span class="n">wcex</span><span class="p">.</span><span class="n">hCursor</span> <span class="o">=</span> <span class="n">LoadCursor</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">IDC_ARROW</span><span class="p">);</span>
+<span class="lineno">14</span>     <span class="n">wcex</span><span class="p">.</span><span class="n">hbrBackground</span> <span class="o">=</span> <span class="p">(</span><span class="n">HBRUSH</span><span class="p">)(</span><span class="n">COLOR_WINDOW</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+<span class="lineno">15</span>     <span class="n">wcex</span><span class="p">.</span><span class="n">lpszMenuName</span> <span class="o">=</span> <span class="n">MAKEINTRESOURCE</span><span class="p">(</span><span class="n">IDR_MYMENU</span><span class="p">);</span>
+<span class="lineno">16</span>     <span class="n">wcex</span><span class="p">.</span><span class="n">lpszClassName</span> <span class="o">=</span> <span class="n">szWindowClass</span><span class="p">;</span>
+<span class="lineno">17</span>     <span class="n">wcex</span><span class="p">.</span><span class="n">hIconSm</span> <span class="o">=</span> <span class="p">(</span><span class="n">HICON</span><span class="p">)</span><span class="n">LoadImage</span><span class="p">(</span><span class="n">GetModuleHandle</span><span class="p">(</span><span class="nb">NULL</span><span class="p">),</span> <span class="n">MAKEINTRESOURCE</span><span class="p">(</span><span class="n">IDI_MYICON</span><span class="p">),</span><span class="n">IMAGE_ICON</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="lineno">18</span> 
+<span class="lineno">19</span> <span class="c1">//然后我们检查register是否成功</span>
+<span class="lineno">20</span>     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">RegisterClassEx</span><span class="p">(</span><span class="o">&amp;</span><span class="n">wcex</span><span class="p">))</span> <span class="p">{</span>
+<span class="lineno">21</span>         <span class="n">MessageBox</span><span class="p">(</span>
+<span class="lineno">22</span>             <span class="nb">NULL</span><span class="p">,</span>
+<span class="lineno">23</span>             <span class="n">_T</span><span class="p">(</span><span class="s">&quot;Call to RegisterClassEx failed!&quot;</span><span class="p">),</span>
+<span class="lineno">24</span>             <span class="n">_T</span><span class="p">(</span><span class="s">&quot;Win32 Guided Tour&quot;</span><span class="p">),</span>
+<span class="lineno">25</span>             <span class="nb">NULL</span><span class="p">);</span>
+<span class="lineno">26</span>         <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="lineno">27</span>     <span class="p">}</span>
+<span class="lineno">28</span> 
+<span class="lineno">29</span> <span class="c1">//接下来生成一个具体的窗口实例</span>
+<span class="lineno">30</span>     <span class="n">HWND</span> <span class="n">hWnd</span> <span class="o">=</span> <span class="n">CreateWindow</span><span class="p">(</span>
+<span class="lineno">31</span>         <span class="n">szWindowClass</span><span class="p">,</span>
+<span class="lineno">32</span>         <span class="n">szTitle</span><span class="p">,</span>
+<span class="lineno">33</span>         <span class="n">WS_OVERLAPPEDWINDOW</span><span class="p">,</span>
+<span class="lineno">34</span>         <span class="n">CW_USEDEFAULT</span><span class="p">,</span> <span class="n">CW_USEDEFAULT</span><span class="p">,</span>
+<span class="lineno">35</span>         <span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span>
+<span class="lineno">36</span>         <span class="nb">NULL</span><span class="p">,</span>
+<span class="lineno">37</span>         <span class="nb">NULL</span><span class="p">,</span>
+<span class="lineno">38</span>         <span class="n">hInstance</span><span class="p">,</span>
+<span class="lineno">39</span>         <span class="nb">NULL</span>
+<span class="lineno">40</span>         <span class="p">);</span>
+<span class="lineno">41</span> 
+<span class="lineno">42</span> <span class="c1">//检查窗口实例有没有正确产生</span>
+<span class="lineno">43</span>     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">hWnd</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno">44</span>         <span class="n">MessageBox</span><span class="p">(</span>
+<span class="lineno">45</span>             <span class="nb">NULL</span><span class="p">,</span>
+<span class="lineno">46</span>             <span class="n">_T</span><span class="p">(</span><span class="s">&quot;Call to CreateWindow failed!&quot;</span><span class="p">),</span>
+<span class="lineno">47</span>             <span class="n">_T</span><span class="p">(</span><span class="s">&quot;Win32 Guided Tour&quot;</span><span class="p">),</span>
+<span class="lineno">48</span>             <span class="nb">NULL</span><span class="p">);</span>
+<span class="lineno">49</span>         <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="lineno">50</span>     <span class="p">}</span>
+<span class="lineno">51</span> 
+<span class="lineno">52</span> <span class="c1">//窗口实例按照我们输入的参数和上面指定的窗口结构正确产生之后，就可以显示了</span>
+<span class="lineno">53</span>     <span class="n">ShowWindow</span><span class="p">(</span>
+<span class="lineno">54</span>         <span class="n">hWnd</span><span class="p">,</span>
+<span class="lineno">55</span>         <span class="n">UpdateWindow</span><span class="p">(</span><span class="n">hWnd</span><span class="p">));</span>
+<span class="lineno">56</span> 
+<span class="lineno">57</span> <span class="c1">//最后是整个程序的一个核心组件，消息监听循环</span>
+<span class="lineno">58</span>     <span class="n">MSG</span> <span class="n">msg</span><span class="p">;</span>
+<span class="lineno">59</span>     <span class="k">while</span> <span class="p">(</span><span class="n">GetMessage</span><span class="p">(</span><span class="o">&amp;</span><span class="n">msg</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno">60</span>         <span class="n">TranslateMessage</span><span class="p">(</span><span class="o">&amp;</span><span class="n">msg</span><span class="p">);</span>
+<span class="lineno">61</span>         <span class="n">DispatchMessage</span><span class="p">(</span><span class="o">&amp;</span><span class="n">msg</span><span class="p">);</span>
+<span class="lineno">62</span>     <span class="p">}</span>
+<span class="lineno">63</span> 
+<span class="lineno">64</span> <span class="c1">//最终返回一个值</span>
+<span class="lineno">65</span>     <span class="k">return</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">msg</span><span class="p">.</span><span class="n">wParam</span><span class="p">;</span>
+<span class="lineno">66</span> <span class="p">}</span></code></pre></div>
+
+<p>WinMain函数至此结束。</p>
+
+<p>需要注意的是，我们在WinMain函数中经常用到的一个函数WndProc必须在WinMain函数定义之前先声明一下：</p>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="lineno">1</span> <span class="n">LRESULT</span> <span class="n">CALLBACK</span> <span class="nf">WndProc</span><span class="p">(</span><span class="n">HWND</span><span class="p">,</span> <span class="n">UINT</span><span class="p">,</span> <span class="n">WPARAM</span><span class="p">,</span> <span class="n">LPARAM</span><span class="p">);</span></code></pre></div>
+
+<p>在定义完WinMain函数之后，必须定义WndProc函数，这个函数是用来处理程序所收到的消息的，也就是定义响应方式的地方。</p>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="lineno"> 1</span> <span class="n">LRESULT</span> <span class="n">CALLBACK</span> <span class="nf">WndProc</span><span class="p">(</span><span class="n">HWND</span> <span class="n">hWnd</span><span class="p">,</span> <span class="n">UINT</span> <span class="n">message</span><span class="p">,</span> <span class="n">WPARAM</span> <span class="n">wParam</span><span class="p">,</span> <span class="n">LPARAM</span> <span class="n">lParam</span><span class="p">){</span>
+<span class="lineno"> 2</span> 
+<span class="lineno"> 3</span>     <span class="n">PAINTSTRUCT</span> <span class="n">ps</span><span class="p">;</span>
+<span class="lineno"> 4</span>     <span class="n">HDC</span> <span class="n">hdc</span><span class="p">;</span>
+<span class="lineno"> 5</span>     <span class="n">TCHAR</span> <span class="n">greeting</span><span class="p">[]</span> <span class="o">=</span> <span class="n">_T</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">);</span>
+<span class="lineno"> 6</span> 
+<span class="lineno"> 7</span>     <span class="k">switch</span> <span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno"> 8</span>         <span class="k">case</span> <span class="nl">WM_LBUTTONDOWN</span><span class="p">:</span> <span class="p">{</span>
+<span class="lineno"> 9</span>         <span class="n">TCHAR</span> <span class="n">szFileName</span><span class="p">[</span><span class="n">MAX_PATH</span><span class="p">];</span>
+<span class="lineno">10</span>         <span class="n">HINSTANCE</span> <span class="n">hInstance</span> <span class="o">=</span> <span class="n">GetModuleHandle</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="lineno">11</span>         <span class="n">GetModuleFileName</span><span class="p">(</span><span class="n">hInstance</span><span class="p">,</span> <span class="n">szFileName</span><span class="p">,</span> <span class="n">MAX_PATH</span><span class="p">);</span>
+<span class="lineno">12</span>         <span class="n">MessageBox</span><span class="p">(</span><span class="n">hWnd</span><span class="p">,</span> <span class="n">szFileName</span><span class="p">,</span> <span class="n">szFileName</span><span class="p">,</span> <span class="n">MB_OK</span> <span class="o">|</span> <span class="n">MB_ICONINFORMATION</span><span class="p">);</span>
+<span class="lineno">13</span>         <span class="p">}</span>
+<span class="lineno">14</span>             <span class="k">break</span><span class="p">;</span>
+<span class="lineno">15</span>         <span class="k">case</span> <span class="nl">WM_RBUTTONDOWN</span><span class="p">:</span> <span class="p">{</span>
+<span class="lineno">16</span>             <span class="n">PostMessage</span><span class="p">(</span><span class="n">hWnd</span><span class="p">,</span> <span class="n">WM_CLOSE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="lineno">17</span>             <span class="k">break</span><span class="p">;</span>
+<span class="lineno">18</span>         <span class="p">}</span>
+<span class="lineno">19</span>         <span class="k">case</span> <span class="nl">WM_PAINT</span><span class="p">:</span>
+<span class="lineno">20</span>             <span class="n">hdc</span> <span class="o">=</span> <span class="n">BeginPaint</span><span class="p">(</span><span class="n">hWnd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ps</span><span class="p">);</span>
+<span class="lineno">21</span>             <span class="n">TextOut</span><span class="p">(</span><span class="n">hdc</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">greeting</span><span class="p">,</span> <span class="n">_tcslen</span><span class="p">(</span><span class="n">greeting</span><span class="p">));</span>
+<span class="lineno">22</span>             <span class="n">EndPaint</span><span class="p">(</span><span class="n">hWnd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ps</span><span class="p">);</span>
+<span class="lineno">23</span>             <span class="k">break</span><span class="p">;</span>
+<span class="lineno">24</span>         <span class="k">case</span> <span class="nl">WM_DESTROY</span><span class="p">:</span>
+<span class="lineno">25</span>             <span class="n">PostQuitMessage</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="lineno">26</span>             <span class="k">break</span><span class="p">;</span>
+<span class="lineno">27</span>         <span class="k">default</span><span class="o">:</span>
+<span class="lineno">28</span>             <span class="k">return</span> <span class="n">DefWindowProc</span><span class="p">(</span><span class="n">hWnd</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">wParam</span><span class="p">,</span> <span class="n">lParam</span><span class="p">);</span>
+<span class="lineno">29</span>             <span class="k">break</span><span class="p">;</span>
+<span class="lineno">30</span>     <span class="p">}</span>
+<span class="lineno">31</span>     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="lineno">32</span> <span class="p">}</span></code></pre></div>
+
+<p>在上面的响应中，定义了：</p>
+<ul>
+<li>左键——弹出一个窗口显示这个程序所在路径</li>
+<li>右键——关闭窗口</li>
+<li>“画”界面——显示Hello, World!</li>
+<li>销毁——关闭窗口</li>
+<li>以及默认操作</li>
+
+<br />
+
+需要指出的是，上面的程序还尝试地加入了顶部菜单和程序图标。这个特性是在register的时候，在关于Menu和Icon的成员处指定的。而关于如何加入菜单，我将在仔细学习之后另外写一篇文章，现在需要说明的是，需要在Headers中加入自己编写的resource.h，在Resources中加入自己编写的Resource.rc，并且include进main.cpp，才能实现菜单和图标。
+
+这就是一个很简单的利用Windows API创建的Win32窗口程序，具有很有限的响应功能。
+
+
+</ul>
+
+    </article>
+
+</div>
+
+      </div>
+    </div>
+    <div class="clear"></div> 
+    <a  class="qls" href="#top" target="_self" id="back-to-top"><center>Back to Top</center></a>
+</div>
+
+  <footer class="site-footer">
+	<div class="acknowledgement">
+		<p class="ack ack1">yizhong.pku@gmail.com</p>
+	</div>
+	<div class="acknowledgement">
+		<p class="ack ack2">© 2015.01- Powered by Zhong Yi</p>
+	</div>
+</footer>
+    
+  </body>
+</html>
